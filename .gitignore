@@ -1,0 +1,48 @@
+# =========================
+# Visual Studio folders
+# =========================
+.vs/
+*.VC.db
+*.VC.VC.opendb
+
+# =========================
+# Build output (CMake / VS)
+# =========================
+build/
+out/
+x64/
+x86/
+Debug/
+Release/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+*.dir/
+
+# =========================
+# Compiled objects
+# =========================
+*.obj
+*.o
+*.pch
+*.pdb
+*.ilk
+*.exp
+*.lib
+
+# =========================
+# Executables
+# =========================
+*.exe
+*.out
+
+# =========================
+# SFML runtime junk (optional safety)
+# =========================
+*.dll
+
+# =========================
+# OS files
+# =========================
+.DS_Store
+Thumbs.db
