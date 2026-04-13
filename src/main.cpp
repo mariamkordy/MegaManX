@@ -25,15 +25,21 @@ int main()
         }
 
         player_movement(myplayer, deltaTime);
+
         jump(myplayer);
+
         gravity(myplayer, deltaTime);
+
         checkGround(myplayer, ground);
+
         playerpos(myplayer);
+
         collision_with_frame(myplayer);
 
         window.clear(sf::Color::Black);
 
         window.draw(myplayer.circle);
+
         window.draw(ground);
 
         window.display();
