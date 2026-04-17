@@ -15,8 +15,8 @@ int main()
     Player player;
     Background background;
     sf::RectangleShape ground;
-
-    sf::RenderWindow window(sf::VideoMode(1680, 1050), "Mega Man X");
+    sf::VideoMode desktopMode = sf::VideoMode::getDesktopMode();
+    sf::RenderWindow window(desktopMode, "Mega Man X", sf::Style::Fullscreen);
     sf::View view;
 
     sf::Clock clock;

@@ -34,7 +34,7 @@ void Start(Player& player, sf::View& view, sf::RenderWindow& window,
     ground.setPosition(0.f, 900.f);
 
     view.setSize(1680.f, 1050.f);
-    view.zoom(0.9f);
+    view.zoom(0.8f);
 
     window.setFramerateLimit(180);
 }

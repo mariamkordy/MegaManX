@@ -1,48 +1,22 @@
-# =========================
-# Visual Studio folders
-# =========================
-.vs/
-*.VC.db
-*.VC.VC.opendb
-
-# =========================
-# Build output (CMake / VS)
-# =========================
-build/
+# Build folders
 out/
-x64/
-x86/
-Debug/
-Release/
+build/
+cmake-build-*/
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
-*.dir/
+Makefile
+*.ninja
 
-# =========================
-# Compiled objects
-# =========================
-*.obj
-*.o
-*.pch
-*.pdb
-*.ilk
-*.exp
-*.lib
+# Visual Studio
+.vs/
+*.user
+*.suo
 
-# =========================
 # Executables
-# =========================
 *.exe
-*.out
+*.obj
+*.pdb
 
-# =========================
-# SFML runtime junk (optional safety)
-# =========================
+# SFML runtime (optional if using manual SFML install)
 *.dll
-
-# =========================
-# OS files
-# =========================
-.DS_Store
-Thumbs.db
