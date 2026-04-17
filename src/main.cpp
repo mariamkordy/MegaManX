@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Window/Keyboard.hpp>
 
 #include "Player.h"
 #include "Background.h"
@@ -29,12 +30,18 @@ int main()
     while (window.isOpen())
     {
         deltaTime = clock.restart().asSeconds();
-
+        //CLOSING THE WINDOW
         sf::Event ev;
         while (window.pollEvent(ev))
         {
-            if (ev.type == sf::Event::Closed)
+            if (ev.type == sf::Event::Closed) {
                 window.close();
+            }
+            else if(ev.type == sf::Event::KeyPressed) {
+                if (ev.key.code == sf::Keyboard::Escape) {
+                    window.close();
+                }
+            }
         }
 
         playerMovement(player, jumpKeyReleased);
