@@ -1,3 +1,6 @@
 #pragma once
+#include <SFML/Graphics.hpp>
+#include "Player.h"
+#include "Background.h"
 
-//This will include the camera movement logic
+void camera(Player& player, sf::View& view, sf::RenderWindow& window, Background& background);

@@ -1,3 +1,5 @@
 #pragma once
+#include <SFML/Graphics.hpp>
+#include "Player.h"
 
-//Collision Logic (contact with ground/ platforms/ walls/ etc.)
+void collision(Player& player, const sf::RectangleShape& ground);

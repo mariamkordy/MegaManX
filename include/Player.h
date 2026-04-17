@@ -1,26 +1,38 @@
 #pragma once
-
 #include <SFML/Graphics.hpp>
 
-struct Position
-{
-    float x;
-    float y;
+enum PlayerState {
+    IDLE,
+    RUN,
+    JUMP
 };
 
-struct Player
-{
-    sf::CircleShape circle;
-    Position position;
+struct Player {
+    sf::Sprite sprite;
+    sf::RectangleShape hitbox;
+
+    PlayerState state;
+
+    int frameIndex = 0;
+    int health = 100;
+
     sf::Vector2f velocity;
-    int health;
-    bool isGrounded;
-};
 
-// REQUIRED function declarations
-void gravity(Player& player, float deltaTime);
-void checkGround(Player& player, sf::RectangleShape& ground);
-void player_movement(Player& player, float deltaTime);
-void jump(Player& player);
-void playerpos(Player& player);
-void collision_with_frame(Player& player);
+    bool isOnGround = false;
+    bool isStanding = false;
+    bool isJumping = true;
+    bool isRunning = false;
+    bool facingRight = true;
+    bool animationLocked = false;
+
+    // Animations
+    sf::Texture runningAnimation;
+    sf::Texture standingAnimation;
+    sf::Texture jumpingAnimation;
+
+    int runIndex = 0;
+    int jumpIndex = 0;
+
+    float runTimer = 0.f;
+    float jumpTimer = 0.f;
+};

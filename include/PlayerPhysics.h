@@ -2,4 +2,4 @@
 #include <SFML/Graphics.hpp>
 #include "Player.h"
 
-void playerMovement(Player& player, bool jumpKeyReleased);
+void playerPhysics(Player& player, float deltaTime);

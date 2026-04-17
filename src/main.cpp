@@ -1,48 +1,48 @@
 #include <SFML/Graphics.hpp>
+
 #include "Player.h"
+#include "Background.h"
+#include "PlayerMovement.h"
+#include "PlayerPhysics.h"
+#include "UpdateAnimation.h"
+#include "Collision.h"
+#include "Camera.h"
+#include "Draw.h"
+#include "GameInit.h"
 
 int main()
 {
-    Player myplayer;
-    myplayer.circle.setRadius(50.f);
-    myplayer.circle.setPosition(100.f, 100.f);
+    Player player;
+    Background background;
+    sf::RectangleShape ground;
 
-    sf::RectangleShape ground(sf::Vector2f(800.f, 100.f));
-    ground.setPosition(0.f, 550.f);
+    sf::RenderWindow window(sf::VideoMode(1680, 1050), "Mega Man X");
+    sf::View view;
 
-    sf::RenderWindow window(sf::VideoMode(800, 600), "MegaManX");
     sf::Clock clock;
+    float deltaTime;
+
+    bool jumpKeyReleased = true;
+
+    Start(player, view, window, ground, background);
 
     while (window.isOpen())
     {
-        float deltaTime = clock.restart().asSeconds();
+        deltaTime = clock.restart().asSeconds();
 
-        sf::Event event;
-        while (window.pollEvent(event))
+        sf::Event ev;
+        while (window.pollEvent(ev))
         {
-            if (event.type == sf::Event::Closed)
+            if (ev.type == sf::Event::Closed)
                 window.close();
         }
 
-        player_movement(myplayer, deltaTime);
-
-        jump(myplayer);
-
-        gravity(myplayer, deltaTime);
-
-        checkGround(myplayer, ground);
-
-        playerpos(myplayer);
-
-        collision_with_frame(myplayer);
-
-        window.clear(sf::Color::Black);
-
-        window.draw(myplayer.circle);
-
-        window.draw(ground);
-
-        window.display();
+        playerMovement(player, jumpKeyReleased);
+        playerPhysics(player, deltaTime);
+        collision(player, ground);
+        updateAnimation(player, deltaTime, jumpKeyReleased);
+        camera(player, view, window, background);
+        Draw(player, window, ground, background);
     }
 
     return 0;
