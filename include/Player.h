@@ -13,7 +13,7 @@ struct Player {
 
     PlayerState state;
 
-    int frameIndex = 0;
+    int frameIndex=0;
     int health = 100;
 
     sf::Vector2f velocity;
@@ -23,16 +23,34 @@ struct Player {
     bool isJumping = true;
     bool isRunning = false;
     bool facingRight = true;
-    bool animationLocked = false;
+    bool animationLocked = true;
+    bool isDashing = false;
 
     // Animations
     sf::Texture runningAnimation;
     sf::Texture standingAnimation;
     sf::Texture jumpingAnimation;
+    sf::Texture dashrunAnimation;
+    sf::Texture smokeDashAnimation;
 
     int runIndex = 0;
     int jumpIndex = 0;
-
+    
+    int dashTimer = 0.f;
     float runTimer = 0.f;
     float jumpTimer = 0.f;
+    float smokeTimer = 0.1f;
+
+    const float dashduration = 0.5f;
+};
+
+struct DashSmoke {
+    sf::Vector2f Position;  
+    sf::Sprite display;
+    bool visible = false;
+    int smokeIndex = 0;
+    float smokeDuration = 0.3;
+
+
+
 };

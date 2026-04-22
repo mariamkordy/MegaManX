@@ -4,4 +4,4 @@
 #include "Background.h"
 
 void Draw(Player& player, sf::RenderWindow& window,
-    sf::RectangleShape& ground, Background& background);
+    sf::RectangleShape& ground, Background& background,DashSmoke dashsmoke[100]);

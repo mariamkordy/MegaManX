@@ -18,11 +18,22 @@ void Start(Player& player, sf::View& view, sf::RenderWindow& window,
     if (!player.jumpingAnimation.loadFromFile("assets/textures/jump.png"))
         std::cout << "JUMP FAILED\n";
 
+    if (!player.dashrunAnimation.loadFromFile("C:\Users\hp\source\repos\MegaManX\assets\textures\dashrun.png"))
+        std::cout << "DASHRUN FAILED\n";
+
     if (!player.runningAnimation.loadFromFile("assets/textures/running.png"))
         std::cout << "RUN FAILED\n";
 
     if (!player.standingAnimation.loadFromFile("assets/textures/standing.png"))
         std::cout << "STAND FAILED\n";
+
+    if (!player.smokeDashAnimation.loadFromFile("assets/textures/dashsmoke_new_version.png"))
+        std::cout << "SMOKE DASH FAILED\n";
+
+    player.jumpingAnimation.setSmooth(true);
+    player.runningAnimation.setSmooth(true);
+    player.standingAnimation.setSmooth(true);
+    player.dashrunAnimation.setSmooth(true);
 
     player.sprite.setTexture(player.standingAnimation);
     player.sprite.setTextureRect(sf::IntRect(0, 0, 36, 52));
@@ -38,3 +49,4 @@ void Start(Player& player, sf::View& view, sf::RenderWindow& window,
 
     window.setFramerateLimit(180);
 }
+

@@ -11,6 +11,7 @@
 #include "Draw.h"
 #include "GameInit.h"
 
+
 int main()
 {
     Player player;
@@ -22,6 +23,7 @@ int main()
 
     sf::Clock clock;
     float deltaTime;
+    DashSmoke dashsmoke[15];
 
     bool jumpKeyReleased = true;
 
@@ -43,13 +45,16 @@ int main()
                 }
             }
         }
+playerMovement(player, jumpKeyReleased,deltaTime, dashsmoke);
+        updateAnimation(player, deltaTime, jumpKeyReleased);
 
-        playerMovement(player, jumpKeyReleased);
+smokeupdate(player, dashsmoke, deltaTime);
+        
         playerPhysics(player, deltaTime);
         collision(player, ground);
-        updateAnimation(player, deltaTime, jumpKeyReleased);
+       
         camera(player, view, window, background);
-        Draw(player, window, ground, background);
+        Draw(player, window, ground, background,dashsmoke);
     }
 
     return 0;
