@@ -13,7 +13,7 @@ void Start(Player& player, sf::View& view, sf::RenderWindow& window,
         std::cout << "BG FAILED\n";
 
     background.bgSprite.setTexture(background.bgTexture);
-    background.bgSprite.setScale(2.5f, 2.5f);
+    background.bgSprite.setScale(3.5f, 3.5f);
 
     if (!player.jumpingAnimation.loadFromFile("assets/textures/jump.png"))
         std::cout << "JUMP FAILED\n";
@@ -27,11 +27,10 @@ void Start(Player& player, sf::View& view, sf::RenderWindow& window,
     player.sprite.setTexture(player.standingAnimation);
     player.sprite.setTextureRect(sf::IntRect(0, 0, 36, 52));
     player.sprite.setScale(3.f, 3.f);
-
     player.sprite.setPosition(100.f, 150.f);
 
-    ground.setSize(sf::Vector2f(2000.f, 170.f));
-    ground.setPosition(0.f, 900.f);
+    ground.setSize(sf::Vector2f(2000.f, 70.f));
+    ground.setPosition(0.f, 1500.f);
 
     view.setSize(1680.f, 1050.f);
     view.zoom(0.8f);

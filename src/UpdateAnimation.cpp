@@ -1,6 +1,7 @@
 #include "UpdateAnimation.h"
 #include <iostream>
 
+//animationLocked prevents sprites from overriding each other
 void updateAnimation(Player& player, float deltaTime, bool& jumpKeyReleased)
 {
     if (player.isOnGround)
@@ -10,7 +11,7 @@ void updateAnimation(Player& player, float deltaTime, bool& jumpKeyReleased)
         player.jumpTimer = 0.f;
     }
 
-    if (!player.isOnGround)
+    if (!player.isOnGround) //mid-air, jumping. If the player is jumping and running at the same time, the jumping animation should be displayed
     {
         player.jumpTimer += deltaTime;
         player.animationLocked = true;
@@ -34,7 +35,7 @@ void updateAnimation(Player& player, float deltaTime, bool& jumpKeyReleased)
             player.jumpTimer = 0.f;
         }
     }
-    else if (player.isRunning && !player.animationLocked)
+    else if (player.isRunning && !player.animationLocked) //Running, but not jumping
     {
         if (player.sprite.getTexture() != &player.runningAnimation)
             player.sprite.setTexture(player.runningAnimation);
@@ -57,7 +58,7 @@ void updateAnimation(Player& player, float deltaTime, bool& jumpKeyReleased)
             player.sprite.setTextureRect(sf::IntRect(player.runIndex * 36 + 36, 0, -36, 52));
         }
     }
-    else if (!player.animationLocked)
+    else if (!player.animationLocked) //Standing
     {
         if (player.sprite.getTexture() != &player.standingAnimation)
             player.sprite.setTexture(player.standingAnimation);

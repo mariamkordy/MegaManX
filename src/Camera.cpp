@@ -7,6 +7,6 @@ void camera(Player& player, sf::View& view, sf::RenderWindow& window, Background
 
     background.bgSprite.setPosition(
         view.getCenter().x * 0.5f - view.getSize().x / 2,
-        0.f
+        50.f
     );
 }
