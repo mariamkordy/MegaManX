@@ -4,17 +4,28 @@
 #include <vector>
 #include <string>
 
+using namespace std;
+using namespace sf;
 struct TileMap
 {
-    sf::VertexArray vertices;   // geometry (what gets drawn)
-    sf::Texture tileset;        // tileset image
-    sf::Vector2u tileSize;      // size of one tile
-    unsigned width = 0;
-    unsigned height = 0;
+    // Rendering
+    sf:: VertexArray vertices; //A vertex array has all coordinates of vertices of tiles, listed after one another
+    sf::Texture tileset;
+
+    // Map info
+    sf::Vector2f tileSize; 
+    int width = 0;
+    int height = 0;
+
+    // Collision data
+    vector<bool> isGround; //Some tiles return this boolean. These tiles are the ground.
 };
 
-// Loads a .tmx file and builds vertex data
-bool loadTileMap(TileMap& map, const std::string& tmxFilePath, const std::string& tilesetImagePath);
+// Load map from Tiled (.tmx)
+bool loadTileMap(TileMap& map, const string& tmxFilePath, const string& tilesetImagePath);
 
-// Draws the map
-void drawTileMap(const TileMap& map, sf::RenderWindow& window);
+// Draw map
+void drawTileMap(const TileMap& map, RenderWindow& window);
+
+// Helper: convert world position → tile index
+int getTileIndex(const TileMap& map, float x, float y);

@@ -1,6 +1,3 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Window/Keyboard.hpp>
-
 #include "Player.h"
 #include "Background.h"
 #include "PlayerMovement.h"
@@ -10,46 +7,60 @@
 #include "Camera.h"
 #include "Draw.h"
 #include "GameInit.h"
+#include "TileMap.h"
 
+#include <iostream>
+#include <SFML/Graphics.hpp>
+#include <SFML/Window/Keyboard.hpp>
+
+
+using namespace sf;
+using namespace std;
 int main()
 {
     Player player;
+    TileMap map;
     Background background;
-    sf::RectangleShape ground;
-    sf::VideoMode desktopMode = sf::VideoMode::getDesktopMode();
-    sf::RenderWindow window(desktopMode, "Mega Man X", sf::Style::Fullscreen);
-    sf::View view;
+    RectangleShape ground;
+    VideoMode desktopMode = VideoMode::getDesktopMode();
+    RenderWindow window(desktopMode, "Mega Man X");
+    View view;
 
-    sf::Clock clock;
+    Clock clock;
     float deltaTime;
+    DashSmoke dashsmoke[15];
 
     bool jumpKeyReleased = true;
 
-    Start(player, view, window, ground, background);
+    Start(player, view, window, ground, background, map);
 
     while (window.isOpen())
     {
+        window.clear();
         deltaTime = clock.restart().asSeconds();
         //CLOSING THE WINDOW
-        sf::Event ev;
+        Event ev;
         while (window.pollEvent(ev))
         {
-            if (ev.type == sf::Event::Closed) {
+            if (ev.type == Event::Closed) {
                 window.close();
-            }
-            else if(ev.type == sf::Event::KeyPressed) {
-                if (ev.key.code == sf::Keyboard::Escape) {
+            } 
+            else if(ev.type == Event::KeyPressed) {
+                if (ev.key.code == Keyboard::Escape) {
                     window.close();
                 }
             }
         }
-
-        playerMovement(player, jumpKeyReleased);
+        //drawTileMap(map, window);
+        playerMovement(player, deltaTime, dashsmoke);
+        updateAnimation(player, deltaTime, jumpKeyReleased);
+        smokeupdate(player, dashsmoke, deltaTime);
         playerPhysics(player, deltaTime);
         collision(player, ground);
-        updateAnimation(player, deltaTime, jumpKeyReleased);
+       
         camera(player, view, window, background);
-        Draw(player, window, ground, background);
+        Draw(player, window, ground, background,dashsmoke);
+       
     }
 
     return 0;

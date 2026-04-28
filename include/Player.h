@@ -1,38 +1,50 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+using namespace sf;
+
+//When printed in the terminal, only the corresponding numbers are displayed, not strings.
 enum PlayerState {
-    IDLE,
-    RUN,
-    JUMP
+    STANDING, //0
+    RUNNING, //1
+    JUMPING, //2
+    DASHING //3
 };
 
 struct Player {
-    sf::Sprite sprite;
-    sf::RectangleShape hitbox;
-
+    Sprite sprite;
+    RectangleShape hitbox;
     PlayerState state;
-
-    int frameIndex = 0;
     int health = 100;
 
-    sf::Vector2f velocity;
+    Vector2f velocity;
 
     bool isOnGround = false;
-    bool isStanding = false;
-    bool isJumping = true;
-    bool isRunning = false;
     bool facingRight = true;
-    bool animationLocked = false;
+    bool isDashing = false;
 
-    // Animations
-    sf::Texture runningAnimation;
-    sf::Texture standingAnimation;
-    sf::Texture jumpingAnimation;
+    // Animations (TEXTURES + VARIABLES)
+    Texture runningAnimation;
+    Texture standingAnimation;
+    Texture jumpingAnimation;
+    Texture dashrunAnimation;
+    Texture smokeDashAnimation;
 
     int runIndex = 0;
     int jumpIndex = 0;
-
+    
+    float dashTimer = 0.f;
     float runTimer = 0.f;
     float jumpTimer = 0.f;
+    float smokeTimer = 0.1f;
+
+    const float dashduration = 0.5f;
+};
+
+struct DashSmoke {
+    Vector2f Position;  
+    Sprite display;
+    bool visible = false;
+    int smokeIndex = 0;
+    float smokeDuration = 0.3f;
 };

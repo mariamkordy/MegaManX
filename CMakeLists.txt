@@ -24,6 +24,7 @@ find_package(SFML REQUIRED COMPONENTS
 # ----------------------------
 file(GLOB TMXLITE_SOURCES
     ${CMAKE_SOURCE_DIR}/src/tmxlite/*.cpp
+    ${CMAKE_SOURCE_DIR}/src/tmxlite/*.c
     ${CMAKE_SOURCE_DIR}/src/tmxlite/detail/*.cpp
     ${CMAKE_SOURCE_DIR}/src/tmxlite/detail/*.c
 )
@@ -49,6 +50,7 @@ add_executable(MegaManX
     src/Draw.cpp
     src/GameInit.cpp
     src/UpdateAnimation.cpp
+    src/TileMap.cpp
 )
 
 # ----------------------------
