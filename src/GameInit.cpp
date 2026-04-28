@@ -15,7 +15,8 @@ void Start(Player& player, View& view, RenderWindow& window,
         cout << "BG FAILED\n";
 
     background.bgSprite.setTexture(background.bgTexture);
-    background.bgSprite.setScale(3.5f, 3.5f);
+    background.bgSprite.setScale(3.f, 3.f);
+    background.bgSprite.setPosition(-50, 5000);
     
     //PLAYER TEXTURES
     if (!player.jumpingAnimation.loadFromFile("assets/textures/jump.png"))
