@@ -26,6 +26,7 @@ void updateAnimation(Player& player, float deltaTime) {
         // Running
         else if (player.state == RUNNING)
         {
+            cout << "player is in running animation" << endl;
             if (player.sprite.getTexture() != &player.runningAnimation)
                 player.sprite.setTexture(player.runningAnimation);
 
@@ -86,7 +87,7 @@ void updateAnimation(Player& player, float deltaTime) {
 
 //Smoke that appears behind the player when they're dashing
 	void smokeupdate(Player & player, DashSmoke dashsmoke[15], float deltaTime) {
-		for (int i = 0; i < 15; i++) {
+		for (int i = 0; i < player.smokenumber; i++) {
 			if (dashsmoke[i].visible == true) {
 
 				dashsmoke[i].display.setTexture(player.smokeDashAnimation);
@@ -97,12 +98,12 @@ void updateAnimation(Player& player, float deltaTime) {
 				dashsmoke[i].smokeDuration -= deltaTime;
 				if (dashsmoke[i].smokeDuration <= 0) {
 					dashsmoke[i].smokeIndex++;
-					dashsmoke[i].smokeDuration = 0.06f;
+					dashsmoke[i].smokeDuration = 0.02f;
 				}
-				if (dashsmoke[i].smokeIndex >= 20) {
+				if (dashsmoke[i].smokeIndex >= player.smokenumber) {
 					dashsmoke[i].smokeIndex = 0;
 					dashsmoke[i].visible = false;
-					dashsmoke[i].smokeDuration = 0.06f;
+					dashsmoke[i].smokeDuration = 0.02f;
 
 				}
 

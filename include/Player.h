@@ -36,9 +36,10 @@ struct Player {
     float dashTimer = 0.f;
     float runTimer = 0.f;
     float jumpTimer = 0.f;
-    float smokeTimer = 0.1f;
+    float smokeTimer = 0.f;
+    int smokenumber = 15;
 
-    const float dashduration = 0.5f;
+    const float dashduration = 0.05f;
 };
 
 struct DashSmoke {

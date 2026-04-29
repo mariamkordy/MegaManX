@@ -49,7 +49,7 @@ add_executable(MegaManX
     src/Combat.cpp
     src/Draw.cpp
     src/GameInit.cpp
-    src/UpdateAnimation.cpp
+    "src/UpdateAnimation.cpp"
     src/TileMap.cpp
 )
 
