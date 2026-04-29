@@ -6,18 +6,28 @@
 using namespace sf;
 using namespace std;
 
-void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[15])
+void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100])
 {
     float normalspeed = 300.f;
     float dashspeed = 1000.f;
     float currentspeed = normalspeed;
 	//DASHING (INPUT AND UPDATE)
-	if (Keyboard::isKeyPressed(Keyboard::A) && player.state == RUNNING) {
-		player.isDashing = true;
-		player.state = DASHING;
-		player.dashTimer = player.dashduration;
+
+	if (!player.state == DASHING) {
+		player.smokeTimer = 0.f;
+
 	}
-	//DASHING (MOTION)
+	if (Keyboard::isKeyPressed(Keyboard::A) && (player.state==RUNNING || player.isOnGround) && !player.state==STANDING){
+		if (abs(player.velocity.x ) >1){
+			player.isDashing = true;
+			player.state = DASHING;
+
+			player.dashTimer = player.dashduration;
+		}
+
+	}
+	//DASHING (MOTION)		
+	player.smokeTimer -= deltaTime;
 	if (player.state == DASHING) {
 		currentspeed = dashspeed;
 		player.dashTimer -= deltaTime;
@@ -25,12 +35,13 @@ void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[15])
 			player.isDashing = false;
 		}
 
-		player.smokeTimer -= deltaTime;
+
 		if (player.smokeTimer <= 0) {
-			for (int i = 0; i < 15; i++) {
+			for (int i = 0; i < player.smokenumber; i++) {
+
 				if (dashsmoke[i].visible == false) {
 					dashsmoke[i].visible = true;
-					player.smokeTimer = 0.6f;
+					player.smokeTimer = 0.04f;
 
 					dashsmoke[i].Position = player.sprite.getPosition();
 					dashsmoke[i].display.setOrigin(2, 5);
@@ -40,7 +51,7 @@ void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[15])
 						spawnpos.x -= 20.0f;
 					}
 					else {
-						spawnpos.x += 20.0f;
+						spawnpos.x += 120.0f;
 					}
 					spawnpos.y += 60.0f;
 
@@ -61,18 +72,21 @@ void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[15])
     if (Keyboard::isKeyPressed(Keyboard::Left)) {
         player.velocity.x = -currentspeed;
         player.facingRight = false;
+
     }
     else if (Keyboard::isKeyPressed(Keyboard::Right)) {
         player.velocity.x = currentspeed;
         player.facingRight = true;
+
     }
+
 	if (!player.isOnGround) {
 		player.state = JUMPING;
-	}
+	}	
 	else if (player.isDashing){
 		player.state = DASHING;
 	}
-	else if (abs(player.velocity.x) > 1.0f) { //moves fast enough for us to consider it to be running
+	else if (abs(player.velocity.x) > 1.0f  ) { //moves fast enough for us to consider it to be running
 		player.state = RUNNING;
 	}
 	else {

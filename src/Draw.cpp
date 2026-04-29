@@ -12,8 +12,8 @@ void Draw(Player& player, sf::RenderWindow& window, sf::RectangleShape& ground, 
     window.draw(background.bgSprite);
     window.draw(ground);
 
-    for (int i = 0; i < 15; i++) {
-        if (dashsmoke[i].visible) {
+    for (int i = 0; i < player.smokenumber; i++) {
+        if (dashsmoke[i].visible ) {
             window.draw(dashsmoke[i].display);
         }
     }
