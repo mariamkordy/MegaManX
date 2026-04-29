@@ -6,7 +6,7 @@ using namespace std;
 //NEVER SET STATES IN THIS FILE. STATES SHOULD ONLY BE MODIFIED IN PlayerMovement.cpp
 
 
-void updateAnimation(Player& player, float deltaTime, bool& jumpKeyReleased) {
+void updateAnimation(Player& player, float deltaTime) {
     if (player.isOnGround)
     {
         player.jumpIndex = 0;
@@ -16,7 +16,6 @@ void updateAnimation(Player& player, float deltaTime, bool& jumpKeyReleased) {
         // Dashing (only while running on the ground)
         if (player.state == DASHING)
         {
-            cout << "PLAYER DASHING IN ANIMATION" << endl;
             player.sprite.setTexture(player.dashrunAnimation);
             
             if (player.facingRight)

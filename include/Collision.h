@@ -1,5 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <vector>
 #include "Player.h"
+using namespace sf;
+using namespace std;
 
-void collision(Player& player, const sf::RectangleShape& ground);
+struct Ground{
+	RectangleShape rectangle;
+};
+
+
+void collision(Player& player, const std::vector<Ground>& grounds);

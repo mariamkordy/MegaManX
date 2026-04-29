@@ -8,6 +8,8 @@ using namespace std;
 using namespace sf;
 struct TileMap
 {
+    Sprite backgroundImg;
+    Sprite foregroundImg;
     // Rendering
     sf:: VertexArray vertices; //A vertex array has all coordinates of vertices of tiles, listed after one another
     sf::Texture tileset;
@@ -22,7 +24,7 @@ struct TileMap
 };
 
 // Load map from Tiled (.tmx)
-bool loadTileMap(TileMap& map, const string& tmxFilePath, const string& tilesetImagePath);
+bool loadTileMap(TileMap& map, const string& tmxFilePath, const string& tilesetImagePath, const string& foregroundPath );
 
 // Draw map
 void drawTileMap(const TileMap& map, RenderWindow& window);

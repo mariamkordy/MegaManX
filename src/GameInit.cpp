@@ -5,18 +5,27 @@ using namespace std;
 using namespace sf;
 
 void Start(Player& player, View& view, RenderWindow& window,
-           RectangleShape& ground, Background& background, TileMap& map)
+           vector<Ground>& grounds, Background& background,Foreground& foreground, TileMap& map)
 {
+    Ground g;
     player.facingRight = true;
    
-    player.isOnGround = false;
+   
     //BACKGROUND
     if (!background.bgTexture.loadFromFile("assets/textures/bg.png"))
         cout << "BG FAILED\n";
+    if (!foreground.fgTexture.loadFromFile("assets/textures/fg.png"))
+        cout << "FG FAILED\n";
 
     background.bgSprite.setTexture(background.bgTexture);
-    background.bgSprite.setScale(3.f, 3.f);
-    background.bgSprite.setPosition(-50, 5000);
+    foreground.fgSprite.setTexture(foreground.fgTexture);
+
+    Vector2f target = Vector2f(window.getSize());
+    Vector2f size = background.bgSprite.getLocalBounds().getSize();
+    background.bgSprite.setScale(3.f, 4.5f);
+    foreground.fgSprite.setScale(3.f, 4.5f);
+    background.bgSprite.setPosition(-1210.f, -650.f);
+    foreground.fgSprite.setPosition(-1210.f, -650.f);
     
     //PLAYER TEXTURES
     if (!player.jumpingAnimation.loadFromFile("assets/textures/jump.png"))
@@ -36,7 +45,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     
 
     //MAP
-    if (!loadTileMap(map, "assets/maps/MegaManXTest.tmx", "assets/maps/RedTileSet.png"))
+    if (!loadTileMap(map, "assets/maps/Map.tmx", "assets/maps/RedTileSet.png", "assets/textures/fg.png"))
     {
         cout << "Failed to load map\n";
     }
@@ -49,10 +58,29 @@ void Start(Player& player, View& view, RenderWindow& window,
     player.sprite.setTexture(player.standingAnimation);
     player.sprite.setTextureRect(IntRect(0, 0, 36, 52));
     player.sprite.setScale(3.f, 3.f);
-    player.sprite.setPosition(100.f, 150.f);
+    player.sprite.setPosition(100.f, 1200.f);
+    //GROUND BLOCKS
+    
+    //REMOVE THE COMMENT SIGN TO MAKE THE GROUND TRANSPARENT
+    //g.rectangle.setFillColor(Color::Transparent);
+    g.rectangle.setSize(Vector2f(240.f, 50.f));
+    g.rectangle.setPosition(0.f, 1810.f);
+    grounds.push_back(g);
+    
 
-    ground.setSize(Vector2f(2000.f, 70.f));
-    ground.setPosition(0.f, 1500.f);
+    g.rectangle.setSize(Vector2f(250.f, 50.f));
+    g.rectangle.setPosition(300.f, 1600.f);
+    grounds.push_back(g);
+
+    g.rectangle.setSize(Vector2f(610.f, 50.f));
+    g.rectangle.setPosition(700.f, 1600.f);
+    grounds.push_back(g);
+
+    g.rectangle.setSize(Vector2f(1650.f, 50.f));
+    g.rectangle.setPosition(550.f, 2000.f);
+    grounds.push_back(g);
+
+
 
     view.setSize(1680.f, 1050.f);
     view.zoom(0.8f);

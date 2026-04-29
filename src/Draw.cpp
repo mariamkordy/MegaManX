@@ -1,16 +1,16 @@
 #include "Draw.h"
+#include "Collision.h"
 
 using namespace sf;
-void Draw(Player& player, sf::RenderWindow& window, sf::RectangleShape& ground, Background& background,DashSmoke dashsmoke[100])
+using namespace std;
+void Draw(Player& player, sf::RenderWindow& window, const vector<Ground>& grounds, Background& background, Foreground& foreground,DashSmoke dashsmoke[100])
 {
     window.clear();
-
-    //sf::Vector2f targetSize = sf::Vector2f(window.getSize());
-    //sf::Vector2f photoSize = background.bgSprite.getLocalBounds().getSize();
-
-    //background.bgSprite.setScale(targetSize.x / photoSize.x, targetSize.y / photoSize.y);
     window.draw(background.bgSprite);
-    window.draw(ground);
+    window.draw(foreground.fgSprite);
+    for (const auto& g : grounds) {
+        window.draw(g.rectangle);
+    }
 
     for (int i = 0; i < 15; i++) {
         if (dashsmoke[i].visible) {

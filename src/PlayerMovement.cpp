@@ -5,9 +5,12 @@
 
 using namespace sf;
 using namespace std;
-
+//RESPONSIBLE FOR INPUT DEPENDENT MOTION AND STATE MODIFICATION
 void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[15])
 {
+	
+	if (player.isOnGround == true)
+	cout << ""<< endl;
     float normalspeed = 300.f;
     float dashspeed = 1000.f;
     float currentspeed = normalspeed;

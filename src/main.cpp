@@ -21,7 +21,8 @@ int main()
     Player player;
     TileMap map;
     Background background;
-    RectangleShape ground;
+    Foreground foreground;
+    vector <Ground> grounds;
     VideoMode desktopMode = VideoMode::getDesktopMode();
     RenderWindow window(desktopMode, "Mega Man X");
     View view;
@@ -30,9 +31,8 @@ int main()
     float deltaTime;
     DashSmoke dashsmoke[15];
 
-    bool jumpKeyReleased = true;
-
-    Start(player, view, window, ground, background, map);
+    
+    Start(player, view, window, grounds, background, foreground, map);
 
     while (window.isOpen())
     {
@@ -51,15 +51,22 @@ int main()
                 }
             }
         }
-        //drawTileMap(map, window);
+        sf::Vector2i position = sf::Mouse::getPosition(window);
+        //std::cout << "Mouse X: " << position.x << ", Y: " << position.y << std::endl;
+        //ANY MOVEMENT THAT DEPENDS ON USER INPUT
         playerMovement(player, deltaTime, dashsmoke);
-        updateAnimation(player, deltaTime, jumpKeyReleased);
+        //PLAYER ANIMATIONS
+        updateAnimation(player, deltaTime);
+        //ALSO PLAYER ANIMATION
         smokeupdate(player, dashsmoke, deltaTime);
+        //GRAVITY AND KEEPING THE PLAYER INSIDE MAP BOUNDS
         playerPhysics(player, deltaTime);
-        collision(player, ground);
-       
-        camera(player, view, window, background);
-        Draw(player, window, ground, background,dashsmoke);
+        //COLLISION
+        collision(player, grounds);
+        //CAMERA + LOCKS VIEW INSIDE MAP BOUNDS
+        camera(player, view, window, background, foreground);
+        //DRAWS SPRITES
+        Draw(player, window, grounds, background, foreground, dashsmoke);
        
     }
 

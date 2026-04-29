@@ -2,7 +2,9 @@
 
 #include <tmxlite/Map.hpp>
 #include <tmxlite/TileLayer.hpp>
+#include <tmxlite/ImageLayer.hpp>
 #include <iostream>
+#include <string>
 
 using namespace tmx;
 using namespace std;
@@ -10,7 +12,8 @@ using namespace sf;
 
 
 
-bool loadTileMap(TileMap& map, const string& tmxFilePath, const string& tilesetImagePath)
+bool loadTileMap(TileMap& map, const string& tmxFilePath,
+    const string& tilesetImagePath, const string& foregroundPath)
 {
     Map tmxMap;
 
@@ -29,8 +32,10 @@ bool loadTileMap(TileMap& map, const string& tmxFilePath, const string& tilesetI
     const auto& tileSets = tmxMap.getTilesets(); 
     if (tileSets.empty())
         return false;
+
     //LEAVE THIS PART ALONE
     auto tmxTileSize = tileSets[0].getTileSize();
+
 
     map.tileSize = sf::Vector2f(tmxTileSize.x, tmxTileSize.y);
     //Calculates the size of the map (measured in tiles).
@@ -49,10 +54,12 @@ bool loadTileMap(TileMap& map, const string& tmxFilePath, const string& tilesetI
     //Iterates through layers; Ignores anything(like photo layers) that's not a tile layer
     for (const auto& layer : layers)
     {
+        cout << "Layer: '" << layer->getName()
+            << "' type=" << (int)layer->getType() << endl;
         if (layer->getType() != Layer::Type::Tile)
             continue;
         //getLayerAs returns a (smart) pointer to the layer, and takes a template argument that tells it which type to interpret it as (tile, image, etc) PER DOCUMENTATION
-        //A smart pointer is just like a regular/raw pointer, but it handles memory by itself so you don't have to woory about memory leaks
+        //A smart pointer is just like a regular/raw pointer, but it handles memory by itself so you don't have to worry about memory leaks
         //USING REFERENCES INSTEAD OF POINTERS
         //reference (from a smart pointer) to the tile layer => tile layer => tiles (a vector of tile structs). The tile struct is defined by tmx. It contains the ID of each tile (empty, ground, wall, etc all referred to by numbers)
         const TileLayer& tileLayer = layer->getLayerAs<TileLayer>();
@@ -65,7 +72,7 @@ bool loadTileMap(TileMap& map, const string& tmxFilePath, const string& tilesetI
             //empty tile
             if (tile.ID == 0)
                 continue;
-
+            
             //The following lines turn the index of a tile inside the vector into its position in the grid
             //COLUMN
             int x = i % map.width;
@@ -73,6 +80,12 @@ bool loadTileMap(TileMap& map, const string& tmxFilePath, const string& tilesetI
             //ROW
             int y = i / map.width;
 
+            //look for tiles with isGround = true
+            int tileIndex = y * map.width + x;
+
+            if (tile.ID ==118) {
+                map.isGround[tileIndex] = true;
+            }
 
             //Vertex in this context is a struct that stores the coordinates of the "physical" vertex 
             // of a tile, and the coordinate of the tile image that should be used.
@@ -97,18 +110,30 @@ bool loadTileMap(TileMap& map, const string& tmxFilePath, const string& tilesetI
             int tilesPerRow = map.tileset.getSize().x / map.tileSize.x;
             int tu = (tile.ID - 1) % (tilesPerRow);
             int tv = (tile.ID - 1) / (tilesPerRow);
-
-            quad[0].texCoords = { tu * map.tileSize.x, tv * map.tileSize.y };
-            quad[1].texCoords = { (tu + 1) * map.tileSize.x, tv * map.tileSize.y };
-            quad[2].texCoords = { (tu + 1) * map.tileSize.x, (tv + 1) * map.tileSize.y };
-            quad[3].texCoords = { tu * map.tileSize.x, (tv + 1) * map.tileSize.y };
-
-            // OPTIONAL: mark all tiles as ground for now
-            // (you can replace this later with Tiled properties)
-            map.isGround[i] = true;
+            // Delete texCoords → use colors:
+            quad[0].color = sf::Color::Red;
+            quad[1].color = sf::Color::Green;
+            quad[2].color = sf::Color::Blue;
+            quad[3].color = sf::Color::Yellow;
+            //quad[0].texCoords = { tu * map.tileSize.x, tv * map.tileSize.y };
+            //quad[1].texCoords = { (tu + 1) * map.tileSize.x, tv * map.tileSize.y };
+            //quad[2].texCoords = { (tu + 1) * map.tileSize.x, (tv + 1) * map.tileSize.y };
+            //quad[3].texCoords = { tu * map.tileSize.x, (tv + 1) * map.tileSize.y };
+            
         }
     }
-
+    Texture fgTex;
+    if (fgTex.loadFromFile(foregroundPath)) {
+        map.foregroundImg.setTexture(fgTex);
+        cout << "FOREGROUND LOADED" << endl;
+    }
+    else {
+        cout << "FOREGROUND FAILED" << endl;
+    }
+    // After setTexture:
+    map.foregroundImg.setColor(sf::Color::Red);  // Bright red!
+    map.foregroundImg.setPosition(0, 0);         // Top-left!
+    map.foregroundImg.setScale(1.0f, 1.0f);      // Normal size!
     return true;
 }
 
