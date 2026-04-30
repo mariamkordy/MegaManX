@@ -38,6 +38,7 @@ int main()
 
     while (window.isOpen())
     {
+
         if (player.isOnWall == true)
         cout << "PLAYER ON WALL" << endl;
         window.clear();

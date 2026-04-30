@@ -274,6 +274,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     g.rectangle.setSize(Vector2f(10.f, 50.f));
     g.rectangle.setPosition(3550.f, 1610.f);
     grounds.push_back(g);
+
     //g.rectangle.setSize(Vector2f(10.f, 50.f));
     //g.rectangle.setPosition(3560.f, 1606.5f);
     //grounds.push_back(g);
@@ -499,22 +500,46 @@ void Start(Player& player, View& view, RenderWindow& window,
     g.rectangle.setPosition(20020.f, 1880.f);
     grounds.push_back(g);
 
-    //---------------------WALLS---------------------
+    //---------------------WALLS ARE 1-INDEXED---------------------
     //CYAN FOR DEBUGGING PURPOSES. REMOVE THE COMMENT SIGN ON THE FOLLOWING LINE TO MAKE WALLS TRANSPARENT
     w.rectangle.setFillColor(Color::Cyan);
-    //w.rectangle.setFillColor(Color::Transparent);
-    w.rectangle.setSize(Vector2f(50.f, 400.f));
+    w.rectangle.setFillColor(Color::Transparent);
+    w.rectangle.setSize(Vector2f(50.f, 400.f));//1
     w.rectangle.setPosition(250.f, 1600.f);
     walls.push_back(w);
 
-    w.rectangle.setSize(Vector2f(50.f, 400.f));
+    w.rectangle.setSize(Vector2f(50.f, 400.f));//2
     w.rectangle.setPosition(505.f, 1600.f);
     walls.push_back(w);
 
-    w.rectangle.setSize(Vector2f(50.f, 200.f));
+    w.rectangle.setSize(Vector2f(50.f, 180.f));//3
     w.rectangle.setPosition(705.f, 1600.f);
     walls.push_back(w);
-    
+
+    w.rectangle.setSize(Vector2f(50.f, 180.f));//4
+    w.rectangle.setPosition(1305.f, 1600.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 180.f));//5
+    w.rectangle.setPosition(1505.f, 1600.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 180.f));//6
+    w.rectangle.setPosition(2055.f, 1600.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 450.f));//7
+    w.rectangle.setPosition(2300.f, 1600.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 450.f));//8
+    w.rectangle.setPosition(2530.f, 1600.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 150.f));//9
+    w.rectangle.setPosition(3050.f, 1750.f);
+    walls.push_back(w);
+
     view.setSize(1680.f, 1050.f);
     view.zoom(0.8f);
 

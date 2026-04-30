@@ -34,12 +34,12 @@ void camera(Player& player, sf::View& view, sf::RenderWindow& window, Background
     //DO NOT PASS RIGHT BORDER
     if (playerCenterX > worldWidth)
         playerCenterX = worldWidth;
-
-    if (playerCenterY < halfH)
-        playerCenterY = halfH;
+    //CALMP BOTTOM
+    //if (playerCenterY < halfH)
+      //  playerCenterY = halfH;
     //CLAMP TOP BORDER
-    if (playerCenterY > worldHeight - halfH )
-        playerCenterY = worldHeight - halfH;
+    //if (playerCenterY > worldHeight - halfH )
+      //  playerCenterY = worldHeight - halfH;
 
     
     view.setCenter(playerCenterX, playerCenterY);
