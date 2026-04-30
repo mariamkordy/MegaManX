@@ -6,5 +6,6 @@
 #include "TileMap.h"
 
 using namespace sf;
+using namespace std;
 void Start(Player& player, View& view, RenderWindow& window,
-    std::vector<Ground>& grounds , Background& background, Foreground& foreground, TileMap& map);
+    vector<Ground>& grounds, vector<Wall>& walls, Background& background, Foreground& foreground, TileMap& map);

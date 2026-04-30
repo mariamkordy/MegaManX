@@ -5,9 +5,10 @@ using namespace std;
 using namespace sf;
 
 void Start(Player& player, View& view, RenderWindow& window,
-           vector<Ground>& grounds, Background& background,Foreground& foreground, TileMap& map)
+           vector<Ground>& grounds, vector<Wall>& walls, Background& background,Foreground& foreground, TileMap& map)
 {
     Ground g;
+    Wall w;
     player.facingRight = true;
    
    
@@ -58,12 +59,12 @@ void Start(Player& player, View& view, RenderWindow& window,
     player.sprite.setTexture(player.standingAnimation);
     player.sprite.setTextureRect(IntRect(0, 0, 36, 52));
     player.sprite.setScale(3.f, 3.f);
-    player.sprite.setPosition(100.f, 1200.f);
+    player.sprite.setPosition(210.f, 1200.f);
     //GROUND BLOCKS
     
     //REMOVE THE COMMENT SIGN TO MAKE THE GROUND TRANSPARENT
     //g.rectangle.setFillColor(Color::Transparent);
-    g.rectangle.setSize(Vector2f(240.f, 50.f));
+    g.rectangle.setSize(Vector2f(260.f, 50.f));
     g.rectangle.setPosition(0.f, 1810.f);
     grounds.push_back(g);
     
@@ -80,8 +81,27 @@ void Start(Player& player, View& view, RenderWindow& window,
     g.rectangle.setPosition(550.f, 2000.f);
     grounds.push_back(g);
 
+    //CYAN FOR DEBUGGING PURPOSES.
+    w.rectangle.setFillColor(Color::Cyan);
+    //w.rectangle.setFillColor(Color::Transparent);
+    w.rectangle.setSize(Vector2f(50.f, 400.f));
+    w.rectangle.setPosition(250.f, 1600.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 400.f));
+    w.rectangle.setPosition(505.f, 1600.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 200.f));
+    w.rectangle.setPosition(705.f, 1600.f);
+    walls.push_back(w);
 
 
+
+
+
+
+    
     view.setSize(1680.f, 1050.f);
     view.zoom(0.8f);
 

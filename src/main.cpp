@@ -23,8 +23,10 @@ int main()
     Background background;
     Foreground foreground;
     vector <Ground> grounds;
+    vector <Wall> walls;
     VideoMode desktopMode = VideoMode::getDesktopMode();
     RenderWindow window(desktopMode, "Mega Man X");
+    //Style::Fullscreen
     View view;
 
     Clock clock;
@@ -32,10 +34,12 @@ int main()
     DashSmoke dashsmoke[15];
 
     
-    Start(player, view, window, grounds, background, foreground, map);
+    Start(player, view, window, grounds, walls, background, foreground, map);
 
     while (window.isOpen())
     {
+        if (player.isOnWall == true)
+        cout << "PLAYER ON WALL" << endl;
         window.clear();
         deltaTime = clock.restart().asSeconds();
         //CLOSING THE WINDOW
@@ -50,9 +54,7 @@ int main()
                     window.close();
                 }
             }
-        }
-        sf::Vector2i position = sf::Mouse::getPosition(window);
-        //std::cout << "Mouse X: " << position.x << ", Y: " << position.y << std::endl;
+        }   
         //ANY MOVEMENT THAT DEPENDS ON USER INPUT
         playerMovement(player, deltaTime, dashsmoke);
         //PLAYER ANIMATIONS
@@ -62,11 +64,11 @@ int main()
         //GRAVITY AND KEEPING THE PLAYER INSIDE MAP BOUNDS
         playerPhysics(player, deltaTime);
         //COLLISION
-        collision(player, grounds);
+        collision(player, grounds, walls);
         //CAMERA + LOCKS VIEW INSIDE MAP BOUNDS
         camera(player, view, window, background, foreground);
         //DRAWS SPRITES
-        Draw(player, window, grounds, background, foreground, dashsmoke);
+        Draw(player, window, grounds,walls, background, foreground, dashsmoke);
        
     }
 

@@ -26,7 +26,6 @@ void updateAnimation(Player& player, float deltaTime) {
         // Running
         else if (player.state == RUNNING)
         {
-            cout << "player is in running animation" << endl;
             if (player.sprite.getTexture() != &player.runningAnimation)
                 player.sprite.setTexture(player.runningAnimation);
 

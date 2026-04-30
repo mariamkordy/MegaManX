@@ -6,4 +6,4 @@
 using namespace std;
 
 void Draw(Player& player, sf::RenderWindow& window,
-    const vector<Ground>& grounds, Background& background, Foreground& foreground,DashSmoke dashsmoke[100]);
+    const vector<Ground>& grounds,const vector<Wall>& walls, Background& background, Foreground& foreground,DashSmoke dashsmoke[100]);

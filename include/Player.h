@@ -8,7 +8,8 @@ enum PlayerState {
     STANDING, //0
     RUNNING, //1
     JUMPING, //2
-    DASHING //3
+    DASHING, //3
+    ONWALL
 };
 
 struct Player {
@@ -22,6 +23,7 @@ struct Player {
     bool isOnGround = false;
     bool facingRight = true;
     bool isDashing = false;
+    bool isOnWall = false;
 
     // Animations (TEXTURES + VARIABLES)
     Texture runningAnimation;

@@ -9,5 +9,9 @@ struct Ground{
 	RectangleShape rectangle;
 };
 
+struct Wall {
+	RectangleShape rectangle;
+};
 
-void collision(Player& player, const std::vector<Ground>& grounds);
+
+void collision(Player& player, const std::vector<Ground>& grounds, const std::vector<Wall>& walls);

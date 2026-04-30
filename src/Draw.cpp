@@ -3,13 +3,16 @@
 
 using namespace sf;
 using namespace std;
-void Draw(Player& player, sf::RenderWindow& window, const vector<Ground>& grounds, Background& background, Foreground& foreground,DashSmoke dashsmoke[100])
+void Draw(Player& player, sf::RenderWindow& window, const vector<Ground>& grounds, const vector<Wall>& walls, Background& background, Foreground& foreground,DashSmoke dashsmoke[100])
 {
     window.clear();
     window.draw(background.bgSprite);
     window.draw(foreground.fgSprite);
     for (const auto& g : grounds) {
         window.draw(g.rectangle);
+    }
+    for (const auto& w : walls) {
+        window.draw(w.rectangle);
     }
 
     for (int i = 0; i < player.smokenumber; i++) {
