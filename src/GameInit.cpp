@@ -65,12 +65,12 @@ void Start(Player& player, View& view, RenderWindow& window,
     //REMOVE THE COMMENT SIGN TO MAKE THE GROUND TRANSPARENT
     //g.rectangle.setFillColor(Color::Transparent);
 
-    g.rectangle.setSize(Vector2f(240.f, 50.f));//a
+    g.rectangle.setSize(Vector2f(500.f, 50.f));//a
     g.rectangle.setPosition(0.f, 1810.f);
     grounds.push_back(g);
     
 
-    g.rectangle.setSize(Vector2f(250.f, 50.f));//b
+    g.rectangle.setSize(Vector2f(280.f, 50.f));//b
     g.rectangle.setPosition(300.f, 1600.f);
     grounds.push_back(g);
 
@@ -78,7 +78,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     g.rectangle.setPosition(700.f, 1600.f);
     grounds.push_back(g);
 
-    g.rectangle.setSize(Vector2f(1650.f, 50.f));//c
+    g.rectangle.setSize(Vector2f(1750.f, 50.f));//c
     g.rectangle.setPosition(550.f, 2000.f);
     grounds.push_back(g);
 
@@ -487,23 +487,57 @@ void Start(Player& player, View& view, RenderWindow& window,
     g.rectangle.setPosition(18810.f, 2020.f);
     grounds.push_back(g);
 
-    g.rectangle.setSize(Vector2f(310.f, 50.f));//ay
+    g.rectangle.setSize(Vector2f(340.f, 50.f));//ay
     g.rectangle.setPosition(18810.f, 1880.f);
     grounds.push_back(g);
 
 
-    g.rectangle.setSize(Vector2f(440.f, 50.f));//aaa
-    g.rectangle.setPosition(19400.f, 1880.f);
+    g.rectangle.setSize(Vector2f(470.f, 50.f));//aaa
+    g.rectangle.setPosition(19370.f, 1880.f);
     grounds.push_back(g);
 
-    g.rectangle.setSize(Vector2f(400.f, 50.f));//aac
+    g.rectangle.setSize(Vector2f(430.f, 50.f));//aac
     g.rectangle.setPosition(20020.f, 1880.f);
     grounds.push_back(g);
+
+    g.rectangle.setSize(Vector2f(920.f, 50.f));//aab
+    g.rectangle.setPosition(19620.f, 1380.f);
+    grounds.push_back(g);
+
+    g.rectangle.setSize(Vector2f(220.f, 50.f));//aw
+    g.rectangle.setPosition(19400.f, 1240.f);
+    grounds.push_back(g);
+
+    g.rectangle.setSize(Vector2f(220.f, 50.f));//aad
+    g.rectangle.setPosition(20570.f, 1240.f);
+    grounds.push_back(g);
+
+
+    g.rectangle.setSize(Vector2f(180.f, 50.f));//aad``
+    g.rectangle.setPosition(20880.f, 1240.f);
+    grounds.push_back(g);
+
+    g.rectangle.setSize(Vector2f(200.f, 50.f));//az
+    g.rectangle.setPosition(19170.f, 1740.f);
+    grounds.push_back(g);
+
+    g.rectangle.setSize(Vector2f(360.f, 50.f));//aac
+    g.rectangle.setPosition(20450.f, 1740.f);
+    grounds.push_back(g);
+
+    g.rectangle.setSize(Vector2f(1190.f, 50.f));//aag
+    g.rectangle.setPosition(21310.f, 1750.f);
+    grounds.push_back(g);
+
+    g.rectangle.setSize(Vector2f(1200.f, 50.f));//aah
+    g.rectangle.setPosition(22500.f, 1880.f);
+    grounds.push_back(g);
+
 
     //---------------------WALLS ARE 1-INDEXED---------------------
     //CYAN FOR DEBUGGING PURPOSES. REMOVE THE COMMENT SIGN ON THE FOLLOWING LINE TO MAKE WALLS TRANSPARENT
     w.rectangle.setFillColor(Color::Cyan);
-    w.rectangle.setFillColor(Color::Transparent);
+    //w.rectangle.setFillColor(Color::Transparent);
     w.rectangle.setSize(Vector2f(50.f, 400.f));//1
     w.rectangle.setPosition(250.f, 1600.f);
     walls.push_back(w);
