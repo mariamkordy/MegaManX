@@ -59,7 +59,6 @@ void Start(Player& player, View& view, RenderWindow& window,
     player.sprite.setTexture(player.standingAnimation);
     player.sprite.setTextureRect(IntRect(0, 0, 36, 52));
     player.sprite.setScale(3.f, 3.f);
-    player.sprite.setPosition(210.f, 1200.f);
     //GROUND BLOCKS
     
     //REMOVE THE COMMENT SIGN TO MAKE THE GROUND TRANSPARENT
@@ -574,6 +573,49 @@ void Start(Player& player, View& view, RenderWindow& window,
     w.rectangle.setPosition(3050.f, 1750.f);
     walls.push_back(w);
 
+    w.rectangle.setSize(Vector2f(50.f, 170.f));//10
+    w.rectangle.setPosition(3700.f, 1600.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 170.f));//11
+    w.rectangle.setPosition(3880.f, 1600.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 150.f));//12
+    w.rectangle.setPosition(4550.f, 1780.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 150.f));//13
+    w.rectangle.setPosition(4730.f, 1940.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 150.f));//14
+    w.rectangle.setPosition(5070.f, 1790.f); 
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 1350.f));//15
+    w.rectangle.setPosition(5600.f, 1694.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 650.f));//16
+    w.rectangle.setPosition(5805.56f, 1694.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 150.f));//17
+    w.rectangle.setPosition(7037.35f, 3104.f);
+    walls.push_back(w);
+    
+    w.rectangle.setSize(Vector2f(50.f, 150.f));//18
+    w.rectangle.setPosition(7187.35f, 2954.f);
+    walls.push_back(w);
+
+
+    //w.rectangle.setSize(Vector2f(50.f, 750.f));
+    //w.rectangle.setPosition(11520.f, 2144.f);
+    //walls.push_back(w);
+    
+
+    player.sprite.setPosition(8000.f, 1200.f); 
     view.setSize(1680.f, 1050.f);
     view.zoom(0.8f);
 
