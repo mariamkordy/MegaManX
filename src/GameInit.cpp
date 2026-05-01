@@ -43,7 +43,24 @@ void Start(Player& player, View& view, RenderWindow& window,
 
     if (!player.smokeDashAnimation.loadFromFile("assets/textures/dashsmoke_new_version.png"))
         cout << "SMOKE DASH FAILED\n";
-    
+    //player shooting sprites
+    if (!player.shootingwhilerunning.loadFromFile("C:/Users/maro5/source/repos/MegaManX2/assets/textures/runshooting.png"))
+    {
+        cout << "ERROR!!!!!" << endl;
+    }
+    if (!player.jump.loadFromFile("C:/Users/maro5/source/repos/MegaManX2/assets/textures/jumpshooting.png")) {
+        cout << "Errrrrrrrroooooooooorrrrrr!!!";
+    }
+
+    if (!player.teleport.loadFromFile("C:/Users/maro5/source/repos/MegaManX2/assets/textures/telep.png")) {
+        cout << "Errrooooor!!!";
+
+    }
+    if (!player.dashshooting.loadFromFile("C:/Users/maro5/source/repos/MegaManX2/assets/textures/dashshooting.png")) {
+        cout << "Errrooooor!!!";
+    }
+    ////////////////////
+
 
     //MAP
     if (!loadTileMap(map, "assets/maps/Map.tmx", "assets/maps/RedTileSet.png", "assets/textures/fg.png"))
@@ -55,7 +72,14 @@ void Start(Player& player, View& view, RenderWindow& window,
     player.runningAnimation.setSmooth(true);
     player.standingAnimation.setSmooth(true);
     player.dashrunAnimation.setSmooth(true);
+   //player shooting
+    player.shootingwhilerunning.setSmooth(true);
+    player.jump.setSmooth(true);
+    player.teleport.setSmooth(true);
+    player.dashshooting.setSmooth(true); 
 
+
+   
     player.sprite.setTexture(player.standingAnimation);
     player.sprite.setTextureRect(IntRect(0, 0, 36, 52));
     player.sprite.setScale(3.f, 3.f);
