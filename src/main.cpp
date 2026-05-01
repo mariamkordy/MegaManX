@@ -39,8 +39,7 @@ int main()
     while (window.isOpen())
     {
 
-        if (player.isOnWall == true)
-        cout << "PLAYER ON WALL" << endl;
+        cout << "Player Position: " << player.sprite.getPosition().x <<"," << player.sprite.getPosition().y << endl;
         window.clear();
         deltaTime = clock.restart().asSeconds();
         //CLOSING THE WINDOW
