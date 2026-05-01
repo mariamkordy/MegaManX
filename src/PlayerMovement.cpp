@@ -91,6 +91,12 @@ void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100])
 		}
 		
     }
+
+	if (Keyboard::isKeyPressed(Keyboard::Up) && !player.isOnGround && player.isOnWall)
+	{
+		player.velocity.y = -850.f;
+		player.isOnGround = false;
+	}
     if (Keyboard::isKeyPressed(Keyboard::Left)) {
         player.velocity.x = -currentspeed;
         player.facingRight = false;
