@@ -59,6 +59,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     if (!player.dashshooting.loadFromFile("C:/Users/maro5/source/repos/MegaManX2/assets/textures/dashshooting.png")) {
         cout << "Errrooooor!!!";
     }
+    ////////////////////
 
 
     //MAP
@@ -78,6 +79,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     player.dashshooting.setSmooth(true); 
 
 
+   
     player.sprite.setTexture(player.standingAnimation);
     player.sprite.setTextureRect(IntRect(0, 0, 36, 52));
     player.sprite.setScale(3.f, 3.f);
