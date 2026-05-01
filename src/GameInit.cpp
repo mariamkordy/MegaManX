@@ -338,16 +338,17 @@ void Start(Player& player, View& view, RenderWindow& window,
     g.rectangle.setPosition(7100.f, 3200.f);
     grounds.push_back(g);
 
-    g.rectangle.setSize(Vector2f(1050.f, 50.f));//q
-    g.rectangle.setPosition(7200.f, 2890.f);
+    g.rectangle.setSize(Vector2f(1040.f, 50.f));//q
+    g.rectangle.setPosition(7195.f, 2890.f);
     grounds.push_back(g);
-
+    
+    
     g.rectangle.setSize(Vector2f(900.f, 50.f));//s
     g.rectangle.setPosition(8400.f, 2815.f);
     grounds.push_back(g);
 
     g.rectangle.setSize(Vector2f(830.f, 50.f));//u
-    g.rectangle.setPosition(9450.f, 2890.f);
+    g.rectangle.setPosition(9445.f, 2890.f);
     grounds.push_back(g);
 
     g.rectangle.setSize(Vector2f(1050.f, 50.f));//z
@@ -560,7 +561,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     //---------------------WALLS ARE 1-INDEXED---------------------
     //CYAN FOR DEBUGGING PURPOSES. REMOVE THE COMMENT SIGN ON THE FOLLOWING LINE TO MAKE WALLS TRANSPARENT
     w.rectangle.setFillColor(Color::Cyan);
-    //w.rectangle.setFillColor(Color::Transparent);
+    //4w.rectangle.setFillColor(Color::Transparent);
     w.rectangle.setSize(Vector2f(50.f, 400.f));//1
     w.rectangle.setPosition(250.f, 1600.f);
     walls.push_back(w);
@@ -630,19 +631,196 @@ void Start(Player& player, View& view, RenderWindow& window,
     walls.push_back(w);
     
     w.rectangle.setSize(Vector2f(50.f, 150.f));//18
-    w.rectangle.setPosition(7187.35f, 2954.f);
+    w.rectangle.setPosition(7187.35f, 2944.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 150.f));//19
+    w.rectangle.setPosition(8185.35f, 2944.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 150.f));//20
+    w.rectangle.setPosition(8375.06f, 2839.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 150.f));//21
+    w.rectangle.setPosition(9245.06f, 2839.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 190.f));//22
+    w.rectangle.setPosition(9435.06f, 2904.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 190.f));//23
+    w.rectangle.setPosition(10225.06f, 2904.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 190.f));//24
+    w.rectangle.setPosition(10425.06f, 2904.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 2190.f));//25
+    w.rectangle.setPosition(11500.06f, 1780.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 1200.f));//26
+    w.rectangle.setPosition(11880.06f, 0.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 2190.f));//27
+    w.rectangle.setPosition(12060.06f, 420.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 190.f));//28
+    w.rectangle.setPosition(12320.06f, 420.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 290.f));//29
+    w.rectangle.setPosition(12610.06f, 620.f);
     walls.push_back(w);
 
 
-    //w.rectangle.setSize(Vector2f(50.f, 750.f));
-    //w.rectangle.setPosition(11520.f, 2144.f);
-    //walls.push_back(w);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+w.rectangle.setSize(Vector2f(50.f, 300.f)); 
+w.rectangle.setPosition(15515.06f, 610.f);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 1300.f)); 
+w.rectangle.setPosition(15870.06f, 610.f);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 1010.f));
+w.rectangle.setPosition(16110.06f, 610.f);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 680.f));
+w.rectangle.setPosition(16581.4f, 946.524f);
+walls.push_back(w);
+
+
+
+    
     
 
-    player.sprite.setPosition(8000.f, 1200.f); 
-    view.setSize(1680.f, 1050.f);
-    view.zoom(0.8f);
+player.sprite.setPosition(16416.9f, 1524.f);
+view.setSize(1680.f, 1050.f);
+view.zoom(0.8f);
 
-    window.setFramerateLimit(60);
+window.setFramerateLimit(60);
 }
 

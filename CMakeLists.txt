@@ -1,3 +1,6 @@
+#-----------------DO NOT TOUCH THIS FILE!!!!!!!!!----------------
+
+
 cmake_minimum_required(VERSION 3.16)
 
 project(MegaManX)
@@ -29,7 +32,7 @@ file(GLOB TMXLITE_SOURCES
     ${CMAKE_SOURCE_DIR}/src/tmxlite/detail/*.c
 )
 
-add_library(tmxlite STATIC ${TMXLITE_SOURCES} "src/PlayerShooting.cpp")
+add_library(tmxlite STATIC ${TMXLITE_SOURCES})
 
 target_include_directories(tmxlite PUBLIC
     ${CMAKE_SOURCE_DIR}/src
@@ -49,9 +52,9 @@ add_executable(MegaManX
     src/Combat.cpp
     src/Draw.cpp
     src/GameInit.cpp
-    "src/UpdateAnimation.cpp"
+    src/UpdateAnimation.cpp
     src/TileMap.cpp
- "src/PlayerShooting.cpp")
+    src/playershooting.cpp)
 
 # ----------------------------
 # LINK LIBRARIES
