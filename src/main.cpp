@@ -39,7 +39,8 @@ int main()
     while (window.isOpen())
     {
 
-        cout << "Player Position: " << player.sprite.getPosition().x <<"," << player.sprite.getPosition().y << endl;
+        cout << player.state<<endl;
+       
         window.clear();
         deltaTime = clock.restart().asSeconds();
         //CLOSING THE WINDOW
