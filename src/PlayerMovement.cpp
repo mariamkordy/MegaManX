@@ -75,15 +75,39 @@ void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100])
     {
         player.velocity.y = -850.f;
         player.isOnGround = false;
+		//shooting?
+		if (Keyboard::isKeyPressed(Keyboard::Space)) {
+			player.isjumpsh = true;
+		}
+		else {
+			player.isjumpsh = false;
+		}
+		///////////
     }
     if (Keyboard::isKeyPressed(Keyboard::Left)) {
         player.velocity.x = -currentspeed;
         player.facingRight = false;
+		//shooting?
+		if (Keyboard::isKeyPressed(Keyboard::Space)) {
+			ishooting = true;
+		}
+		else {
+			ishooting = false;
+		}
+		/////////////
 
     }
     else if (Keyboard::isKeyPressed(Keyboard::Right)) {
         player.velocity.x = currentspeed;
         player.facingRight = true;
+		//shooting?
+		if (Keyboard::isKeyPressed(Keyboard::Space)) {
+			ishooting = true;
+		}
+		else {
+			ishooting = false;
+		}
+		/////////////
 
     }
 

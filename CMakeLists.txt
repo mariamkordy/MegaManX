@@ -13,7 +13,7 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 # ----------------------------
 # SFML (MANUAL INSTALL)
 # ----------------------------
-set(SFML_DIR "C:/SFML/lib/cmake/SFML")
+set(SFML_DIR "C:/Users//maro5/Desktop/SFML-2.6.2/lib/cmake/SFML")
 
 find_package(SFML REQUIRED COMPONENTS
     graphics window system audio
@@ -29,7 +29,7 @@ file(GLOB TMXLITE_SOURCES
     ${CMAKE_SOURCE_DIR}/src/tmxlite/detail/*.c
 )
 
-add_library(tmxlite STATIC ${TMXLITE_SOURCES})
+add_library(tmxlite STATIC ${TMXLITE_SOURCES} "src/PlayerShooting.cpp")
 
 target_include_directories(tmxlite PUBLIC
     ${CMAKE_SOURCE_DIR}/src
@@ -51,7 +51,7 @@ add_executable(MegaManX
     src/GameInit.cpp
     "src/UpdateAnimation.cpp"
     src/TileMap.cpp
-)
+ "src/PlayerShooting.cpp")
 
 # ----------------------------
 # LINK LIBRARIES

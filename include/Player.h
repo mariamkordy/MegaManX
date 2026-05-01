@@ -24,16 +24,32 @@ struct Player {
     bool facingRight = true;
     bool isDashing = false;
     bool isOnWall = false;
-
+   //shooting part
+    bool isteleporting = true;
+    bool ishooting = false;
+    bool isjumpsh = false;
+    bool isdashshooting = false;
+    ////////////////
+    
     // Animations (TEXTURES + VARIABLES)
     Texture runningAnimation;
     Texture standingAnimation;
     Texture jumpingAnimation;
     Texture dashrunAnimation;
     Texture smokeDashAnimation;
+    //player shooting
+    Texture shootingwhilerunning;
+    Texture jump;
+    Texture teleport;
+    Texture dashshooting;
+    //////////
 
     int runIndex = 0;
     int jumpIndex = 0;
+    //player shooting 
+    int shootingindex = 0;
+    int jumpshootingindex = 0;
+    /////////////////
     
     float dashTimer = 0.f;
     float runTimer = 0.f;
