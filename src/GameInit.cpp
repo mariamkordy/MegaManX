@@ -44,19 +44,19 @@ void Start(Player& player, View& view, RenderWindow& window,
     if (!player.smokeDashAnimation.loadFromFile("assets/textures/dashsmoke_new_version.png"))
         cout << "SMOKE DASH FAILED\n";
     //player shooting sprites
-    if (!player.shootingwhilerunning.loadFromFile("C:/Users/maro5/source/repos/MegaManX2/assets/textures/runshooting.png"))
+    if (!player.shootingwhilerunning.loadFromFile("assets/textures/runshooting.png"))
     {
         cout << "ERROR!!!!!" << endl;
     }
-    if (!player.jump.loadFromFile("C:/Users/maro5/source/repos/MegaManX2/assets/textures/jumpshooting.png")) {
+    if (!player.jump.loadFromFile("assets/textures/jumpshooting.png")) {
         cout << "Errrrrrrrroooooooooorrrrrr!!!";
     }
 
-    if (!player.teleport.loadFromFile("C:/Users/maro5/source/repos/MegaManX2/assets/textures/telep.png")) {
+    if (!player.teleport.loadFromFile("assets/textures/telep.png")) {
         cout << "Errrooooor!!!";
 
     }
-    if (!player.dashshooting.loadFromFile("C:/Users/maro5/source/repos/MegaManX2/assets/textures/dashshooting.png")) {
+    if (!player.dashshooting.loadFromFile("assets/textures/dashshooting.png")) {
         cout << "Errrooooor!!!";
     }
     ////////////////////
@@ -492,11 +492,11 @@ void Start(Player& player, View& view, RenderWindow& window,
     grounds.push_back(g);
 
     g.rectangle.setSize(Vector2f(100.f, 50.f));//au
-    g.rectangle.setPosition(18710.f, 1520.f);
+    g.rectangle.setPosition(18680.f, 1520.f);
     grounds.push_back(g);
 
     g.rectangle.setSize(Vector2f(100.f, 50.f));//au``
-    g.rectangle.setPosition(18860.f, 1520.f);
+    g.rectangle.setPosition(18890.f, 1520.f);
     grounds.push_back(g);
 
     g.rectangle.setSize(Vector2f(420.f, 50.f));//av
@@ -561,7 +561,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     //---------------------WALLS ARE 1-INDEXED---------------------
     //CYAN FOR DEBUGGING PURPOSES. REMOVE THE COMMENT SIGN ON THE FOLLOWING LINE TO MAKE WALLS TRANSPARENT
     w.rectangle.setFillColor(Color::Cyan);
-    //4w.rectangle.setFillColor(Color::Transparent);
+    //w.rectangle.setFillColor(Color::Transparent);
     w.rectangle.setSize(Vector2f(50.f, 400.f));//1
     w.rectangle.setPosition(250.f, 1600.f);
     walls.push_back(w);
@@ -584,6 +584,9 @@ void Start(Player& player, View& view, RenderWindow& window,
 
     w.rectangle.setSize(Vector2f(50.f, 180.f));//6
     w.rectangle.setPosition(2055.f, 1600.f);
+    walls.push_back(w);
+    w.rectangle.setSize(Vector2f(50.f, 180.f));//UNKNOWN
+    w.rectangle.setPosition(2809.96, 1924);
     walls.push_back(w);
 
     w.rectangle.setSize(Vector2f(50.f, 450.f));//7
@@ -812,12 +815,97 @@ w.rectangle.setSize(Vector2f(50.f, 680.f));
 w.rectangle.setPosition(16581.4f, 946.524f);
 walls.push_back(w);
 
+w.rectangle.setSize(Vector2f(50.f, 180.f));
+w.rectangle.setPosition(18020.2f, 1794.f);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 280.f));
+w.rectangle.setPosition(18220.2f, 1494.f);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 280.f));
+w.rectangle.setPosition(16440.2f, 1944.f);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 280.f));
+w.rectangle.setPosition(16580.2f, 1944.f);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 280.f));
+w.rectangle.setPosition(16800.7, 1804);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 280.f));
+w.rectangle.setPosition(18656.f, 1554.f);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 200.f));
+w.rectangle.setPosition(18949.7f, 1434.f);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 200.f));
+w.rectangle.setPosition(19366, 1304);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 200.f));
+w.rectangle.setPosition(19538.9, 1304);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 200.f));
+w.rectangle.setPosition(19132.6, 1804);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 200.f));
+w.rectangle.setPosition(19319, 1804);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 200.f));
+w.rectangle.setPosition(19804, 1924);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 200.f));
+w.rectangle.setPosition(19984, 1924);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 200.f));
+w.rectangle.setPosition(20429, 1804);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 200.f));
+w.rectangle.setPosition(18753.1, 1804);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 200.f));
+w.rectangle.setPosition(20506, 1254);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 250.f));
+w.rectangle.setPosition(20756, 1804);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 850.f));
+w.rectangle.setPosition(20996.4, 1204);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 850.f));
+w.rectangle.setPosition(21288.5, 1764);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 850.f));
+w.rectangle.setPosition(22436.6, 1804);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 500.f));
+w.rectangle.setPosition(22436.6, 1004);
+walls.push_back(w);
+
+
 
 
     
     
 
-player.sprite.setPosition(16416.9f, 1524.f);
+player.sprite.setPosition(20.7, 804);
 view.setSize(1680.f, 1050.f);
 view.zoom(0.8f);
 

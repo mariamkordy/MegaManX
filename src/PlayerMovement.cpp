@@ -174,5 +174,4 @@ void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100])
 	else {
 		player.state = STANDING;
 	}
-	
-}
+	}

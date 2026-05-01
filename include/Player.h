@@ -9,11 +9,11 @@ enum PlayerState {
     RUNNING, //1
     JUMPING, //2
     DASHING, //3
-    ONWALL,
-    TELEPORT,
-    JUMPSHOOTING,
-    RUNSHOOTING,
-    DASHSHOOTING
+    ONWALL, //4
+    TELEPORT, //5
+    JUMPSHOOTING, //6
+    RUNSHOOTING, //7
+    DASHSHOOTING //8
 
 };
 
