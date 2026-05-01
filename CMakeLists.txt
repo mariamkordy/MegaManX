@@ -13,7 +13,7 @@ include_directories(${CMAKE_SOURCE_DIR}/include)
 # ----------------------------
 # SFML (MANUAL INSTALL)
 # ----------------------------
-set(SFML_DIR "C:/Users//maro5/Desktop/SFML-2.6.2/lib/cmake/SFML")
+set(SFML_DIR "C:/SFML/lib/cmake/SFML")
 
 find_package(SFML REQUIRED COMPONENTS
     graphics window system audio
