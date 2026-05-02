@@ -1,4 +1,4 @@
-#include "Player.h"
+﻿#include "Player.h"
 #include "Background.h"
 #include "PlayerMovement.h"
 #include "PlayerPhysics.h"
@@ -23,6 +23,13 @@
 
 using namespace sf;
 using namespace std;
+
+sf::Vector2f norm(sf::Vector2f v);
+void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires);
+void updateEnemies(std::vector<Enemy>& enemies, sf::Vector2f playerPos, float& playerHealth, float groundY, float dt);
+void updateFires(std::vector<FireTrap>& fires, sf::Vector2f playerPos, float& playerHealth, float& fireDamageTimer, float dt);
+float getDist(sf::Vector2f p1, sf::Vector2f p2); // دالة المسافة مهمة جداً
+
 int main()
 {
     Player player;
@@ -40,6 +47,24 @@ int main()
     Clock clock;
     float deltaTime;
     DashSmoke dashsmoke[15];
+
+    //ENEMIES
+    vector<Enemy> enemies;       // وعاء الأعداء
+    vector<FireTrap> fires;      // وعاء فخاخ النار
+    float groundY = 1880.0f;      // مستوى الأرض (عدلي الرقم حسب خريطتك)
+    float fireDamageTimer = 0.0f; // تايمر ضرر النار
+    float playerHealth = 100.0f;
+    EneTextures eneTex;
+    Texture fireTexture;
+    fireTexture.loadFromFile("assets/textures/FIRE.png");
+    eneTex.enemy1.loadFromFile("assets/textures/ENEMY1.png");
+    eneTex.enemy2.loadFromFile("assets/textures/ENEMY2.png");
+    eneTex.enemy3.loadFromFile("assets/textures/ENEMY3.png");
+    eneTex.axe.loadFromFile("assets/textures/axe.png");
+
+    loadLevel(enemies, fires);
+    Start(player, view, window, grounds, walls, background, foreground, map);
+
 
     srand(time(0));
     setupPlayer(player);
@@ -72,8 +97,6 @@ int main()
     for (int i = 0; i < 10; i++) {
         Bullets[i].active = false;
     }
-    Enemy enemies[10];
-    int enemyCount=10;
     
     Start(player, view, window, grounds, walls, background, foreground, map);
     player.sprite.setPosition(100, 1450.f); 
@@ -126,7 +149,7 @@ int main()
         //ALSO PLAYER ANIMATION
         smokeupdate(player, dashsmoke, deltaTime);
         //combat(player killing enemies)
-        checkBulletEnemyCollision(Bullets, enemies, enemyCount);
+        checkBulletEnemyCollision(Bullets, enemies);
         //player bullets 
         updatePlayerBullets(player, deltaTime, Bullets);
         //GRAVITY AND KEEPING THE PLAYER INSIDE MAP BOUNDS
@@ -159,8 +182,13 @@ int main()
 
         window.clear();
 
+        sf::Vector2f pPos = player.sprite.getPosition();
+        updateEnemies(enemies, pPos, playerHealth, groundY, deltaTime);
+
+        updateFires(fires, pPos, playerHealth, fireDamageTimer, deltaTime);
+
         //DRAWS SPRITES
-        Draw(player, window, grounds,walls, background, foreground, dashsmoke, Bullets, checkpoints);
+        Draw(player, window, grounds, walls, background, foreground, dashsmoke, Bullets, checkpoints, enemies, fires, eneTex, fireTexture);
 
         window.setView(window.getDefaultView());
         window.draw(healthText);
