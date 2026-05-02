@@ -24,6 +24,12 @@ struct Player {
     PlayerState state;
     int health = 100;
 
+    Texture texture;
+    float speed;
+    int frame;
+    float animationTimer;
+    float animationSpeed;
+
     Vector2f velocity;
 
     bool isOnGround = false;
