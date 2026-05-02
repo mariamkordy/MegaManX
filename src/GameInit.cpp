@@ -44,7 +44,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     if (!player.smokeDashAnimation.loadFromFile("assets/textures/dashsmoke_new_version.png"))
         cout << "SMOKE DASH FAILED\n";
     //player shooting sprites
-    if (!player.shootingwhilerunning.loadFromFile("assets/textures/runshooting.png"))
+    if (!player.shootingwhilerunning.loadFromFile("assets/textures/p22.png"))
     {
         cout << "ERROR!!!!!" << endl;
     }
@@ -57,6 +57,9 @@ void Start(Player& player, View& view, RenderWindow& window,
 
     }
     if (!player.dashshooting.loadFromFile("assets/textures/dashshooting.png")) {
+        cout << "Errrooooor!!!";
+    }
+    if (!player.idlesho.loadFromFile("assets/textures/p4.png")) {
         cout << "Errrooooor!!!";
     }
     ////////////////////

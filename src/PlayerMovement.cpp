@@ -128,9 +128,9 @@ void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100])
 
 		player.state = Keyboard::isKeyPressed(Keyboard::Space) ? RUNSHOOTING : RUNNING;
 	}
-	else  {
+	else {
 
-		player.state = STANDING;
+		player.state = Keyboard::isKeyPressed(Keyboard::Space) ? IDLESHO : STANDING;
 	}
 
 }
