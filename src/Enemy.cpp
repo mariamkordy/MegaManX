@@ -15,9 +15,12 @@ void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires) {
     //هنا بنكتب ال type , position بتاع ال enemy
     struct EData { int t; float x, y; };
     std::vector<EData> levelEnemies = {
-        {1, 16420.9f,1824.0f}, {1, 600.f, 460.f},
+        {1, 1043.9f, 1574.0f},
+        {2,2043.9f, 1974.0f},
+        {3, 3800.f, 2038.f}
+        /*, {1, 600.f, 460.f},
         {2, 16700.f, 1880.f},
-        {3, 500.f, 460.f}, {3, 16750.f, 1880.f}
+        {3, 500.f, 460.f}, {3, 16750.f, 1880.f}*/
     };
     //هنا بقي بنحول الارقام اللي فوق ل enemy حقيقي
     for (auto& d : levelEnemies) {
@@ -51,15 +54,15 @@ void updateEnemies(std::vector<Enemy>& enemies, sf::Vector2f playerPos, float& p
             if (e.animFrame >= 8) e.alive = false;
             continue;
         }
-        //-------Gravity , Vertical Move-------------
-        if (!e.grounded) e.vel.y += 600.f * dt; // بسرع ال enemy و هو نازل من فوق
-        e.pos.y += e.vel.y * dt; // بنحدد مكانه 
-        //----Ground collision-------
-        if (e.pos.y + 40.f >= groundY) {
-            e.pos.y = groundY - 40.f; //بنثبت ال enemy فوق الارض ب 40 بكسل 
-            e.vel.y = 0;
-            e.grounded = true;
-        }
+        ////-------Gravity , Vertical Move-------------
+        //if (!e.grounded) e.vel.y += 600.f * dt; // بسرع ال enemy و هو نازل من فوق
+        //e.pos.y += e.vel.y * dt; // بنحدد مكانه 
+        ////----Ground collision-------
+        //if (e.pos.y + 40.f >= groundY) {
+        //    e.pos.y = groundY - 40.f; //بنثبت ال enemy فوق الارض ب 40 بكسل 
+        //    e.vel.y = 0;
+        //    e.grounded = true;
+        //}
         //المسافة بين ال enemy and player 
         float dist = std::abs(e.pos.x - playerPos.x);
         float fullDist = getDist(e.pos, playerPos);

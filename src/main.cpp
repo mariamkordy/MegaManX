@@ -77,8 +77,8 @@ int main()
 
     // Font + health text
     Font font;
-    if (!font.loadFromFile("assets/fonts/MMRock9.ttf")) 
-        return -1;
+    if (!font.loadFromFile("assets/fonts/MMRock9.ttf"))
+        cout << "FONT FAILED" << endl;
 
     Text healthText;
     healthText.setFont(font);
