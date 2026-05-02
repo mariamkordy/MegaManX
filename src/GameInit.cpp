@@ -48,7 +48,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     {
         cout << "ERROR!!!!!" << endl;
     }
-    if (!player.jump.loadFromFile("assets/textures/p1.png")) {
+    if (!player.jump.loadFromFile("assets/textures/p5.png")) {
         cout << "Errrrrrrrroooooooooorrrrrr!!!";
     }
 

@@ -100,7 +100,14 @@ void updateAnimation(Player& player, float deltaTime) {
             player.sprite.setTexture(player.jump);
             if (player.velocity.y < 0) {
 
-                if (player.jumpshootingindex < 2) {
+                if (player.facingRight)
+                    player.sprite.setTextureRect(IntRect(0, 0, 37, 50));
+                else
+                    player.sprite.setTextureRect(IntRect(37, 0, -37, 50));
+                player.jumpshootingindex = 0;
+
+
+               /* if (player.jumpshootingindex < 2) {
                     player.jumpshootingindex++;
                 }
                 else {
@@ -111,7 +118,7 @@ void updateAnimation(Player& player, float deltaTime) {
                 }
                 else {
                     player.sprite.setTextureRect(IntRect(player.jumpshootingindex * 37 + 37, 0, -37, 50));
-                }
+                }*/
             }
             //cutting the sprite
 
