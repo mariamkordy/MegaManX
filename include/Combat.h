@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "player.h"//
 #include "Enemy.h"//
+#include <vector>
 
 //FOR NOW, TO BE UPDATED
 //struct Bullet {
@@ -17,4 +18,4 @@
 //};
 
 void updateBullets(std::vector<Bullet>& bullets, float deltaTime);
-void checkBulletEnemyCollision(playerBullets Bullets[10], Enemy enemies[], int enemyCount = 10);
+void checkBulletEnemyCollision(playerBullets Bullets[10], std::vector<Enemy>&enemies);
