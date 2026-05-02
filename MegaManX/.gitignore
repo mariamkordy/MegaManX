@@ -1,0 +1,22 @@
+# Build folders
+out/
+build/
+cmake-build-*/
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.ninja
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Executables
+*.exe
+*.obj
+*.pdb
+
+# SFML runtime (optional if using manual SFML install)
+*.dll
