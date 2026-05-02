@@ -26,6 +26,12 @@ struct Player {
     PlayerState state;
     int health = 100;
 
+    Texture texture;
+    float speed;
+    int frame;
+    float animationTimer;
+    float animationSpeed;
+
     Vector2f velocity;
 
     bool isOnGround = false;
@@ -44,13 +50,20 @@ struct Player {
     Texture standingAnimation;
     Texture jumpingAnimation;
     Texture dashrunAnimation;
-    Texture smokeDashAnimation;
+    Texture smokeDashAnimation;    
+    Texture playerBulletAnimation;
+
     //player shooting
     Texture shootingwhilerunning;
     Texture jump;
     Texture teleport;
+
     Texture  dashshooting;
     Texture idlesho;
+
+    //Texture dashshooting;
+
+
     //////////
 
     int runIndex = 0;
@@ -65,8 +78,12 @@ struct Player {
     float jumpTimer = 0.f;
     float smokeTimer = 0.f;
     int smokenumber = 15;
-
+    float shootingTimer = 0.f;
+    float bulletDamage = 10.f;
+    
     const float dashduration = 0.05f;
+
+    const int noOfBullets = 10;
 };
 
 struct DashSmoke {
@@ -75,4 +92,11 @@ struct DashSmoke {
     bool visible = false;
     int smokeIndex = 0;
     float smokeDuration = 0.3f;
+};
+
+struct playerBullets {
+    Vector2f position;
+    Vector2f velocity;
+    Sprite display;
+    bool active;
 };

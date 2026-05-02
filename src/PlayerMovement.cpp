@@ -9,7 +9,7 @@ using namespace std;
 //RESPONSIBLE FOR INPUT DEPENDENT MOTION AND STATE MODIFICATION
 
 
-void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100])
+void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100], playerBullets[10])
 
 {
     float normalspeed = 300.f;

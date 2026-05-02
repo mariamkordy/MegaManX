@@ -1,4 +1,6 @@
 #include "UpdateAnimation.h"
+#include"player.h"
+
 #include <iostream>
 
 using namespace sf;
@@ -92,7 +94,14 @@ void updateAnimation(Player& player, float deltaTime) {
             player.sprite.setTexture(player.jump);
             if (player.velocity.y < 0) {
 
-                if (player.jumpshootingindex < 2) {
+                if (player.facingRight)
+                    player.sprite.setTextureRect(IntRect(0, 0, 37, 50));
+                else
+                    player.sprite.setTextureRect(IntRect(37, 0, -37, 50));
+                player.jumpshootingindex = 0;
+
+
+               /* if (player.jumpshootingindex < 2) {
                     player.jumpshootingindex++;
                 }
                 else {
@@ -103,7 +112,7 @@ void updateAnimation(Player& player, float deltaTime) {
                 }
                 else {
                     player.sprite.setTextureRect(IntRect(player.jumpshootingindex * 37 + 37, 0, -37, 50));
-                }
+                }*/
             }
             //cutting the sprite
 
@@ -154,6 +163,33 @@ void smokeupdate(Player& player, DashSmoke dashsmoke[15], float deltaTime) {
 
             }
 
+
         }
     }
 }
+
+    //player bullets update function 
+    void updatePlayerBullets(Player& player, float deltaTime,playerBullets Bullets[10]) {
+        for (int i = 0; i < 10; i++) {
+            if (!Bullets[i].active)continue;
+
+            //cout << "Bullet" << i << "moving atX:" << Bullets[i].position.x << endl;
+            Bullets[i].position += Bullets[i].velocity * deltaTime;
+
+            Bullets[i].display.setPosition(Bullets[i].position);
+            Bullets[i].display.setTexture(player.playerBulletAnimation);
+            
+            if(Bullets[i].velocity.x>0)
+                Bullets[i].display.setTextureRect(IntRect(0, 0, 47, 37));
+            else 
+                Bullets[i].display.setTextureRect(IntRect(47, 0, -47, 37));
+            
+            Bullets[i].display.setScale(2.0f, 2.0f);
+
+
+            if (abs(Bullets[i].position.x - player.sprite.getPosition().x) > 1000) {
+                Bullets[i].active = false;
+            }
+        }
+    }
+
