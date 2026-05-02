@@ -8,6 +8,8 @@
 #include "Draw.h"
 #include "GameInit.h"
 #include "TileMap.h"
+#include "Combat.h"
+#include "Enemy.h"
 #include "CheckPointSystem.h"
 
 #include <iostream>
@@ -66,6 +68,13 @@ int main()
     statusText.setFillColor(Color::Red);
     statusText.setPosition(300, 280);
     
+    playerBullets Bullets[10];
+    for (int i = 0; i < 10; i++) {
+        Bullets[i].active = false;
+    }
+    Enemy enemies[10];
+    int enemyCount=10;
+    
     Start(player, view, window, grounds, walls, background, foreground, map);
 
     vector<Vector2f> checkpointPositions = {
@@ -87,8 +96,12 @@ int main()
 
     while (window.isOpen())
     {
-        deltaTime = clock.restart().asSeconds();
 
+        cout << player.state<<endl;
+       
+        //cout << "Player Position: " << player.sprite.getPosition().x <<"," << player.sprite.getPosition().y << endl;
+        window.clear();
+        deltaTime = clock.restart().asSeconds();
         if (player.isOnWall == true)
         cout << "PLAYER ON WALL" << endl;
         
@@ -106,11 +119,15 @@ int main()
             }
         }   
         //ANY MOVEMENT THAT DEPENDS ON USER INPUT
-        playerMovement(player, deltaTime, dashsmoke);
+        playerMovement(player, deltaTime, dashsmoke, Bullets);
         //PLAYER ANIMATIONS
         updateAnimation(player, deltaTime);
         //ALSO PLAYER ANIMATION
         smokeupdate(player, dashsmoke, deltaTime);
+        //combat(player killing enemies)
+        checkBulletEnemyCollision(Bullets, enemies, enemyCount);
+        //player bullets 
+        updatePlayerBullets(player, deltaTime, Bullets);
         //GRAVITY AND KEEPING THE PLAYER INSIDE MAP BOUNDS
         playerPhysics(player, deltaTime);
         //COLLISION

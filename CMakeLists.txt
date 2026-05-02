@@ -1,3 +1,6 @@
+#-----------------DO NOT TOUCH THIS FILE!!!!!!!!!----------------
+
+
 cmake_minimum_required(VERSION 3.16)
 
 project(MegaManX)
@@ -49,8 +52,9 @@ add_executable(MegaManX
     src/Combat.cpp
     src/Draw.cpp
     src/GameInit.cpp
-    "src/UpdateAnimation.cpp"
+    src/UpdateAnimation.cpp
     src/TileMap.cpp
+    src/playershooting.cpp)
     src/CheckPointSystem.cpp
  "include/CheckPointSystem.h")
 

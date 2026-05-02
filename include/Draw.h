@@ -8,4 +8,5 @@
 using namespace std;
 
 void Draw(Player& player, sf::RenderWindow& window,
+    const vector<Ground>& grounds,const vector<Wall>& walls, Background& background, Foreground& foreground,DashSmoke dashsmoke[100],playerBullets Bullets[10]);
     const vector<Ground>& grounds,const vector<Wall>& walls, Background& background, Foreground& foreground,DashSmoke dashsmoke[100], vector<Checkpoint>& checkpoints);

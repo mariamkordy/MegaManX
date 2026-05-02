@@ -3,7 +3,7 @@
 
 using namespace sf;
 using namespace std;
-void Draw(Player& player, sf::RenderWindow& window, const vector<Ground>& grounds, const vector<Wall>& walls, Background& background, Foreground& foreground,DashSmoke dashsmoke[100], vector<Checkpoint>& checkpoints)
+void Draw(Player& player, sf::RenderWindow& window, const vector<Ground>& grounds, const vector<Wall>& walls, Background& background, Foreground& foreground,DashSmoke dashsmoke[100])
 {
     window.draw(background.bgSprite);
     window.draw(foreground.fgSprite);
@@ -17,6 +17,12 @@ void Draw(Player& player, sf::RenderWindow& window, const vector<Ground>& ground
     for (int i = 0; i < player.smokenumber; i++) {
         if (dashsmoke[i].visible ) {
             window.draw(dashsmoke[i].display);
+        }
+    }
+
+    for (int i = 0; i < 10; i++) {
+        if (Bullets[i].active) {
+            window.draw(Bullets[i].display);
         }
     }
 

@@ -27,6 +27,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     foreground.fgSprite.setScale(3.f, 4.5f);
     background.bgSprite.setPosition(-1210.f, -650.f);
     foreground.fgSprite.setPosition(-1210.f, -650.f);
+
     
     //PLAYER TEXTURES
     if (!player.jumpingAnimation.loadFromFile("assets/textures/jump.png"))
@@ -43,7 +44,39 @@ void Start(Player& player, View& view, RenderWindow& window,
 
     if (!player.smokeDashAnimation.loadFromFile("assets/textures/dashsmoke_new_version.png"))
         cout << "SMOKE DASH FAILED\n";
-    
+
+    if (!player.playerBulletAnimation.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/player_bullet.png"))
+        cout << "PLAYER BULLET FAILED\n";
+
+    //player shooting sprites
+<<<<<<< HEAD
+    if (!player.shootingwhilerunning.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/p22.png"))
+        cout << "P2 FAILED\n" << endl;
+
+    if (!player.jump.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/p1.png")) {
+        cout << "P1 FAILED\n";
+=======
+    if (!player.shootingwhilerunning.loadFromFile("assets/textures/p22.png"))
+    {
+        cout << "ERROR!!!!!" << endl;
+    }
+    if (!player.jump.loadFromFile("assets/textures/p5.png")) {
+        cout << "Errrrrrrrroooooooooorrrrrr!!!";
+>>>>>>> 6d959999336aed085f070b48fb27bf7e968475d6
+    }
+
+    if (!player.teleport.loadFromFile("assets/textures/telep.png")) {
+        cout << "TELEPORTING FAILED \n";
+
+    }
+    if (!player.dashshooting.loadFromFile("assets/textures/dashshooting.png")) {
+        cout << "DASHSHOOTING FAILED\n";
+    }
+    if (!player.idlesho.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/p4.png"))
+        cout<<"P4 FAILED \n";
+
+    ////////////////////
+
 
     //MAP
     if (!loadTileMap(map, "assets/maps/Map.tmx", "assets/maps/RedTileSet.png", "assets/textures/fg.png"))
@@ -55,11 +88,17 @@ void Start(Player& player, View& view, RenderWindow& window,
     player.runningAnimation.setSmooth(true);
     player.standingAnimation.setSmooth(true);
     player.dashrunAnimation.setSmooth(true);
+   //player shooting
+    player.shootingwhilerunning.setSmooth(true);
+    player.jump.setSmooth(true);
+    player.teleport.setSmooth(true);
+    player.dashshooting.setSmooth(true); 
 
+
+   
     player.sprite.setTexture(player.standingAnimation);
     player.sprite.setTextureRect(IntRect(0, 0, 36, 52));
     player.sprite.setScale(3.f, 3.f);
-    player.sprite.setPosition(210.f, 1200.f);
     //GROUND BLOCKS
     
     //REMOVE THE COMMENT SIGN TO MAKE THE GROUND TRANSPARENT
@@ -315,16 +354,17 @@ void Start(Player& player, View& view, RenderWindow& window,
     g.rectangle.setPosition(7100.f, 3200.f);
     grounds.push_back(g);
 
-    g.rectangle.setSize(Vector2f(1050.f, 50.f));//q
-    g.rectangle.setPosition(7200.f, 2890.f);
+    g.rectangle.setSize(Vector2f(1040.f, 50.f));//q
+    g.rectangle.setPosition(7195.f, 2890.f);
     grounds.push_back(g);
-
+    
+    
     g.rectangle.setSize(Vector2f(900.f, 50.f));//s
     g.rectangle.setPosition(8400.f, 2815.f);
     grounds.push_back(g);
 
     g.rectangle.setSize(Vector2f(830.f, 50.f));//u
-    g.rectangle.setPosition(9450.f, 2890.f);
+    g.rectangle.setPosition(9445.f, 2890.f);
     grounds.push_back(g);
 
     g.rectangle.setSize(Vector2f(1050.f, 50.f));//z
@@ -574,9 +614,229 @@ void Start(Player& player, View& view, RenderWindow& window,
     w.rectangle.setPosition(3050.f, 1750.f);
     walls.push_back(w);
 
-    view.setSize(1680.f, 1050.f);
-    view.zoom(0.8f);
+    w.rectangle.setSize(Vector2f(50.f, 170.f));//10
+    w.rectangle.setPosition(3700.f, 1600.f);
+    walls.push_back(w);
 
-    window.setFramerateLimit(60);
+    w.rectangle.setSize(Vector2f(50.f, 170.f));//11
+    w.rectangle.setPosition(3880.f, 1600.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 150.f));//12
+    w.rectangle.setPosition(4550.f, 1780.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 150.f));//13
+    w.rectangle.setPosition(4730.f, 1940.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 150.f));//14
+    w.rectangle.setPosition(5070.f, 1790.f); 
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 1350.f));//15
+    w.rectangle.setPosition(5600.f, 1694.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 650.f));//16
+    w.rectangle.setPosition(5805.56f, 1694.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 150.f));//17
+    w.rectangle.setPosition(7037.35f, 3104.f);
+    walls.push_back(w);
+    
+    w.rectangle.setSize(Vector2f(50.f, 150.f));//18
+    w.rectangle.setPosition(7187.35f, 2944.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 150.f));//19
+    w.rectangle.setPosition(8185.35f, 2944.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 150.f));//20
+    w.rectangle.setPosition(8375.06f, 2839.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 150.f));//21
+    w.rectangle.setPosition(9245.06f, 2839.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 190.f));//22
+    w.rectangle.setPosition(9435.06f, 2904.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 190.f));//23
+    w.rectangle.setPosition(10225.06f, 2904.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 190.f));//24
+    w.rectangle.setPosition(10425.06f, 2904.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 2190.f));//25
+    w.rectangle.setPosition(11500.06f, 1780.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 1200.f));//26
+    w.rectangle.setPosition(11880.06f, 0.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 2190.f));//27
+    w.rectangle.setPosition(12060.06f, 420.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 190.f));//28
+    w.rectangle.setPosition(12320.06f, 420.f);
+    walls.push_back(w);
+
+    w.rectangle.setSize(Vector2f(50.f, 290.f));//29
+    w.rectangle.setPosition(12610.06f, 620.f);
+    walls.push_back(w);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+w.rectangle.setSize(Vector2f(50.f, 300.f)); 
+w.rectangle.setPosition(15515.06f, 610.f);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 1300.f)); 
+w.rectangle.setPosition(15870.06f, 610.f);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 1010.f));
+w.rectangle.setPosition(16110.06f, 610.f);
+walls.push_back(w);
+
+w.rectangle.setSize(Vector2f(50.f, 680.f));
+w.rectangle.setPosition(16581.4f, 946.524f);
+walls.push_back(w);
+
+
+
+    
+    
+
+player.sprite.setPosition(16416.9f, 1524.f);
+view.setSize(1680.f, 1050.f);
+view.zoom(0.8f);
+
+window.setFramerateLimit(60);
 }
 
