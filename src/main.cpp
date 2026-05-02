@@ -21,6 +21,7 @@
 #include<cstdlib>
 
 
+
 using namespace sf;
 using namespace std;
 int main()
@@ -76,7 +77,8 @@ int main()
     int enemyCount=10;
     
     Start(player, view, window, grounds, walls, background, foreground, map);
-
+    player.sprite.setPosition(100, 1450.f); 
+    lastCheckpointPos = player.sprite.getPosition(); 
     vector<Vector2f> checkpointPositions = {
             {1400.f,  1550.f},
             {1900.f,  1550.f},
@@ -93,6 +95,7 @@ int main()
     for (auto& pos : checkpointPositions)
         checkpoints.push_back(createCheckpoint(pos.x, pos.y));
 
+    clock.restart();
 
     while (window.isOpen())
     {
@@ -105,7 +108,6 @@ int main()
         cout << player.state<<endl;
        
         //cout << "Player Position: " << player.sprite.getPosition().x <<"," << player.sprite.getPosition().y << endl;
-        window.clear();
         deltaTime = clock.restart().asSeconds();
         if (player.isOnWall == true)
         cout << "PLAYER ON WALL" << endl;

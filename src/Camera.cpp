@@ -3,6 +3,7 @@
 #include <iostream>
 using namespace sf;
 using namespace std;
+
 void camera(Player& player, View& view, RenderWindow& window, Background& background, Foreground& foreground)
 {
     Vector2f playerPos = player.sprite.getPosition();
@@ -11,7 +12,6 @@ void camera(Player& player, View& view, RenderWindow& window, Background& backgr
     float halfH = (view.getSize().y / 2.f);
     float playerCenterX = player.sprite.getPosition().x;
     float playerCenterY = player.sprite.getPosition().y;
-
 
     //--------------PREVENTS THE CAMERA FROM GOING OUTSIDE THE MAP--------------------
     const float worldWidth = 23286.2f;
@@ -76,8 +76,6 @@ void camera(Player& player, View& view, RenderWindow& window, Background& backgr
     if (playerCenterY > worldBottom - halfH)
         playerCenterY = worldBottom - halfH;
 
-
     view.setCenter(playerCenterX, playerCenterY);
     window.setView(view);
-
 }
