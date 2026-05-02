@@ -4,3 +4,4 @@
 
 void updateAnimation(Player& player, float deltaTime);
 void smokeupdate(Player& player, DashSmoke dashsmoke[15], float deltaTime);
+void updatePlayerBullets(Player& player, float deltaTime, playerBullets Bullets[10]);

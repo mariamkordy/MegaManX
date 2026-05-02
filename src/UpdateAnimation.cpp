@@ -1,5 +1,6 @@
 #include "UpdateAnimation.h"
 #include <iostream>
+#include"player.h"
 
 using namespace sf;
 using namespace std;
@@ -196,4 +197,30 @@ void updateAnimation(Player& player, float deltaTime) {
     //    player.shootingindex = 2;
 
     //}
+
+
+    //player bullets update function 
+    void updatePlayerBullets(Player& player, float deltaTime,playerBullets Bullets[10]) {
+        for (int i = 0; i < 10; i++) {
+            if (!Bullets[i].active)continue;
+
+            //cout << "Bullet" << i << "moving atX:" << Bullets[i].position.x << endl;
+            Bullets[i].position += Bullets[i].velocity * deltaTime;
+
+            Bullets[i].display.setPosition(Bullets[i].position);
+            Bullets[i].display.setTexture(player.playerBulletAnimation);
+            
+            if(Bullets[i].velocity.x>0)
+                Bullets[i].display.setTextureRect(IntRect(0, 0, 47, 37));
+            else 
+                Bullets[i].display.setTextureRect(IntRect(47, 0, -47, 37));
+            
+            Bullets[i].display.setScale(2.0f, 2.0f);
+
+
+            if (abs(Bullets[i].position.x - player.sprite.getPosition().x) > 1000) {
+                Bullets[i].active = false;
+            }
+        }
+    }
 

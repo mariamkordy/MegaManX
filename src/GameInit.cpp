@@ -27,6 +27,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     foreground.fgSprite.setScale(3.f, 4.5f);
     background.bgSprite.setPosition(-1210.f, -650.f);
     foreground.fgSprite.setPosition(-1210.f, -650.f);
+
     
     //PLAYER TEXTURES
     if (!player.jumpingAnimation.loadFromFile("assets/textures/jump.png"))
@@ -43,25 +44,28 @@ void Start(Player& player, View& view, RenderWindow& window,
 
     if (!player.smokeDashAnimation.loadFromFile("assets/textures/dashsmoke_new_version.png"))
         cout << "SMOKE DASH FAILED\n";
+
+    if (!player.playerBulletAnimation.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/player_bullet.png"))
+        cout << "PLAYER BULLET FAILED\n";
+
     //player shooting sprites
-    if (!player.shootingwhilerunning.loadFromFile("assets/textures/p22.png"))
-    {
-        cout << "ERROR!!!!!" << endl;
-    }
-    if (!player.jump.loadFromFile("assets/textures/p1.png")) {
-        cout << "Errrrrrrrroooooooooorrrrrr!!!";
+    if (!player.shootingwhilerunning.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/p22.png"))
+        cout << "P2 FAILED\n" << endl;
+
+    if (!player.jump.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/p1.png")) {
+        cout << "P1 FAILED\n";
     }
 
     if (!player.teleport.loadFromFile("assets/textures/telep.png")) {
-        cout << "Errrooooor!!!";
+        cout << "TELEPORTING FAILED \n";
 
     }
     if (!player.dashshooting.loadFromFile("assets/textures/dashshooting.png")) {
-        cout << "Errrooooor!!!";
+        cout << "DASHSHOOTING FAILED\n";
     }
-    if (!player.idlesho.loadFromFile("assets/textures/p4.png")) {
-        cout << "Errrooooor!!!";
-    }
+    if (!player.idlesho.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/p4.png"))
+        cout<<"P4 FAILED \n";
+
     ////////////////////
 
 
@@ -564,7 +568,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     //---------------------WALLS ARE 1-INDEXED---------------------
     //CYAN FOR DEBUGGING PURPOSES. REMOVE THE COMMENT SIGN ON THE FOLLOWING LINE TO MAKE WALLS TRANSPARENT
     w.rectangle.setFillColor(Color::Cyan);
-    //4w.rectangle.setFillColor(Color::Transparent);
+    //w.rectangle.setFillColor(Color::Transparent);
     w.rectangle.setSize(Vector2f(50.f, 400.f));//1
     w.rectangle.setPosition(250.f, 1600.f);
     walls.push_back(w);
