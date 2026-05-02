@@ -9,12 +9,15 @@ enum PlayerState {
     RUNNING, //1
     JUMPING, //2
     DASHING, //3
-    ONWALL, //4
-    TELEPORT, //5
-    JUMPSHOOTING, //6
-    RUNSHOOTING, //7
-    DASHSHOOTING //8
 
+    
+
+    ONWALL,
+    TELEPORT,
+    JUMPSHOOTING,
+    RUNSHOOTING,
+    IDLESHO,
+    DASHSHOOTING
 };
 
 struct Player {
@@ -46,7 +49,8 @@ struct Player {
     Texture shootingwhilerunning;
     Texture jump;
     Texture teleport;
-    Texture dashshooting;
+    Texture  dashshooting;
+    Texture idlesho;
     //////////
 
     int runIndex = 0;

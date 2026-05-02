@@ -118,7 +118,23 @@ void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100])
 
 
 
-	
+
+	if (player.isDashing) {
+		player.state = DASHING;
+	}
+	else if (!player.isOnGround) {
+
+		player.state = Keyboard::isKeyPressed(Keyboard::Space) ? JUMPSHOOTING : JUMPING;
+	}
+	else if (abs(player.velocity.x) > 1.0f) {
+
+		player.state = Keyboard::isKeyPressed(Keyboard::Space) ? RUNSHOOTING : RUNNING;
+	}
+	else {
+
+		player.state = Keyboard::isKeyPressed(Keyboard::Space) ? IDLESHO : STANDING;
+	}
+
 
 	///*if (!player.isOnGround) {
 	//	player.state = JUMPING;
