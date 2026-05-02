@@ -49,6 +49,9 @@ void Start(Player& player, View& view, RenderWindow& window,
         cout << "ERROR!!!!!" << endl;
     }
     if (!player.jump.loadFromFile("assets/textures/jumpshooting.png")) {
+        cout << "ERROR" << endl;
+    }
+    if (!player.jump.loadFromFile("assets/textures/p1.png")) {
         cout << "Errrrrrrrroooooooooorrrrrr!!!";
     }
 
@@ -390,7 +393,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     g.rectangle.setPosition(11515.f, 1730.f);
     grounds.push_back(g);
 
-    g.rectangle.setSize(Vector2f(570.f, 50.f));
+    /*g.rectangle.setSize(Vector2f(570.f, 50.f));
     g.rectangle.setPosition(11550.f, 1480.f);
     grounds.push_back(g);
 
@@ -404,7 +407,7 @@ void Start(Player& player, View& view, RenderWindow& window,
 
     g.rectangle.setSize(Vector2f(570.f, 50.f));
     g.rectangle.setPosition(11550.f, 700.f);
-    grounds.push_back(g);
+    grounds.push_back(g);*/
 
 
     g.rectangle.setSize(Vector2f(285.f, 50.f));//ab

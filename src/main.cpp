@@ -38,8 +38,10 @@ int main()
 
     while (window.isOpen())
     {
-
-        cout << "Player Position: " << player.sprite.getPosition().x <<"," << player.sprite.getPosition().y << endl;
+        Vector2i mousePixelPos = Mouse::getPosition(window);
+        Vector2f mouseWorldPos = window.mapPixelToCoords(mousePixelPos, view);
+        cout << "X = " << mouseWorldPos.x << ", Y = " << mouseWorldPos.y << endl;
+        //cout << "PLAYER AT X = " << player.sprite.getPosition().x << endl;
         window.clear();
         deltaTime = clock.restart().asSeconds();
         //CLOSING THE WINDOW
