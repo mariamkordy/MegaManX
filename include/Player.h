@@ -9,13 +9,15 @@ enum PlayerState {
     RUNNING, //1
     JUMPING, //2
     DASHING, //3
+
+    
+
     ONWALL,
     TELEPORT,
     JUMPSHOOTING,
     RUNSHOOTING,
     IDLESHO,
     DASHSHOOTING
-
 };
 
 struct Player {

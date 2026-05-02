@@ -21,6 +21,7 @@
 #include<cstdlib>
 
 
+
 using namespace sf;
 using namespace std;
 int main()
@@ -51,14 +52,14 @@ int main()
 
     // Font + health text
     Font font;
-    if (!font.loadFromFile("C:/Windows/Fonts/arial.ttf")) 
+    if (!font.loadFromFile("assets/fonts/MMRock9.ttf")) 
         return -1;
 
     Text healthText;
     healthText.setFont(font);
-    healthText.setCharacterSize(20);
+    healthText.setCharacterSize(32);
     healthText.setFillColor(Color::White);
-    healthText.setPosition(10, 10);
+    healthText.setPosition(10, 100);
 
 
     //STATUS TEXT(SHOWS IF DEAED OR RESPAWN MESSAGE)
@@ -98,6 +99,11 @@ int main()
 
     while (window.isOpen())
     {
+
+        Vector2i mousePixelPos = Mouse::getPosition(window);
+        Vector2f mouseWorldPos = window.mapPixelToCoords(mousePixelPos, view);
+        cout << "X = " << mouseWorldPos.x << ", Y = " << mouseWorldPos.y << endl;
+        //cout << "PLAYER AT X = " << player.sprite.getPosition().x << endl;
 
         cout << player.state<<endl;
        
@@ -140,8 +146,9 @@ int main()
         handleCheckpoints(player, checkpoints, lastCheckpointPos, healthAmount, maxHealth);
         respawn(player, lastCheckpointPos);
         
-
+        healthText.setFont(font);
         healthText.setString("HEALTH: " + to_string(player.health));
+        
 
         if (player.health <= 0)
         {
