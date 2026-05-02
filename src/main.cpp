@@ -159,7 +159,7 @@ int main()
         window.clear();
 
         //DRAWS SPRITES
-        Draw(player, window, grounds,walls, background, foreground, dashsmoke,checkpoints);
+        Draw(player, window, grounds,walls, background, foreground, dashsmoke, Bullets, checkpoints);
 
         window.setView(window.getDefaultView());
         window.draw(healthText);

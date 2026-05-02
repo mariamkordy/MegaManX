@@ -3,7 +3,7 @@
 
 using namespace sf;
 using namespace std;
-void Draw(Player& player, sf::RenderWindow& window, const vector<Ground>& grounds, const vector<Wall>& walls, Background& background, Foreground& foreground,DashSmoke dashsmoke[100])
+void Draw(Player& player, sf::RenderWindow& window, const vector<Ground>& grounds, const vector<Wall>& walls, Background& background, Foreground& foreground,DashSmoke dashsmoke[100], playerBullets Bullets[10], vector<Checkpoint>& checkpoints)
 {
     window.draw(background.bgSprite);
     window.draw(foreground.fgSprite);

@@ -54,9 +54,9 @@ add_executable(MegaManX
     src/GameInit.cpp
     src/UpdateAnimation.cpp
     src/TileMap.cpp
-    src/playershooting.cpp)
+    src/playershooting.cpp
     src/CheckPointSystem.cpp
- "include/CheckPointSystem.h")
+)
 
 # ----------------------------
 # LINK LIBRARIES
