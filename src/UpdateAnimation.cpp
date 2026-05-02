@@ -16,7 +16,7 @@ void updateAnimation(Player& player, float deltaTime) {
         // Dashing (only while running on the ground)
      if (player.state == DASHING)
     {
-        player.sprite.setTexture(player.dashrunAnimation);
+         player.sprite.setTexture(player.dashrunAnimation);
 
         if (player.facingRight)
             player.sprite.setTextureRect(IntRect(0, 0, 41, 42));
@@ -63,7 +63,7 @@ void updateAnimation(Player& player, float deltaTime) {
 
             player.runTimer += deltaTime;
 
-            int maxRunFrames = player.runningAnimation.getSize().x / 36;
+            int maxRunFrames = player.runningAnimation.getSize().x / 44;
 
             if (player.runTimer > 0.05f) {
                 player.runIndex++;
@@ -73,9 +73,9 @@ void updateAnimation(Player& player, float deltaTime) {
             }
 
             if (player.facingRight)
-                player.sprite.setTextureRect(IntRect(player.runIndex * 36, 0, 36, 52));
+                player.sprite.setTextureRect(IntRect(player.runIndex * 44, 0, 44, 40));
             else
-                player.sprite.setTextureRect(IntRect(player.runIndex * 36 + 36, 0, -36, 52));
+                player.sprite.setTextureRect(IntRect(player.runIndex * 44 + 44, 0, -44, 40));
         }
        
         // Standing
@@ -100,11 +100,12 @@ void updateAnimation(Player& player, float deltaTime) {
             //linking player with sprite
             player.sprite.setTexture(player.jump);
             if (player.velocity.y < 0) {
+                player.jumpshootingindex = (player.shootingindex + 1) % 7;
 
                 if (player.facingRight)
-                    player.sprite.setTextureRect(IntRect(0, 0, 37, 50));
+                    player.sprite.setTextureRect(IntRect(player.jumpshootingindex *44, 0, 44, 51));
                 else
-                    player.sprite.setTextureRect(IntRect(37, 0, -37, 50));
+                    player.sprite.setTextureRect(IntRect((player.jumpshootingindex *44)+44, 0, -44, 51));
                 player.jumpshootingindex = 0;
 
 
@@ -139,9 +140,9 @@ void updateAnimation(Player& player, float deltaTime) {
                     player.jumpIndex++;
 
                 if (player.facingRight)
-                    player.sprite.setTextureRect(IntRect(player.jumpIndex * 29, 0, 29, 52));
+                    player.sprite.setTextureRect(IntRect(player.jumpIndex * 44, 0, 44, 51));
                 else
-                    player.sprite.setTextureRect(IntRect(player.jumpIndex * 29 + 29, 0, -29, 52));
+                    player.sprite.setTextureRect(IntRect(player.jumpIndex * 44+ 44, 0, -44, 51));
 
                 player.jumpTimer = 0.f;
             }

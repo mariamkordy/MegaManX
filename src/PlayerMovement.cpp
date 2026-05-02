@@ -155,15 +155,16 @@ void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100], p
             for (int i = 0; i < 10; i++) {
                 if (Bullets[i].active)continue;
                 Bullets[i].active = true;
-                Bullets[i].position = player.sprite.getPosition() + Vector2f(20.f, 20.f);
+
 
                 if (player.facingRight) {
                     Bullets[i].velocity = Vector2f(1500.f, 0.f);
-
+                    Bullets[i].position = player.sprite.getPosition() + Vector2f(80.f, 25.f);
                 }
 
                 else {
                     Bullets[i].velocity = Vector2f(-1500.f, 0.f);
+                    Bullets[i].position = player.sprite.getPosition() + Vector2f(-80.f, 25.f);
                 }
 
                 player.shootingTimer = 0.2f;

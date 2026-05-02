@@ -30,13 +30,13 @@ void Start(Player& player, View& view, RenderWindow& window,
 
 
     //PLAYER TEXTURES
-    if (!player.jumpingAnimation.loadFromFile("assets/textures/jump.png"))
+    if (!player.jumpingAnimation.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/jumping version 3.png"))
         cout << "JUMP FAILED\n";
 
     if (!player.dashrunAnimation.loadFromFile("assets/textures/dashrun.png"))
         cout << "DASHRUN FAILED\n";
 
-    if (!player.runningAnimation.loadFromFile("assets/textures/running.png"))
+    if (!player.runningAnimation.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/running version 3.png"))
         cout << "RUN FAILED\n";
 
     if (!player.standingAnimation.loadFromFile("assets/textures/standing.png"))
@@ -48,31 +48,24 @@ void Start(Player& player, View& view, RenderWindow& window,
     if (!player.playerBulletAnimation.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/player_bullet.png"))
         cout << "PLAYER BULLET FAILED\n";
 
-    //player shooting sprites
-        if (!player.shootingwhilerunning.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/p22.png"))
-            cout << "P2 FAILED\n" << endl;
+    ////player shooting sprites
+     if (!player.shootingwhilerunning.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/runshooting.png"))
+        cout << "RUNSHOOTING FAILED\n" << endl;
 
-        if (!player.jump.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/p1.png")) {
-            cout << "P1 FAILED\n";
-            if (!player.shootingwhilerunning.loadFromFile("assets/textures/p22.png"))
-            {
-                cout << "ERROR!!!!!" << endl;
-            }
-            if (!player.jump.loadFromFile("assets/textures/p5.png")) {
-                cout << "Errrrrrrrroooooooooorrrrrr!!!";
-            }
+    if (!player.jump.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/jumpshooting 2.png")) {
+        cout << "JUMPSHOOTING FAILED\n";
+    }
 
-            if (!player.teleport.loadFromFile("assets/textures/telep.png")) {
-                cout << "TELEPORTING FAILED \n";
+    if (!player.teleport.loadFromFile("assets/textures/telep.png")) {
+        cout << "TELEPORTING FAILED \n";
 
-            }
-            if (!player.dashshooting.loadFromFile("assets/textures/dashshooting.png")) {
-                cout << "DASHSHOOTING FAILED\n";
-            }
-            if (!player.idlesho.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/p4.png"))
-                cout << "P4 FAILED \n";
+    }
+    if (!player.dashshooting.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/dashshooting.png")) {
+        cout << "DASHSHOOTING FAILED\n";
+    }
+    if (!player.idlesho.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/idleshooting.png"))
+        cout<<"IDLESHOOTING FAILED \n";
 
-            ////////////////////
 
 
             //MAP
@@ -90,6 +83,7 @@ void Start(Player& player, View& view, RenderWindow& window,
             player.jump.setSmooth(true);
             player.teleport.setSmooth(true);
             player.dashshooting.setSmooth(true);
+            player.idlesho.setSmooth(true);
 
 
 
@@ -690,149 +684,12 @@ void Start(Player& player, View& view, RenderWindow& window,
             w.rectangle.setSize(Vector2f(50.f, 290.f));//29
             w.rectangle.setPosition(12610.06f, 620.f);
             walls.push_back(w);
+
+            player.sprite.setPosition(16416.9f, 1524.f);
+            view.setSize(1680.f, 1050.f);
+            view.zoom(0.8f);
+
+            window.setFramerateLimit(60);
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        w.rectangle.setSize(Vector2f(50.f, 300.f));
-        w.rectangle.setPosition(15515.06f, 610.f);
-        walls.push_back(w);
-
-        w.rectangle.setSize(Vector2f(50.f, 1300.f));
-        w.rectangle.setPosition(15870.06f, 610.f);
-        walls.push_back(w);
-
-        w.rectangle.setSize(Vector2f(50.f, 1010.f));
-        w.rectangle.setPosition(16110.06f, 610.f);
-        walls.push_back(w);
-
-        w.rectangle.setSize(Vector2f(50.f, 680.f));
-        w.rectangle.setPosition(16581.4f, 946.524f);
-        walls.push_back(w);
-
-
-
-
-
-
-        player.sprite.setPosition(16416.9f, 1524.f);
-        view.setSize(1680.f, 1050.f);
-        view.zoom(0.8f);
-
-        window.setFramerateLimit(60);
-    }
