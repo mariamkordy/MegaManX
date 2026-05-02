@@ -109,8 +109,10 @@ void updateEnemies(std::vector<Enemy>& enemies, sf::Vector2f playerPos, float& p
                     playerHealth -= 15;
                     e.axeActive = false;
                 }
-                //لو الفاس خرج بره حدود الشاشة يختفي
-                if (e.axePos.x < -200 || e.axePos.x > 3000) e.axeActive = false;
+                if (std::abs(e.axePos.x - playerPos.x) > 1000.f) {
+                    e.axeActive = false;
+                }
+                
             }
         }
         //type1 ,2    
@@ -158,7 +160,9 @@ void updateEnemies(std::vector<Enemy>& enemies, sf::Vector2f playerPos, float& p
                         playerHealth -= b.damage;
                         b.active = false;
                     }
-                    if (b.pos.x < -100 || b.pos.x > 3000) b.active = false; //يشيل الطلقة لو خرجت بره الشاشة 
+                    if (std::abs(b.pos.x - playerPos.x) > 1000.f) {
+                        b.active = false;
+                    }
                 }
             }
             //ال animation بتاع type 1,2
