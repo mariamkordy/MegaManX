@@ -49,11 +49,20 @@ void Start(Player& player, View& view, RenderWindow& window,
         cout << "PLAYER BULLET FAILED\n";
 
     //player shooting sprites
+<<<<<<< HEAD
     if (!player.shootingwhilerunning.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/p22.png"))
         cout << "P2 FAILED\n" << endl;
 
     if (!player.jump.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/p1.png")) {
         cout << "P1 FAILED\n";
+=======
+    if (!player.shootingwhilerunning.loadFromFile("assets/textures/p22.png"))
+    {
+        cout << "ERROR!!!!!" << endl;
+    }
+    if (!player.jump.loadFromFile("assets/textures/p5.png")) {
+        cout << "Errrrrrrrroooooooooorrrrrr!!!";
+>>>>>>> 6d959999336aed085f070b48fb27bf7e968475d6
     }
 
     if (!player.teleport.loadFromFile("assets/textures/telep.png")) {
