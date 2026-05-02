@@ -16,8 +16,8 @@ void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires) {
     struct EData { int t; float x, y; };
     std::vector<EData> levelEnemies = {
         {1, 1043.9f, 1574.0f},
-        {2,2043.9f, 1974.0f},
-        {3, 3800.f, 2038.f}
+        {2,2043.9f, 1974.0f}
+        
         /*, {1, 600.f, 460.f},
         {2, 16700.f, 1880.f},
         {3, 500.f, 460.f}, {3, 16750.f, 1880.f}*/

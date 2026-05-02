@@ -87,7 +87,7 @@ void Start(Player& player, View& view, RenderWindow& window,
 
     //GROUND BLOCKS
     //REMOVE THE COMMENT SIGN TO MAKE THE GROUND TRANSPARENT
-    g.rectangle.setFillColor(Color::Transparent);
+    //g.rectangle.setFillColor(Color::Transparent);
 
     g.rectangle.setSize(Vector2f(500.f, 50.f));//a
     g.rectangle.setPosition(0.f, 1810.f);
@@ -699,7 +699,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     //---------------------WALLS ARE 1-INDEXED---------------------
     //CYAN FOR DEBUGGING PURPOSES. REMOVE THE COMMENT SIGN ON THE FOLLOWING LINE TO MAKE WALLS TRANSPARENT
     w.rectangle.setFillColor(Color::Cyan);
-    w.rectangle.setFillColor(Color::Transparent);
+    //w.rectangle.setFillColor(Color::Transparent);
 
     w.rectangle.setSize(Vector2f(50.f, 400.f));//1
     w.rectangle.setPosition(250.f, 1600.f);

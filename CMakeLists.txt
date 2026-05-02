@@ -47,7 +47,7 @@ add_executable(MegaManX
     src/PlayerMovement.cpp
     src/Camera.cpp
     src/Enemy.cpp
-    src/CoinSystem.cpp
+    src/MainMenu.cpp
     src/Collision.cpp
     src/Combat.cpp
     src/Draw.cpp
@@ -56,6 +56,7 @@ add_executable(MegaManX
     src/TileMap.cpp
     src/playershooting.cpp
     src/CheckPointSystem.cpp
+
 )
 
 # ----------------------------

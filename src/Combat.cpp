@@ -7,7 +7,7 @@ void checkBulletEnemyCollision(playerBullets Bullets[10], std::vector<Enemy>& en
 	for (int i = 0; i < 10; i++) {
 		if (!Bullets[i].active)continue;
 
-		for (int j = 0; j <5; j++) {//enemycount=5
+		for (int j = 0; j <enemies.size(); j++) {
 			if (!enemies[j].alive)continue;
 			if (Bullets[i].display.getGlobalBounds().intersects(enemies[j].sprite.getGlobalBounds())) {
 				enemies[j].health -= 10;
