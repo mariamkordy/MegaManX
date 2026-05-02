@@ -44,19 +44,19 @@ void Start(Player& player, View& view, RenderWindow& window,
     if (!player.smokeDashAnimation.loadFromFile("assets/textures/dashsmoke_new_version.png"))
         cout << "SMOKE DASH FAILED\n";
     //player shooting sprites
-    if (!player.shootingwhilerunning.loadFromFile("C:/Users/maro5/source/repos/MegaManX2/assets/textures/runshooting.png"))
+    if (!player.shootingwhilerunning.loadFromFile("assets/textures/runshooting.png"))
     {
         cout << "ERROR!!!!!" << endl;
     }
-    if (!player.jump.loadFromFile("C:/Users/maro5/source/repos/MegaManX2/assets/textures/jumpshooting.png")) {
+    if (!player.jump.loadFromFile("assets/textures/jumpshooting.png")) {
         cout << "Errrrrrrrroooooooooorrrrrr!!!";
     }
 
-    if (!player.teleport.loadFromFile("C:/Users/maro5/source/repos/MegaManX2/assets/textures/telep.png")) {
+    if (!player.teleport.loadFromFile("assets/textures/telep.png")) {
         cout << "Errrooooor!!!";
 
     }
-    if (!player.dashshooting.loadFromFile("C:/Users/maro5/source/repos/MegaManX2/assets/textures/dashshooting.png")) {
+    if (!player.dashshooting.loadFromFile("assets/textures/dashshooting.png")) {
         cout << "Errrooooor!!!";
     }
     ////////////////////

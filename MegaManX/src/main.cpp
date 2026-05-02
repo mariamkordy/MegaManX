@@ -44,7 +44,7 @@ int main()
     //ENEMIES
     vector<Enemy> enemies;       // وعاء الأعداء
     vector<FireTrap> fires;      // وعاء فخاخ النار
-    float groundY = 1880.0f;      // مستوى الأرض (عدلي الرقم حسب خريطتك)
+    float groundY = 3000.0f;      // مستوى الأرض (عدلي الرقم حسب خريطتك)
     float fireDamageTimer = 0.0f; // تايمر ضرر النار
     float playerHealth = 100.0f;
     EneTextures eneTex;
