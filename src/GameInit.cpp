@@ -87,7 +87,7 @@ void Start(Player& player, View& view, RenderWindow& window,
 
     //GROUND BLOCKS
     //REMOVE THE COMMENT SIGN TO MAKE THE GROUND TRANSPARENT
-    //g.rectangle.setFillColor(Color::Transparent);
+    g.rectangle.setFillColor(Color::Transparent);
 
     g.rectangle.setSize(Vector2f(500.f, 50.f));//a
     g.rectangle.setPosition(0.f, 1810.f);
@@ -554,18 +554,6 @@ void Start(Player& player, View& view, RenderWindow& window,
     // Vertical shaft platforms (from teammate)
     g.rectangle.setSize(Vector2f(570.f, 50.f));
     g.rectangle.setPosition(11550.f, 1480.f);
-    grounds.push_back(g);
-
-    g.rectangle.setSize(Vector2f(570.f, 50.f));
-    g.rectangle.setPosition(11550.f, 1200.f);
-    grounds.push_back(g);
-
-    g.rectangle.setSize(Vector2f(570.f, 50.f));
-    g.rectangle.setPosition(11550.f, 1000.f);
-    grounds.push_back(g);
-
-    g.rectangle.setSize(Vector2f(570.f, 50.f));
-    g.rectangle.setPosition(11550.f, 700.f);
     grounds.push_back(g);
 
     g.rectangle.setSize(Vector2f(285.f, 50.f));//ab
