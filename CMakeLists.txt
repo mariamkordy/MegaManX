@@ -29,7 +29,7 @@ file(GLOB TMXLITE_SOURCES
     ${CMAKE_SOURCE_DIR}/src/tmxlite/detail/*.c
 )
 
-add_library(tmxlite STATIC ${TMXLITE_SOURCES})
+add_library(tmxlite STATIC ${TMXLITE_SOURCES} "include/CheckPointSystem.h")
 
 target_include_directories(tmxlite PUBLIC
     ${CMAKE_SOURCE_DIR}/src
@@ -51,7 +51,8 @@ add_executable(MegaManX
     src/GameInit.cpp
     "src/UpdateAnimation.cpp"
     src/TileMap.cpp
-)
+    src/CheckPointSystem.cpp
+ "include/CheckPointSystem.h")
 
 # ----------------------------
 # LINK LIBRARIES

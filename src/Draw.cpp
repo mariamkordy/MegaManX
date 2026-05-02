@@ -3,9 +3,8 @@
 
 using namespace sf;
 using namespace std;
-void Draw(Player& player, sf::RenderWindow& window, const vector<Ground>& grounds, const vector<Wall>& walls, Background& background, Foreground& foreground,DashSmoke dashsmoke[100])
+void Draw(Player& player, sf::RenderWindow& window, const vector<Ground>& grounds, const vector<Wall>& walls, Background& background, Foreground& foreground,DashSmoke dashsmoke[100], vector<Checkpoint>& checkpoints)
 {
-    window.clear();
     window.draw(background.bgSprite);
     window.draw(foreground.fgSprite);
     for (const auto& g : grounds) {
@@ -22,6 +21,7 @@ void Draw(Player& player, sf::RenderWindow& window, const vector<Ground>& ground
     }
 
     window.draw(player.sprite);
+    for (int i = 0; i < checkpoints.size(); i++)
+        window.draw(checkpoints[i].shape);
 
-    window.display();
 }
