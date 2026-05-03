@@ -62,7 +62,7 @@ void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100], p
     player.smokeTimer -= deltaTime;
     if (player.state == DASHING) {
         currentspeed = dashspeed;
-        player.dashTimer-= deltaTime;
+        player.dashTimer -= deltaTime;
         if (player.dashTimer <= 0) {
             player.isDashing = false;
         }
@@ -175,7 +175,7 @@ void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100], p
                     Bullets[i].velocity = Vector2f(-1500.f, 0.f);
                     Bullets[i].position = player.sprite.getPosition() + Vector2f(-80.f, 25.f);
                 }
-
+                Bullets[i].display.setPosition(Bullets[i].position);
                 player.shootingTimer = 0.2f;
                 break;
 

@@ -21,6 +21,7 @@
 #include <vector>
 #include <cstdlib>
 
+
 using namespace sf;
 using namespace std;
 
@@ -79,14 +80,17 @@ int main()
 
     // Font setup for UI
     Font font;
-    if (!font.loadFromFile("C:/Windows/Fonts/arial.ttf"))
-        return -1;
+
+    if (!font.loadFromFile("assets/fonts/MMRock9.ttf"))
+        cout << "FONT FAILED" << endl;
+
+    
 
     Text healthText;
     healthText.setFont(font);
-    healthText.setCharacterSize(20);
+    healthText.setCharacterSize(32);
     healthText.setFillColor(Color::White);
-    healthText.setPosition(10, 10);
+    healthText.setPosition(10, 100);
 
     Text statusText;
     statusText.setFont(font);
@@ -98,6 +102,8 @@ int main()
     playerBullets Bullets[10];
     for (int i = 0; i < 10; i++) {
         Bullets[i].active = false;
+        Bullets[i].position = Vector2f(0.f, 0.f);
+        Bullets[i].velocity = Vector2f(0.f, 0.f);
     }
 
     // Set Initial Position and Checkpoints
@@ -117,6 +123,16 @@ int main()
     // --- 3. MAIN LOOP ---
     while (window.isOpen())
     {
+
+
+        Vector2i mousePixelPos = Mouse::getPosition(window);
+        Vector2f mouseWorldPos = window.mapPixelToCoords(mousePixelPos, view);
+        cout << "X = " << mouseWorldPos.x << ", Y = " << mouseWorldPos.y << endl;
+        //cout << "PLAYER AT X = " << player.sprite.getPosition().x << endl;
+
+        cout << player.state<<endl;
+       
+        //cout << "Player Position: " << player.sprite.getPosition().x <<"," << player.sprite.getPosition().y << endl;
         deltaTime = clock.restart().asSeconds();
 
         // Check if we should be in the Main Menu or the Game
@@ -132,6 +148,14 @@ int main()
                 if (ev.type == Event::Closed) window.close();
                 if (ev.type == Event::KeyPressed && ev.key.code == Keyboard::Escape) window.close();
             }
+
+        // CHECKPOINT LOGIC
+        handleCheckpoints(player, checkpoints, lastCheckpointPos, healthAmount, maxHealth);
+        respawn(player, lastCheckpointPos);
+        
+        healthText.setFont(font);
+        healthText.setString("HEALTH: " + to_string(player.health));
+        
 
             // Gameplay Updates
             playerMovement(player, deltaTime, dashsmoke, Bullets);
@@ -150,6 +174,7 @@ int main()
             if (player.health <= 0) statusText.setString("YOU DIED");
             else if (Keyboard::isKeyPressed(Keyboard::R)) statusText.setString("RESPAWNING");
             else statusText.setString("");
+
 
             // Rendering
             window.clear();

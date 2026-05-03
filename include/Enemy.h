@@ -13,7 +13,7 @@ const float ENEMY_W = 172, ENEMY_H = 188;
 const float ENEMY3_W = 138, ENEMY3_H = 150;
 const int AXE_W = 160, AXE_H = 200;
 const int FIRE_W = 29, FIRE_H = 29, FIRE_FRAMES = 11;
-const float ENEMY_SCALE = 0.48f, ENEMY3_SCALE = 0.55f, AXE_SCALE = 0.40f;
+const float ENEMY_SCALE = 0.9f, ENEMY3_SCALE = 1.f, AXE_SCALE = 1.f;
 
 struct Bullet {
     sf::Vector2f pos;

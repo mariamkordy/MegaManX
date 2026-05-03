@@ -57,16 +57,13 @@ void collision(Player& player, const vector<Ground>& grounds, const vector<Wall>
             float moveRight = wallLeft - playerRight;
             float moveLeft = wallRight - playerLeft;
             if (player.sprite.getPosition().y <= wallTop) {
-                cout << "PLAYER ABOVE WALL" << endl;
                 continue;
             }
             if (abs(moveRight) > abs(moveLeft)) {
-                cout << "COLLIDING WITH RIGHT SIDE" << endl;
                 player.sprite.setPosition(wallRight , player.sprite.getPosition().y);
                 player.isOnWall = true;
             }
             else if (abs(moveRight) < abs(moveLeft)) {
-                cout << "COLLIDING WITH LEFT SIDE" << endl;
                 player.sprite.setPosition(wallLeft- PLAYER_WIDTH , player.sprite.getPosition().y);
                 player.isOnWall = true;
             }

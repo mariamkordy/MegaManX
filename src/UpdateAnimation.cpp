@@ -14,16 +14,16 @@ void updateAnimation(Player& player, float deltaTime) {
         player.jumpTimer = 0.f;
 
         // Dashing (only while running on the ground)
-     if (player.state == DASHING)
-    {
-         player.sprite.setTexture(player.dashrunAnimation);
+        if (player.state == DASHING)
+        {
+            player.sprite.setTexture(player.dashrunAnimation);
 
-        if (player.facingRight)
-            player.sprite.setTextureRect(IntRect(0, 0, 41, 42));
-        else
-            player.sprite.setTextureRect(IntRect(41, 0, -41, 42));
-    }
-    else if (player.state == RUNSHOOTING) {
+            if (player.facingRight)
+                player.sprite.setTextureRect(IntRect(0, 0, 41, 42));
+            else
+                player.sprite.setTextureRect(IntRect(41, 0, -41, 42));
+        }
+        else if (player.state == RUNSHOOTING) {
 
             //linking player with sprite
             player.sprite.setTexture(player.shootingwhilerunning);
@@ -44,17 +44,17 @@ void updateAnimation(Player& player, float deltaTime) {
             }
 
         }
-    else if (player.state == IDLESHO) {
-         player.sprite.setTexture(player.idlesho);
+        else if (player.state == IDLESHO) {
+            player.sprite.setTexture(player.idlesho);
 
-         if (player.facingRight)
-             player.sprite.setTextureRect(IntRect(0, 0, 36, 52));
-         else
-             player.sprite.setTextureRect(IntRect(36, 0, -36, 52));
-         player.shootingindex = 0;
-     }
+            if (player.facingRight)
+                player.sprite.setTextureRect(IntRect(0, 0, 36, 52));
+            else
+                player.sprite.setTextureRect(IntRect(36, 0, -36, 52));
+            player.shootingindex = 0;
+        }
 
-      
+
         // Running
         else if (player.state == RUNNING)
         {
@@ -77,7 +77,7 @@ void updateAnimation(Player& player, float deltaTime) {
             else
                 player.sprite.setTextureRect(IntRect(player.runIndex * 44 + 44, 0, -44, 40));
         }
-       
+
         // Standing
         else if (player.state == STANDING)
         {
@@ -103,24 +103,24 @@ void updateAnimation(Player& player, float deltaTime) {
                 player.jumpshootingindex = (player.shootingindex + 1) % 7;
 
                 if (player.facingRight)
-                    player.sprite.setTextureRect(IntRect(player.jumpshootingindex *44, 0, 44, 51));
+                    player.sprite.setTextureRect(IntRect(player.jumpshootingindex * 44, 0, 44, 51));
                 else
-                    player.sprite.setTextureRect(IntRect((player.jumpshootingindex *44)+44, 0, -44, 51));
+                    player.sprite.setTextureRect(IntRect((player.jumpshootingindex * 44) + 44, 0, -44, 51));
                 player.jumpshootingindex = 0;
 
 
-               /* if (player.jumpshootingindex < 2) {
-                    player.jumpshootingindex++;
-                }
-                else {
-                    player.jumpshootingindex = 2;
-                }
-                if (player.facingRight) {
-                    player.sprite.setTextureRect(IntRect(player.jumpshootingindex * 37, 0, 37, 50));
-                }
-                else {
-                    player.sprite.setTextureRect(IntRect(player.jumpshootingindex * 37 + 37, 0, -37, 50));
-                }*/
+                /* if (player.jumpshootingindex < 2) {
+                     player.jumpshootingindex++;
+                 }
+                 else {
+                     player.jumpshootingindex = 2;
+                 }
+                 if (player.facingRight) {
+                     player.sprite.setTextureRect(IntRect(player.jumpshootingindex * 37, 0, 37, 50));
+                 }
+                 else {
+                     player.sprite.setTextureRect(IntRect(player.jumpshootingindex * 37 + 37, 0, -37, 50));
+                 }*/
             }
             //cutting the sprite
 
@@ -142,7 +142,7 @@ void updateAnimation(Player& player, float deltaTime) {
                 if (player.facingRight)
                     player.sprite.setTextureRect(IntRect(player.jumpIndex * 44, 0, 44, 51));
                 else
-                    player.sprite.setTextureRect(IntRect(player.jumpIndex * 44+ 44, 0, -44, 51));
+                    player.sprite.setTextureRect(IntRect(player.jumpIndex * 44 + 44, 0, -44, 51));
 
                 player.jumpTimer = 0.f;
             }
@@ -153,82 +153,81 @@ void updateAnimation(Player& player, float deltaTime) {
 
 
 //Smoke that appears behind the player when they're dashing
-	void smokeupdate(Player & player, DashSmoke dashsmoke[15], float deltaTime) {
-		for (int i = 0; i < player.smokenumber; i++) {
-			if (dashsmoke[i].visible == true) {
+void smokeupdate(Player& player, DashSmoke dashsmoke[15], float deltaTime) {
+    for (int i = 0; i < player.smokenumber; i++) {
+        if (dashsmoke[i].visible == true) {
 
-				dashsmoke[i].display.setTexture(player.smokeDashAnimation);
-				dashsmoke[i].display.setTextureRect(IntRect(dashsmoke[i].smokeIndex * 14, 0, 14, 31));
-				dashsmoke[i].display.setScale(3.0f, 3.0f);
-
-
-				dashsmoke[i].smokeDuration -= deltaTime;
-				if (dashsmoke[i].smokeDuration <= 0) {
-					dashsmoke[i].smokeIndex++;
-					dashsmoke[i].smokeDuration = 0.02f;
-				}
-				if (dashsmoke[i].smokeIndex >= player.smokenumber) {
-					dashsmoke[i].smokeIndex = 0;
-					dashsmoke[i].visible = false;
-					dashsmoke[i].smokeDuration = 0.02f;
-
-				}
-
-			}
-		}
-	}
-
-    ////PLAYER SHOOTING ANIMATION
-
-    //if (player.state == TELEPORT) {
-
-    //    player.sprite.setTexture(player.teleport);//done
-    //    //cutting the sprite
-    //    player.sprite.setTextureRect(IntRect(player.shootingindex * 0, 0, 112, 115));
-    //    player.shootingindex = (player.shootingindex + 1) % 13;
-
-    //}
-    
-    //}
-    //else if (player.state == RUNSHOOTING) {
-    //    //linking player with sprite
-    //    player.sprite.setTexture(player.shootingwhilerunning);
-    //    //cutting the sprite
-    //    player.sprite.setTextureRect(IntRect(player.shootingindex * 112, 0, 112, 115));
-    //    player.shootingindex = (player.shootingindex + 1) % 10;
-    //}
-    //else if (player.state == DASHSHOOTING) {
-    //    //linking player with the sprite
-    //    player.sprite.setTexture(player.dashshooting);
-    //    //cutting the sprite
-    //    player.sprite.setTextureRect(IntRect(player.shootingindex * 160, 0, 160, 130));
-    //    player.shootingindex = 2;
-
-    //}
+            dashsmoke[i].display.setTexture(player.smokeDashAnimation);
+            dashsmoke[i].display.setTextureRect(IntRect(dashsmoke[i].smokeIndex * 14, 0, 14, 31));
+            dashsmoke[i].display.setScale(3.0f, 3.0f);
 
 
-    //player bullets update function 
-    void updatePlayerBullets(Player& player, float deltaTime,playerBullets Bullets[10]) {
-        for (int i = 0; i < 10; i++) {
-            if (!Bullets[i].active)continue;
-
-            //cout << "Bullet" << i << "moving atX:" << Bullets[i].position.x << endl;
-            Bullets[i].position += Bullets[i].velocity * deltaTime;
-
-            Bullets[i].display.setPosition(Bullets[i].position);
-            Bullets[i].display.setTexture(player.playerBulletAnimation);
-            
-            if(Bullets[i].velocity.x>0)
-                Bullets[i].display.setTextureRect(IntRect(0, 0, 47, 37));
-            else 
-                Bullets[i].display.setTextureRect(IntRect(47, 0, -47, 37));
-            
-            Bullets[i].display.setScale(2.0f, 2.0f);
-
-
-            if (abs(Bullets[i].position.x - player.sprite.getPosition().x) > 1000) {
-                Bullets[i].active = false;
+            dashsmoke[i].smokeDuration -= deltaTime;
+            if (dashsmoke[i].smokeDuration <= 0) {
+                dashsmoke[i].smokeIndex++;
+                dashsmoke[i].smokeDuration = 0.02f;
             }
+            if (dashsmoke[i].smokeIndex >= player.smokenumber) {
+                dashsmoke[i].smokeIndex = 0;
+                dashsmoke[i].visible = false;
+                dashsmoke[i].smokeDuration = 0.02f;
+
+            }
+
         }
     }
+}
 
+////PLAYER SHOOTING ANIMATION
+
+//if (player.state == TELEPORT) {
+
+//    player.sprite.setTexture(player.teleport);//done
+//    //cutting the sprite
+//    player.sprite.setTextureRect(IntRect(player.shootingindex * 0, 0, 112, 115));
+//    player.shootingindex = (player.shootingindex + 1) % 13;
+
+//}
+
+//}
+//else if (player.state == RUNSHOOTING) {
+//    //linking player with sprite
+//    player.sprite.setTexture(player.shootingwhilerunning);
+//    //cutting the sprite
+//    player.sprite.setTextureRect(IntRect(player.shootingindex * 112, 0, 112, 115));
+//    player.shootingindex = (player.shootingindex + 1) % 10;
+//}
+//else if (player.state == DASHSHOOTING) {
+//    //linking player with the sprite
+//    player.sprite.setTexture(player.dashshooting);
+//    //cutting the sprite
+//    player.sprite.setTextureRect(IntRect(player.shootingindex * 160, 0, 160, 130));
+//    player.shootingindex = 2;
+
+//}
+
+
+//player bullets update function 
+void updatePlayerBullets(Player& player, float deltaTime, playerBullets Bullets[10]) {
+    for (int i = 0; i < 10; i++) {
+        if (!Bullets[i].active)continue;
+
+        //cout << "Bullet" << i << "moving atX:" << Bullets[i].position.x << endl;
+        Bullets[i].position += Bullets[i].velocity * deltaTime;
+
+        Bullets[i].display.setPosition(Bullets[i].position);
+        Bullets[i].display.setTexture(player.playerBulletAnimation);
+
+        if (Bullets[i].velocity.x > 0)
+            Bullets[i].display.setTextureRect(IntRect(0, 0, 47, 37));
+        else
+            Bullets[i].display.setTextureRect(IntRect(47, 0, -47, 37));
+
+        Bullets[i].display.setScale(2.0f, 2.0f);
+
+
+        if (abs(Bullets[i].position.x - player.sprite.getPosition().x) > 1000) {
+            Bullets[i].active = false;
+        }
+    }
+}

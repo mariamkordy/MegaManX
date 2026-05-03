@@ -7,7 +7,7 @@
 
 // --- MENU FUNCTIONS ---
 
-// Notice the '&' symbol. This passes the struct by reference.
+// '&' symbol passes the struct by reference
 void SetupSpriteText(GameState& condition, std::string word, float x, float y) {
     for (int i = 0; i < (int)word.length(); i++) {
         if (word[i] >= 'A' && word[i] <= 'Z') {
@@ -49,27 +49,7 @@ void LoadAssets(GameState& condition) {
     }
 }
 
-//void MainMenu(GameState& condition) {
-//    while (condition.window.pollEvent(condition.e)) {
-//        if (condition.e.type == sf::Event::Closed) condition.window.close();
-//        if (condition.e.type == sf::Event::KeyPressed && condition.e.key.code == sf::Keyboard::Enter) {
-//            condition.menuIndex = 1;
-//            condition.startSound.play();
-//        }
-//    }
-//
-//    condition.cursorSprite.setPosition(condition.textSprites[0].getPosition().x - 180.f, condition.textSprites[0].getPosition().y - 65.f);
-//
-//    condition.window.clear(sf::Color::Black);
-//    condition.window.draw(condition.logoSprite);
-//
-//    for (int i = 0; i < 10; i++) {
-//        condition.window.draw(condition.textSprites[i]);
-//    }
-//
-//    condition.window.draw(condition.cursorSprite);
-//    condition.window.display();
-//}
+
 void MainMenu(GameState& condition) {
     // You can use the dot (.) again!
     while (condition.window.pollEvent(condition.e)) {

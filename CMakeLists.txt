@@ -73,5 +73,8 @@ target_link_libraries(MegaManX PRIVATE
 # ----------------------------
 # COPY ASSETS
 # ----------------------------
-file(COPY ${CMAKE_SOURCE_DIR}/assets
-     DESTINATION ${CMAKE_BINARY_DIR})
+add_custom_command(TARGET MegaManX POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    "${CMAKE_SOURCE_DIR}/assets"
+    "$<TARGET_FILE_DIR:MegaManX>/assets"
+)
