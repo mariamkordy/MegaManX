@@ -38,7 +38,7 @@ void LoadAssets(GameState& condition) {
     condition.fontSheetTex.loadFromFile("assets/textures/font.png");
 
     // Pass the state into the setup function
-    SetupSpriteText(condition, "GAME START", 730.f, 750.f);
+    SetupSpriteText(condition, "GAME STARTw", 930.f, 750.f);
 
 
     if (condition.startBuffer.loadFromFile("assets/sounds/level sound.mp3")) {

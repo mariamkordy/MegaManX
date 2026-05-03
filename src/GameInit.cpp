@@ -698,7 +698,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     //---------------------WALLS ARE 1-INDEXED---------------------
     //CYAN FOR DEBUGGING PURPOSES. REMOVE THE COMMENT SIGN ON THE FOLLOWING LINE TO MAKE WALLS TRANSPARENT
     w.rectangle.setFillColor(Color::Cyan);
-    //w.rectangle.setFillColor(Color::Transparent);
+    w.rectangle.setFillColor(Color::Transparent);
 
     w.rectangle.setSize(Vector2f(50.f, 400.f));//1
     w.rectangle.setPosition(250.f, 1600.f);
@@ -882,7 +882,7 @@ void Start(Player& player, View& view, RenderWindow& window,
 
     w.rectangle.setSize(Vector2f(50.f, 200.f));
     w.rectangle.setPosition(19538.9f, 1304.f);
-    walls.push_back(w);
+    walls.push_back(w); 
 
     w.rectangle.setSize(Vector2f(50.f, 200.f));
     w.rectangle.setPosition(19132.6f, 1804.f);
@@ -932,7 +932,6 @@ void Start(Player& player, View& view, RenderWindow& window,
     w.rectangle.setPosition(22436.6f, 1004.f);
     walls.push_back(w);
 
-    player.sprite.setPosition(6102.46, 2974);
     view.setSize(1680.f, 1050.f);
     view.zoom(0.8f);
 

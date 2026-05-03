@@ -30,7 +30,7 @@ int main()
     // --- 1. WINDOW AND STATE INITIALIZATION ---
     // The window must be created BEFORE the GameState struct
     VideoMode desktopMode = VideoMode::getDesktopMode();
-    RenderWindow window(desktopMode, "Mega Man X");
+    RenderWindow window(desktopMode, "Mega Man X", Style::Fullscreen);
 
     // Pass the window into the struct as a reference
     GameState condition(window);
@@ -110,7 +110,7 @@ int main()
     player.sprite.setPosition(100, 1450.f);
     lastCheckpointPos = player.sprite.getPosition();
     vector<Vector2f> checkpointPositions = {
-            {2493.49 , 1584},
+            {2493.49 , 1304},
             {100 , 1490},
             {11809.1 , 1714},
             {15686.8 , 564},
@@ -125,7 +125,7 @@ int main()
     // --- 3. MAIN LOOP ---
     while (window.isOpen())
     {
-        cout << "PLAYER AT  " << player.sprite.getPosition().x << " , " << player.sprite.getPosition().y + 40 << endl;
+        //cout << "PLAYER AT  " << player.sprite.getPosition().x << " , " << player.sprite.getPosition().y + 40 << endl;
         deltaTime = clock.restart().asSeconds();
 
         // Check if we should be in the Main Menu or the Game

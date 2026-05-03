@@ -16,7 +16,7 @@ void checkBulletEnemyCollision(playerBullets Bullets[10], std::vector<Enemy>& en
 			float distance = getDist(Bullets[i].display.getPosition(),enemies[j].pos);
 			if (distance <= 100) {
 				Bullets[i].active = false;
-				enemies[j].health -= 15;
+				enemies[j].health -= 50;
 	
 				if (enemies[j].health <= 0) {
 					enemies[j].dying = true;

@@ -56,7 +56,6 @@ struct FireTrap {
 struct EneTextures {
     sf::Texture enemy1, enemy2, enemy3, axe, fire;
 };
-//عشان منفضلش كل شويه نحسب المسافة
 inline float getDist(sf::Vector2f a, sf::Vector2f b) {
     float dx = b.x - a.x;
     float dy = b.y - a.y;

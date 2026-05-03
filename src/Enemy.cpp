@@ -1,19 +1,18 @@
 #include "Enemy.h"
 #include "Player.h"
 
-//هنا بنعمل norm=1 عشان نقدر نتحكم في السرعة بتاعة اي حاجة
+
 sf::Vector2f norm(sf::Vector2f v) {
-    //بنجيب الطول
+    
     float l = std::sqrt(v.x * v.x + v.y * v.y);
-    //هنا بنخلي طوله 1
+    
     return (l == 0.f) ? sf::Vector2f(0, 0) : sf::Vector2f(v.x / l, v.y / l);
 }
 
 void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires, EneTextures& eneTex) {
-    //هنا بنمسح اي enemy , fire عشان لو هنعمل level تاني 
     enemies.clear(); fires.clear();
 
-    //هنا بنكتب ال type , position بتاع ال enemy
+   //enemy type and position
     struct EData { int t; float x, y; };
     std::vector<EData> levelEnemies = {
         {1, 1043.9f, 1574.0f},
@@ -57,7 +56,6 @@ void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires, EneTex
         {2, 16700.f, 1880.f},
         {3, 500.f, 460.f}, {3, 16750.f, 1880.f}*/
     };
-    //هنا بقي بنحول الارقام اللي فوق ل enemy حقيقي
     for (auto& d : levelEnemies) {
         Enemy e;
         e.type = d.t;
@@ -68,7 +66,7 @@ void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires, EneTex
         if (e.type == 3) e.speed = 0;
         enemies.push_back(e);
     }
-    //هنا نفس الكلام اللي فوق بس لل fire
+    //used for loops for consecutive fire
     std::vector<sf::Vector2f> levelFires;
     for (int x = 720; x <= 1330; x += 10) {
         levelFires.push_back(sf::Vector2f(x, 1770.f));
@@ -90,7 +88,6 @@ void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires, EneTex
         fires.push_back(FireTrap(p.x, p.y));
     }
 }
-//هنا بقي دي ال function الاساسيه لل enemy  ,  و كمان هنا فيه اسماء للاعب فغيروها للاسماء اللي انتو عملنها
 void updateEnemies(std::vector<Enemy>& enemies, Player& player, float groundY, float dt) {
     sf::Vector2f playerPos = player.sprite.getPosition();
     for (auto& e : enemies) {
@@ -105,33 +102,21 @@ void updateEnemies(std::vector<Enemy>& enemies, Player& player, float groundY, f
             if (e.animFrame >= 8) e.alive = false;
             continue;
         }
-        ////-------Gravity , Vertical Move-------------
-        //if (!e.grounded) e.vel.y += 600.f * dt; // بسرع ال enemy و هو نازل من فوق
-        //e.pos.y += e.vel.y * dt; // بنحدد مكانه 
-        ////----Ground collision-------
-        //if (e.pos.y + 40.f >= groundY) {
-        //    e.pos.y = groundY - 40.f; //بنثبت ال enemy فوق الارض ب 40 بكسل 
-        //    e.vel.y = 0;
-        //    e.grounded = true;
-        //}
-        //المسافة بين ال enemy and player 
         float dist = std::abs(e.pos.x - playerPos.x);
         float fullDist = getDist(e.pos, playerPos);
 
-        e.shootTimer = std::max(0.f, e.shootTimer - dt); //عشان الوقت ميبقاش بال -ve
+        e.shootTimer = std::max(0.f, e.shootTimer - dt); 
         e.isShooting = false;
 
         if (e.type == 3) {
-            e.direction = (playerPos.x < e.pos.x) ? -1 : 1; // هنا عشان يبص ناحية اللاعب
-            e.throwCooldown -= dt; // بنقلل الوقت اللي هيرمي فيه الفاس 
-            // الشروط عشان يبدا يرمي الفاس
+            e.direction = (playerPos.x < e.pos.x) ? -1 : 1; 
+            e.throwCooldown -= dt;
             if (!e.throwing && !e.axeActive && e.throwCooldown <= 0 && fullDist < e.visionRange) {
                 e.throwing = true;
                 e.animFrame = 0;
                 e.axeReleased = false;
             }
             if (e.throwing) {
-                //ال Animation بتاع رمي الفاس
                 e.animTimer += dt;
                 if (e.animTimer >= 0.1f) {
                     e.animTimer = 0;
@@ -155,34 +140,32 @@ void updateEnemies(std::vector<Enemy>& enemies, Player& player, float groundY, f
                 e.axeTimer += dt;
                 if (e.axeTimer >= 0.08f) {
                     e.axeTimer = 0;
-                    e.axeFrame = (e.axeFrame + 1) % 3; //دوران الفاس 
+                    e.axeFrame = (e.axeFrame + 1) % 3; //Axe rotation
                 }
                 e.axeSprite.setPosition(e.axePos);
-                if (player.hitbox.getGlobalBounds().intersects(e.axeSprite.getGlobalBounds())) {
+                if (player.sprite.getGlobalBounds().intersects(e.axeSprite.getGlobalBounds())) {
                     if (player.state != HURT && player.state != DEAD) {
                         player.health -= 15;
                         player.state = HURT;
 
-                        // الـ Knockback
-                        float dir = (e.axePos.x > player.hitbox.getPosition().x) ? -1.f : 1.f;
+                        // Player Knockback
+                        float dir = (e.axePos.x > player.sprite.getPosition().x) ? -1.f : 1.f;
                         player.velocity.x = dir * 400.f;
                         player.velocity.y = -200.f;
 
                         e.axeActive = false; // الفأس يختفي لما يلمس اللاعب
                     }
                 }
-
-                // 4. حذف الفأس لو بعد عن الشاشة
                 if (std::abs(e.axePos.x - playerPos.x) > 1000.f) {
                     e.axeActive = false;
                 }
 
             }
         }
-        //type1 ,2    
+        //types 1, 2    
         else {
 
-            bool inSight = (fullDist < e.visionRange); //هل ال enemy شايف اللاعب
+            bool inSight = (fullDist < e.visionRange); //does the enemy detect the player?
             if (inSight) {
                 e.direction = (playerPos.x > e.pos.x) ? 1 : -1; //يبص للاعب 
 
@@ -198,29 +181,29 @@ void updateEnemies(std::vector<Enemy>& enemies, Player& player, float groundY, f
                     e.isShooting = true; //type=1 يضرب علي طول اول ما يشوفه
                 }
 
-                //Logic ضرب النار
+                //Shooting
                 if (e.shootTimer <= 0) {
                     for (auto& b : e.bullets) {
                         if (b.active == false) {
-                            b.active = true; //لو الطلقة مش active يشغلها
+                            b.active = true; 
                             b.pos = e.pos + sf::Vector2f(e.direction * 15.f, -15.f); //المكان اللي بيطلع منو الطلقة
                             b.vel = norm(playerPos - b.pos) * 380.f; //سرعة الطلقة
                             b.damage = (e.type == 1) ? 5 : 10; //ال damage بتاع النوع 1 و 2
-                            e.shootTimer = 1.5f; break; //يستني 1.5 ثانية عشان يضرب تاني 
+                            e.shootTimer = 1.5f; break;  
                         }
                     }
                 }
             }
             else {
-                e.pos.x += e.direction * e.speed * dt; //ال patrol (FixedMove)
+                e.pos.x += e.direction * e.speed * dt; //patrol (FixedMove)
                 if (std::abs(e.pos.x - e.startX) > e.patrolRange) e.direction *= -1; //يغير الاتجاه لو وصل لاخر ال patrolrange
             }
 
             //update bullet 
             for (auto& b : e.bullets) {
                 if (b.active == true) {
-                    b.pos += b.vel * dt; //مكان الطلقة 
-                    if (getDist(b.pos, playerPos) < 25.f) { //لو الطلقة لمست اللاعب , فيه اسماء لل player غيريها للاسماء اللي اللي انتو عملنها
+                    b.pos += b.vel * dt; 
+                    if (getDist(b.pos, playerPos) < 25.f) {
                         player.health -= b.damage;
                         b.active = false;
                     }
@@ -229,51 +212,44 @@ void updateEnemies(std::vector<Enemy>& enemies, Player& player, float groundY, f
                     }
                 }
             }
-            //ال animation بتاع type 1,2
+            
             e.animTimer += dt;
             if (e.animTimer >= 0.12f) {
                 e.animTimer = 0;
                 e.animFrame = (e.animFrame + 1) % 8;
             }
         }
-        if (e.health <= 0) e.dying = true; //يموت لو ال health بقي 0
+        if (e.health <= 0) e.dying = true; 
     }
 }
-//فيه اسامي لل player
 void updateFires(std::vector<FireTrap>& fires, Player& player, float& fireDamageTimer, float dt) {
     sf::Vector2f playerPos = player.sprite.getPosition();
-    fireDamageTimer += dt; //بيعد الوقت اللي بيعدي عشان playerhealth مينقصش في كل frame
-    bool hit = false; //هل النار لمست اللاعب 
-    //هنا بيلف علي كل النار اللي احنا حطناهم 
+    fireDamageTimer += dt; 
+    bool hit = false;
     for (auto& f : fires) {
-        f.drop.y += f.fallSpeed * dt; //بنحرك النار لتحت علي حسب سرعتها 
-        //بنرجعها تاني لما النار تلمس الارض 
+        f.drop.y += f.fallSpeed * dt; 
         if (f.drop.y > f.start.y + f.fallDistance) {
-            f.drop.y = f.start.y + f.startGap;  //بنرجع النار لنقطة البداية
+            f.drop.y = f.start.y + f.startGap;  
             f.frame = 1;
         }
-        //المعادله دي بتحسب النار اللي نزلت كام في الميه من مشورها الكلي بتكون رقم بين ال 0 و 1 
         float prog = std::clamp((f.drop.y - f.start.y - f.startGap) / (f.fallDistance - f.startGap), 0.f, 1.f);
 
-        float frameValue = prog * (FIRE_FRAMES - 2);//بنحسب النتيجة بتكون رقم بال decimal
-        f.frame = 1 + (int)frameValue; //بنحوله لرقم صحيح
+        float frameValue = prog * (FIRE_FRAMES - 2);
+        f.frame = 1 + (int)frameValue; 
 
-        //Collision Detection عشان لما يلمس النار مش لما يقرب فا بنعمل frame وهمي حولين النار بحيث النار تكون حولين الframe بالضبط
+        //Collision Detection 
         if (sf::FloatRect(f.drop.x - 15, f.drop.y - 15, 30, 30).intersects(player.sprite.getGlobalBounds())) hit = true;
     }
-    //لو لمس النار أل health بتاعه يقل 
     if (hit && fireDamageTimer >= 0.5f) {
         player.health -= 5;
-        fireDamageTimer = 0; //عشان يبدا يعد نص ثانيه من الاول و جديد
+        fireDamageTimer = 0; 
     }
 }
-
 void drawEnemies(sf::RenderWindow& window, std::vector<Enemy>& enemies, EneTextures& tex, sf::Vector2f playerPos) {
     for (auto& e : enemies) {
         if (!e.alive) continue;
 
         sf::Sprite s;
-        // رسم الأعداء حسب النوع (1 أو 2 أو 3)
         if (e.type == 3) {
             s.setTexture(tex.enemy3);
             s.setTextureRect(sf::IntRect(e.animFrame * ENEMY3_W, 0, ENEMY3_W, ENEMY3_H));
@@ -301,7 +277,7 @@ void drawEnemies(sf::RenderWindow& window, std::vector<Enemy>& enemies, EneTextu
             s.setPosition(e.pos);
             window.draw(s);
 
-            // رسم الطلقات الصفراء
+            //yellow bullets
             for (auto& b : e.bullets) {
                 if (b.active) {
                     sf::CircleShape bc(5.f);
@@ -314,13 +290,12 @@ void drawEnemies(sf::RenderWindow& window, std::vector<Enemy>& enemies, EneTextu
         }
     }
 }
-//بنرسم النار 
 void drawFires(sf::RenderWindow& window, std::vector<FireTrap>& fires, sf::Texture& tex) {
     for (auto& f : fires) {
         sf::Sprite s(tex);
         s.setOrigin(FIRE_W / 2.f, FIRE_H / 2.f);
-        s.setScale(f.scale, f.scale); //حجمها
-        s.setTextureRect({ 0,0,FIRE_W,FIRE_H }); //اول frame في الصورة الثابت
+        s.setScale(f.scale, f.scale); 
+        s.setTextureRect({ 0,0,FIRE_W,FIRE_H }); 
         s.setPosition(f.start);
         window.draw(s);
         s.setTextureRect({ 0, f.frame * FIRE_H, FIRE_W, FIRE_H });
