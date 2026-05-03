@@ -22,25 +22,25 @@ void SetupSpriteText(GameState& condition, std::string word, float x, float y) {
 }
 
 void LoadAssets(GameState& condition) {
-    condition.logoTex.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/GAME START.png");
+    condition.logoTex.loadFromFile("assets/textures/GAME START.png");
     condition.logoSprite.setTexture(condition.logoTex);
 
     condition.logoSprite.setScale(4.5f, 4.5f);
     condition.logoSprite.setOrigin(condition.logoSprite.getLocalBounds().width / 2.0f, 0);
     condition.logoSprite.setPosition(condition.windowSize.x / 2.0f, 50.f);
 
-    condition.cursorTex.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/standing.png");
+    condition.cursorTex.loadFromFile("assets/textures/standing.png");
     condition.cursorSprite.setTexture(condition.cursorTex);
     condition.cursorSprite.setTextureRect(sf::IntRect(0, 0, 36, 52));
 
     condition.cursorSprite.setScale(3.5f, 3.5f);
 
-    condition.fontSheetTex.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/font.png");
+    condition.fontSheetTex.loadFromFile("assets/textures/font.png");
 
     // Pass the state into the setup function
     SetupSpriteText(condition, "GAME START", 730.f, 750.f);
 
-    if (condition.startBuffer.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/sounds/level sound.mp3")) {
+    if (condition.startBuffer.loadFromFile("assets/sounds/level sound.mp3")) {
         condition.startSound.setBuffer(condition.startBuffer);
         condition.startSound.setLoop(true);
     }

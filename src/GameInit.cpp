@@ -30,13 +30,13 @@ void Start(Player& player, View& view, RenderWindow& window,
 
 
     //PLAYER TEXTURES
-    if (!player.jumpingAnimation.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/jumping version 3.png"))
+    if (!player.jumpingAnimation.loadFromFile("assets/textures/jumping version 3.png"))
         cout << "JUMP FAILED\n";
 
     if (!player.dashrunAnimation.loadFromFile("assets/textures/dashrun.png"))
         cout << "DASHRUN FAILED\n";
 
-    if (!player.runningAnimation.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/running version 3.png"))
+    if (!player.runningAnimation.loadFromFile("assets/textures/running version 3.png"))
         cout << "RUN FAILED\n";
 
     if (!player.standingAnimation.loadFromFile("assets/textures/standing.png"))
@@ -45,14 +45,14 @@ void Start(Player& player, View& view, RenderWindow& window,
     if (!player.smokeDashAnimation.loadFromFile("assets/textures/dashsmoke_new_version.png"))
         cout << "SMOKE DASH FAILED\n";
 
-    if (!player.playerBulletAnimation.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/player_bullet.png"))
+    if (!player.playerBulletAnimation.loadFromFile("assets/textures/player_bullet.png"))
         cout << "PLAYER BULLET FAILED\n";
 
     ////player shooting sprites
-     if (!player.shootingwhilerunning.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/runshooting.png"))
+     if (!player.shootingwhilerunning.loadFromFile("assets/textures/runshooting.png"))
         cout << "RUNSHOOTING FAILED\n" << endl;
 
-    if (!player.jump.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/jumpshooting 2.png")) {
+    if (!player.jump.loadFromFile("assets/textures/jumpshooting 2.png")) {
         cout << "JUMPSHOOTING FAILED\n";
     }
 
@@ -60,10 +60,10 @@ void Start(Player& player, View& view, RenderWindow& window,
         cout << "TELEPORTING FAILED \n";
 
     }
-    if (!player.dashshooting.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/dashshooting.png")) {
+    if (!player.dashshooting.loadFromFile("assets/textures/dashshooting.png")) {
         cout << "DASHSHOOTING FAILED\n";
     }
-    if (!player.idlesho.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/idleshooting.png"))
+    if (!player.idlesho.loadFromFile("assets/textures/idleshooting.png"))
         cout<<"IDLESHOOTING FAILED \n";
 
 

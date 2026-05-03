@@ -1,4 +1,0 @@
-C:/MegaManX2/build/CMakeFiles/tmxlite.dir
-C:/MegaManX2/build/CMakeFiles/MegaManX.dir
-C:/MegaManX2/build/CMakeFiles/ALL_BUILD.dir
-C:/MegaManX2/build/CMakeFiles/ZERO_CHECK.dir

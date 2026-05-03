@@ -1,5 +1,5 @@
 #include "PlayerMovement.h"
-
+#include "Player.h"
 #include <iostream>
 #include <SFML/Window/Keyboard.hpp>
 
@@ -23,6 +23,15 @@ void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100], p
  /*   if (player.isOnGround == true)
         cout << "" << endl;*/
 
+
+    if (!player.isAlive || player.state == HURT) {
+        if (player.state == HURT)player.velocity.x *= 0.95f; 
+        else player.velocity.x = 0;
+        player.hitbox.setPosition(player.sprite.getPosition());
+        return;
+    }
+
+
     float normalspeed = 300.f;
     float dashspeed = 1000.f;
     float currentspeed = normalspeed;
@@ -30,7 +39,7 @@ void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100], p
 
 
 
-    if (!player.state == DASHING) {
+    if (player.state != DASHING) {
         player.smokeTimer = 0.f;
     }
 
@@ -194,6 +203,7 @@ void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100], p
         player.state = Keyboard::isKeyPressed(Keyboard::Space) ? IDLESHO : STANDING;
     }
 
+    player.hitbox.setPosition(player.sprite.getPosition());
 
     //if (!player.isOnGround) {
 

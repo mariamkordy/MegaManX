@@ -55,7 +55,6 @@ int main()
     vector<FireTrap> fires;
     float groundY = 1880.0f;
     float fireDamageTimer = 0.0f;
-    float playerHealth = 100.0f;
     EneTextures eneTex;
     Texture fireTexture;
 
@@ -66,11 +65,13 @@ int main()
     eneTex.enemy3.loadFromFile("assets/textures/ENEMY3.png");
     eneTex.axe.loadFromFile("assets/textures/axe.png");
 
-    loadLevel(enemies, fires);
+    loadLevel(enemies, fires, eneTex);
     Start(player, view, window, grounds, walls, background, foreground, map);
 
     srand(time(0));
     setupPlayer(player);
+    player.hitbox.setSize(sf::Vector2f(40.f, 60.f)); 
+    player.hitbox.setOrigin(20.f, 30.f);
 
     Vector2f lastCheckpointPos = player.sprite.getPosition();
     int healthAmount = 20;
@@ -153,8 +154,8 @@ int main()
             // Rendering
             window.clear();
             sf::Vector2f pPos = player.sprite.getPosition();
-            updateEnemies(enemies, pPos, playerHealth, groundY, deltaTime);
-            updateFires(fires, pPos, playerHealth, fireDamageTimer, deltaTime);
+            updateEnemies(enemies, player, groundY, deltaTime);  
+            updateFires(fires, player, fireDamageTimer, deltaTime); 
 
             Draw(player, window, grounds, walls, background, foreground, dashsmoke, Bullets, checkpoints, enemies, fires, eneTex, fireTexture);
 
