@@ -12,11 +12,15 @@ void checkBulletEnemyCollision(playerBullets Bullets[10], std::vector<Enemy>& en
 
 		for (int j = 0; j <enemies.size(); j++) {
 			if (!enemies[j].alive)continue;
-			if (Bullets[i].display.getGlobalBounds().intersects(enemies[j].sprite.getGlobalBounds())) {
-				enemies[j].health -= 10;
+
+			float distance = getDist(Bullets[i].display.getPosition(),enemies[j].pos);
+			if (distance <= 100) {
 				Bullets[i].active = false;
+				enemies[j].health -= 15;
+	
 				if (enemies[j].health <= 0) {
-					enemies[j].alive = false;
+					enemies[j].dying = true;
+					enemies[j].animFrame = 0;
 				}
 				break;
 			}

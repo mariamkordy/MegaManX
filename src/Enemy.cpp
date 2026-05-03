@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "Player.h"
 
 //هنا بنعمل norm=1 عشان نقدر نتحكم في السرعة بتاعة اي حاجة
 sf::Vector2f norm(sf::Vector2f v) {
@@ -8,7 +9,7 @@ sf::Vector2f norm(sf::Vector2f v) {
     return (l == 0.f) ? sf::Vector2f(0, 0) : sf::Vector2f(v.x / l, v.y / l);
 }
 
-void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires) {
+void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires,EneTextures& eneTex) {
     //هنا بنمسح اي enemy , fire عشان لو هنعمل level تاني 
     enemies.clear(); fires.clear();
 
@@ -54,6 +55,7 @@ void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires) {
         e.type = d.t;
         e.pos = { d.x, d.y };
         e.startX = d.x;
+        e.axeSprite.setTexture(eneTex.axe);
         e.sprite.setPosition(e.pos);
         if (e.type == 3) e.speed = 0;
         enemies.push_back(e);
@@ -69,8 +71,9 @@ void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires) {
     }
 }
 //هنا بقي دي ال function الاساسيه لل enemy  ,  و كمان هنا فيه اسماء للاعب فغيروها للاسماء اللي انتو عملنها
-void updateEnemies(std::vector<Enemy>& enemies, sf::Vector2f playerPos, float& playerHealth, float groundY, float dt) {
-    for (auto& e : enemies) {
+void updateEnemies(std::vector<Enemy>& enemies, Player& player, float groundY, float dt){
+    sf::Vector2f playerPos = player.sprite.getPosition();
+    for(auto& e : enemies){
         if (!e.alive) continue; //لو ميت عديه
         //-------Dying Logic Animation---------
         if (e.dying) {
@@ -134,19 +137,30 @@ void updateEnemies(std::vector<Enemy>& enemies, sf::Vector2f playerPos, float& p
                     e.axeTimer = 0;
                     e.axeFrame = (e.axeFrame + 1) % 3; //دوران الفاس 
                 }
-                //لو الفاس لمس اللاعب , هنا فيه اسامي للplayer غيريها للاسم اللي انت عملاه
-                if (getDist(e.axePos, playerPos) < 30.f) {
-                    playerHealth -= 15;
-                    e.axeActive = false;
+                e.axeSprite.setPosition(e.axePos);
+                if (player.hitbox.getGlobalBounds().intersects(e.axeSprite.getGlobalBounds())) { 
+                    if (player.state != HURT && player.state != DEAD) {
+                        player.health -= 15;
+                        player.state = HURT; 
+
+                        // الـ Knockback
+                        float dir = (e.axePos.x > player.hitbox.getPosition().x) ? -1.f : 1.f;
+                        player.velocity.x = dir * 400.f; 
+                        player.velocity.y = -200.f; 
+                        
+                        e.axeActive = false; // الفأس يختفي لما يلمس اللاعب
+                    }
                 }
-                if (std::abs(e.axePos.x - playerPos.x) > 1000.f) {
-                    e.axeActive = false;
-                }
+
+            // 4. حذف الفأس لو بعد عن الشاشة
+            if (std::abs(e.axePos.x - playerPos.x) > 1000.f) {
+                e.axeActive = false;
+            }
 
             }
         }
         //type1 ,2    
-        else {
+        else{
 
             bool inSight = (fullDist < e.visionRange); //هل ال enemy شايف اللاعب
             if (inSight) {
@@ -187,7 +201,7 @@ void updateEnemies(std::vector<Enemy>& enemies, sf::Vector2f playerPos, float& p
                 if (b.active == true) {
                     b.pos += b.vel * dt; //مكان الطلقة 
                     if (getDist(b.pos, playerPos) < 25.f) { //لو الطلقة لمست اللاعب , فيه اسماء لل player غيريها للاسماء اللي اللي انتو عملنها
-                        playerHealth -= b.damage;
+                        player.health -= b.damage;
                         b.active = false;
                     }
                     if (std::abs(b.pos.x - playerPos.x) > 1000.f) {
@@ -206,7 +220,8 @@ void updateEnemies(std::vector<Enemy>& enemies, sf::Vector2f playerPos, float& p
     }
 }
 //فيه اسامي لل player
-void updateFires(std::vector<FireTrap>& fires, sf::Vector2f playerPos, float& playerHealth, float& fireDamageTimer, float dt) {
+void updateFires(std::vector<FireTrap>& fires, Player& player, float& fireDamageTimer, float dt){
+    sf::Vector2f playerPos = player.sprite.getPosition();
     fireDamageTimer += dt; //بيعد الوقت اللي بيعدي عشان playerhealth مينقصش في كل frame
     bool hit = false; //هل النار لمست اللاعب 
     //هنا بيلف علي كل النار اللي احنا حطناهم 
@@ -228,7 +243,7 @@ void updateFires(std::vector<FireTrap>& fires, sf::Vector2f playerPos, float& pl
     }
     //لو لمس النار أل health بتاعه يقل 
     if (hit && fireDamageTimer >= 0.5f) {
-        playerHealth -= 5;
+        player.health -= 5;
         fireDamageTimer = 0; //عشان يبدا يعد نص ثانيه من الاول و جديد
     }
 }

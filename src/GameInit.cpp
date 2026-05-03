@@ -48,17 +48,30 @@ void Start(Player& player, View& view, RenderWindow& window,
     if (!player.playerBulletAnimation.loadFromFile("assets/textures/player_bullet.png"))
         cout << "PLAYER BULLET FAILED\n";
 
+<<<<<<< HEAD
+    ////player shooting sprites
+     if (!player.shootingwhilerunning.loadFromFile("assets/textures/runshooting.png"))
+        cout << "RUNSHOOTING FAILED\n" << endl;
+
+    if (!player.jump.loadFromFile("assets/textures/jumpshooting 2.png")) {
+=======
     //player shooting sprites
     if (!player.shootingwhilerunning.loadFromFile("assets/textures/runshooting.png"))
         cout << "RUNSHOOTING FAILED\n";
 
     if (!player.jump.loadFromFile("assets/textures/jumpshooting 2.png"))
+>>>>>>> 678d0ded5d247d90caa6f24edf81a4d32da92d28
         cout << "JUMPSHOOTING FAILED\n";
 
     if (!player.teleport.loadFromFile("assets/textures/telep.png"))
         cout << "TELEPORTING FAILED\n";
 
+<<<<<<< HEAD
+    }
+    if (!player.dashshooting.loadFromFile("assets/textures/dashshooting.png")) {
+=======
     if (!player.dashshooting.loadFromFile("assets/textures/dashshooting.png"))
+>>>>>>> 678d0ded5d247d90caa6f24edf81a4d32da92d28
         cout << "DASHSHOOTING FAILED\n";
 
     if (!player.idlesho.loadFromFile("assets/textures/idleshooting.png"))
@@ -69,6 +82,11 @@ void Start(Player& player, View& view, RenderWindow& window,
     {
         cout << "Failed to load map\n";
     }
+<<<<<<< HEAD
+    if (!player.idlesho.loadFromFile("assets/textures/idleshooting.png"))
+        cout<<"IDLESHOOTING FAILED \n";
+=======
+>>>>>>> 678d0ded5d247d90caa6f24edf81a4d32da92d28
 
     player.jumpingAnimation.setSmooth(true);
     player.runningAnimation.setSmooth(true);

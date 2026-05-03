@@ -17,7 +17,10 @@ enum PlayerState {
     JUMPSHOOTING,
     RUNSHOOTING,
     IDLESHO,
-    DASHSHOOTING
+    DASHSHOOTING,
+    HURT, 
+    DEAD  
+
 };
 
 struct Player {
@@ -80,6 +83,7 @@ struct Player {
     int smokenumber = 15;
     float shootingTimer = 0.f;
     float bulletDamage = 10.f;
+    bool isAlive = true;
     
     const float dashduration = 0.05f;
 
