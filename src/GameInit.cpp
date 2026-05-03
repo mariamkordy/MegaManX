@@ -63,6 +63,8 @@ void Start(Player& player, View& view, RenderWindow& window,
 
     if (!player.idlesho.loadFromFile("assets/textures/idleshooting.png"))
         cout << "IDLESHOOTING FAILED\n";
+    if (!player.deathAnimation.loadFromFile("assets/textures/dying.png"))
+        cout << "DYING FAILED" << endl;
 
     //MAP
     if (!loadTileMap(map, "assets/maps/Map.tmx", "assets/maps/RedTileSet.png", "assets/textures/fg.png"))
@@ -70,8 +72,10 @@ void Start(Player& player, View& view, RenderWindow& window,
         cout << "Failed to load map\n";
     }
 
+
     if (!player.idlesho.loadFromFile("assets/textures/idleshooting.png"))
         cout<<"IDLESHOOTING FAILED \n";
+
 
 
     player.jumpingAnimation.setSmooth(true);

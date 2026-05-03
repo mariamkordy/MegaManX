@@ -174,7 +174,6 @@ int main()
             sf::Vector2f pPos = player.sprite.getPosition();
             updateEnemies(enemies, player, groundY, deltaTime);  
             updateFires(fires, player, fireDamageTimer, deltaTime); 
-
             Draw(player, window, grounds, walls, background, foreground, dashsmoke, Bullets, checkpoints, enemies, fires, eneTex, fireTexture);
 
             window.setView(window.getDefaultView());

@@ -1,3 +1,4 @@
+
 #ifndef ENE_H
 #define ENE_H
 #pragma once
@@ -63,9 +64,9 @@ inline float getDist(sf::Vector2f a, sf::Vector2f b) {
     return std::sqrt(sum);
 }
 
-void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires ,EneTextures& eneTex);
+void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires, EneTextures& eneTex);
 void updateEnemies(std::vector<Enemy>& enemies, Player& player, float groundY, float dt);
-void updateFires(std::vector<FireTrap>& fires,Player& player, float& fireDamageTimer, float dt);
+void updateFires(std::vector<FireTrap>& fires, Player& player, float& fireDamageTimer, float dt);
 void drawEnemies(sf::RenderWindow& window, std::vector<Enemy>& enemies, EneTextures& tex, sf::Vector2f playerPos);
 void drawFires(sf::RenderWindow& window, std::vector<FireTrap>& fires, sf::Texture& tex);
 
