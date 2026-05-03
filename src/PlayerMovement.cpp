@@ -1,5 +1,5 @@
 #include "PlayerMovement.h"
-#include "Player.h"
+
 #include <iostream>
 #include <SFML/Window/Keyboard.hpp>
 
@@ -16,21 +16,22 @@ using namespace std;
 
 void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100], playerBullets Bullets[10])
 {
-    //if (player.shootingTimer > 0) {
-    //    player.shootingTimer -= deltaTime;
-    //}
+    if (player.health <= 0 && player.state != DYING) {
+        player.state = DYING;
+        player.deathTimer = 0.0f;
+        player.velocity = Vector2f(0, 0); 
 
- /*   if (player.isOnGround == true)
-        cout << "" << endl;*/
-
-
-    if (!player.isAlive || player.state == HURT) {
-        if (player.state == HURT)player.velocity.x *= 0.95f; 
-        else player.velocity.x = 0;
-        player.hitbox.setPosition(player.sprite.getPosition());
-        return;
     }
 
+    if (player.state == DYING) {
+        player.deathTimer += deltaTime;
+
+       
+        if (player.deathTimer > 1.5f) {
+            player.alive = false;
+        }
+        return; 
+    }
 
     float normalspeed = 300.f;
     float dashspeed = 1000.f;
@@ -39,7 +40,7 @@ void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100], p
 
 
 
-    if (player.state != DASHING) {
+    if (!player.state == DASHING) {
         player.smokeTimer = 0.f;
     }
 
@@ -203,31 +204,6 @@ void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100], p
         player.state = Keyboard::isKeyPressed(Keyboard::Space) ? IDLESHO : STANDING;
     }
 
-    player.hitbox.setPosition(player.sprite.getPosition());
-
-    //if (!player.isOnGround) {
-
-    //    player.state = JUMPING;
-
-    //}
-
-    //else if (player.isDashing) {
-
-    //    player.state = DASHING;
-
-    //}
-
-    //else if (abs(player.velocity.x) > 1.0f) { //moves fast enough for us to consider it to be running
-
-    //    player.state = RUNNING;
-
-    //}
-
-    //else {
-
-    //    player.state = STANDING;
-
-    //}
 
 
 }

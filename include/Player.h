@@ -10,7 +10,7 @@ enum PlayerState {
     JUMPING, //2
     DASHING, //3
 
-    
+
 
     ONWALL,
     TELEPORT,
@@ -18,8 +18,9 @@ enum PlayerState {
     RUNSHOOTING,
     IDLESHO,
     DASHSHOOTING,
-    HURT, 
-    DEAD  
+    HURT,
+    DEAD,
+    DYING
 
 };
 
@@ -27,7 +28,7 @@ struct Player {
     Sprite sprite;
     RectangleShape hitbox;
     PlayerState state;
-    int health = 100;
+    int health = 1;
 
     Texture texture;
     float speed;
@@ -41,26 +42,28 @@ struct Player {
     bool facingRight = true;
     bool isDashing = false;
     bool isOnWall = false;
-   //shooting part
+    //shooting part
     bool isteleporting = true;
     bool ishooting = false;
     bool isjumpsh = false;
-    bool isdashshooting = false;
+    bool isdashshooting = false;;  
+    bool alive = true;
+    float deathTimer = 0.0f;  
     ////////////////
-    
+
     // Animations (TEXTURES + VARIABLES)
     Texture runningAnimation;
     Texture standingAnimation;
     Texture jumpingAnimation;
     Texture dashrunAnimation;
-    Texture smokeDashAnimation;    
+    Texture smokeDashAnimation;
     Texture playerBulletAnimation;
 
     //player shooting
     Texture shootingwhilerunning;
     Texture jump;
     Texture teleport;
-
+    Texture deathAnimation;  
     Texture  dashshooting;
     Texture idlesho;
 
@@ -71,11 +74,12 @@ struct Player {
 
     int runIndex = 0;
     int jumpIndex = 0;
+    int deathIndex = 0;
     //player shooting 
     int shootingindex = 0;
     int jumpshootingindex = 0;
     /////////////////
-    
+
     float dashTimer = 0.f;
     float runTimer = 0.f;
     float jumpTimer = 0.f;
@@ -84,14 +88,14 @@ struct Player {
     float shootingTimer = 0.f;
     float bulletDamage = 10.f;
     bool isAlive = true;
-    
+
     const float dashduration = 0.05f;
 
     const int noOfBullets = 10;
 };
 
 struct DashSmoke {
-    Vector2f Position;  
+    Vector2f Position;
     Sprite display;
     bool visible = false;
     int smokeIndex = 0;
