@@ -48,30 +48,17 @@ void Start(Player& player, View& view, RenderWindow& window,
     if (!player.playerBulletAnimation.loadFromFile("assets/textures/player_bullet.png"))
         cout << "PLAYER BULLET FAILED\n";
 
-<<<<<<< HEAD
-    ////player shooting sprites
-     if (!player.shootingwhilerunning.loadFromFile("assets/textures/runshooting.png"))
-        cout << "RUNSHOOTING FAILED\n" << endl;
-
-    if (!player.jump.loadFromFile("assets/textures/jumpshooting 2.png")) {
-=======
     //player shooting sprites
     if (!player.shootingwhilerunning.loadFromFile("assets/textures/runshooting.png"))
         cout << "RUNSHOOTING FAILED\n";
 
     if (!player.jump.loadFromFile("assets/textures/jumpshooting 2.png"))
->>>>>>> 678d0ded5d247d90caa6f24edf81a4d32da92d28
         cout << "JUMPSHOOTING FAILED\n";
 
     if (!player.teleport.loadFromFile("assets/textures/telep.png"))
         cout << "TELEPORTING FAILED\n";
 
-<<<<<<< HEAD
-    }
-    if (!player.dashshooting.loadFromFile("assets/textures/dashshooting.png")) {
-=======
     if (!player.dashshooting.loadFromFile("assets/textures/dashshooting.png"))
->>>>>>> 678d0ded5d247d90caa6f24edf81a4d32da92d28
         cout << "DASHSHOOTING FAILED\n";
 
     if (!player.idlesho.loadFromFile("assets/textures/idleshooting.png"))
@@ -82,11 +69,10 @@ void Start(Player& player, View& view, RenderWindow& window,
     {
         cout << "Failed to load map\n";
     }
-<<<<<<< HEAD
+
     if (!player.idlesho.loadFromFile("assets/textures/idleshooting.png"))
         cout<<"IDLESHOOTING FAILED \n";
-=======
->>>>>>> 678d0ded5d247d90caa6f24edf81a4d32da92d28
+
 
     player.jumpingAnimation.setSmooth(true);
     player.runningAnimation.setSmooth(true);
@@ -115,7 +101,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     g.rectangle.setPosition(300.f, 1600.f);
     grounds.push_back(g);
 
-    g.rectangle.setSize(Vector2f(610.f, 50.f));//d
+    g.rectangle.setSize(Vector2f(590.f, 50.f));//d
     g.rectangle.setPosition(700.f, 1600.f);
     grounds.push_back(g);
 
@@ -545,17 +531,13 @@ void Start(Player& player, View& view, RenderWindow& window,
     g.rectangle.setPosition(9690.f, 2310.f);
     grounds.push_back(g);
 
-    g.rectangle.setSize(Vector2f(860.f, 50.f));// (from teammate)
-    g.rectangle.setPosition(9690.f, 2610.f);
-    grounds.push_back(g);
+    
 
     g.rectangle.setSize(Vector2f(570.f, 50.f));//y
     g.rectangle.setPosition(10650.f, 2030.f);
     grounds.push_back(g);
 
-    g.rectangle.setSize(Vector2f(550.f, 50.f));// (from teammate)
-    g.rectangle.setPosition(11000.f, 1900.f);
-    grounds.push_back(g);
+    
 
     g.rectangle.setSize(Vector2f(860.f, 50.f));//x
     g.rectangle.setPosition(9790.f, 1610.f);
@@ -567,11 +549,6 @@ void Start(Player& player, View& view, RenderWindow& window,
 
     g.rectangle.setSize(Vector2f(570.f, 50.f));//aa
     g.rectangle.setPosition(11515.f, 1730.f);
-    grounds.push_back(g);
-
-    // Vertical shaft platforms (from teammate)
-    g.rectangle.setSize(Vector2f(570.f, 50.f));
-    g.rectangle.setPosition(11550.f, 1480.f);
     grounds.push_back(g);
 
     g.rectangle.setSize(Vector2f(285.f, 50.f));//ab
@@ -712,12 +689,12 @@ void Start(Player& player, View& view, RenderWindow& window,
 
     g.rectangle.setSize(Vector2f(1200.f, 50.f));//aah
     g.rectangle.setPosition(22500.f, 1880.f);
-    grounds.push_back(g);
+    grounds.push_back(g); 
 
     //---------------------WALLS ARE 1-INDEXED---------------------
     //CYAN FOR DEBUGGING PURPOSES. REMOVE THE COMMENT SIGN ON THE FOLLOWING LINE TO MAKE WALLS TRANSPARENT
     w.rectangle.setFillColor(Color::Cyan);
-    w.rectangle.setFillColor(Color::Transparent);
+    //w.rectangle.setFillColor(Color::Transparent);
 
     w.rectangle.setSize(Vector2f(50.f, 400.f));//1
     w.rectangle.setPosition(250.f, 1600.f);
@@ -828,7 +805,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     walls.push_back(w);
 
     w.rectangle.setSize(Vector2f(50.f, 2190.f));//25
-    w.rectangle.setPosition(11500.06f, 1780.f);
+    w.rectangle.setPosition(11500.06f, 1770.f);
     walls.push_back(w);
 
     w.rectangle.setSize(Vector2f(50.f, 1200.f));//26

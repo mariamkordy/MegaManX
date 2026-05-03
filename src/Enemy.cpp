@@ -21,7 +21,7 @@ void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires,EneText
         {2,3755.2 , 1974},
         {1, 5297.81 , 1734}, 
         {1,  6613.1 , 3034},
-        {3, 7393.73 , 2884},
+        /*{3, 7393.73 , 2884},
         {3, 7993.35, 2884},
         {3, 8515.29 , 2799},
         {3, 9086.08 , 2799},
@@ -36,7 +36,7 @@ void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires,EneText
         {3, 10395.5f, 2294.f},
         {3, 3893.4f, 1584.f},
         {3, 10187.9f, 1594.f},
-        {3, 9213.39f, 1294.f},
+        {3, 9213.39f, 1294.f},*/
         {2, 12995.9f, 644.f},
         {1, 13748.4f, 504.f},
         {2, 14404.9f, 504.f},
@@ -65,7 +65,17 @@ void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires,EneText
     for (int x = 720; x <= 1330; x += 10) {
         levelFires.push_back(sf::Vector2f(x, 1770.f));
     }
-    levelFires.push_back(sf::Vector2f(16631.4, 1214));
+    for (int x = 1535.17; x < 2105; x += 10) {
+        levelFires.push_back(sf::Vector2f(x, 1770.f));
+    }
+    for (int x = 16601.4; x <= 17461.5; x += 10) {
+        levelFires.push_back(sf::Vector2f(x, 1354));
+    }
+    
+    for (int x = 17481.5; x <= 17930.6; x += 10) {
+        levelFires.push_back(sf::Vector2f(x, 1554));
+    }
+
     for (auto& p : levelFires) {
         fires.push_back(FireTrap(p.x, p.y));
     }
@@ -239,7 +249,7 @@ void updateFires(std::vector<FireTrap>& fires, Player& player, float& fireDamage
         f.frame = 1 + (int)frameValue; //بنحوله لرقم صحيح
 
         //Collision Detection عشان لما يلمس النار مش لما يقرب فا بنعمل frame وهمي حولين النار بحيث النار تكون حولين الframe بالضبط
-        if (sf::FloatRect(f.drop.x - 15, f.drop.y - 15, 30, 30).contains(playerPos)) hit = true;
+        if (sf::FloatRect(f.drop.x - 15, f.drop.y - 15, 30, 30).intersects(player.sprite.getGlobalBounds())) hit = true;
     }
     //لو لمس النار أل health بتاعه يقل 
     if (hit && fireDamageTimer >= 0.5f) {

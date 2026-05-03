@@ -110,9 +110,11 @@ int main()
     player.sprite.setPosition(100, 1450.f);
     lastCheckpointPos = player.sprite.getPosition();
     vector<Vector2f> checkpointPositions = {
-            {1400.f, 1550.f}, {1900.f, 1550.f}, {2500.f, 1350.f},
-            {3000.f, 1450.f}, {6000.f, 1300.f}, {5700.f, 1450.f},
-            {3900.f, 1400.f}, {2300.f, 1450.f}, {1800.f, 1350.f}, {5500.f, 1450.f},
+            {2493.49 , 1584},
+            {100 , 1490},
+            {11809.1 , 1714},
+            {15686.8 , 564},
+            {18567.9 , 1434}
     };
 
     for (auto& pos : checkpointPositions)

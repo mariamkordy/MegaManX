@@ -40,6 +40,7 @@ void LoadAssets(GameState& condition) {
     // Pass the state into the setup function
     SetupSpriteText(condition, "GAME START", 730.f, 750.f);
 
+
     if (condition.startBuffer.loadFromFile("assets/sounds/level sound.mp3")) {
         condition.startSound.setBuffer(condition.startBuffer);
         condition.startSound.setLoop(true);
