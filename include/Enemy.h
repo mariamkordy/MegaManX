@@ -12,7 +12,7 @@ const float ENEMY_W = 172, ENEMY_H = 188;
 const float ENEMY3_W = 138, ENEMY3_H = 150;
 const int AXE_W = 160, AXE_H = 200;
 const int FIRE_W = 29, FIRE_H = 29, FIRE_FRAMES = 11;
-const float ENEMY_SCALE = 0.9f, ENEMY3_SCALE = 1.f, AXE_SCALE = 1.f;
+const float ENEMY_SCALE = 0.9f, ENEMY3_SCALE = 1.f, AXE_SCALE = 0.7f;
 
 struct Bullet {
     sf::Vector2f pos;
@@ -26,7 +26,7 @@ struct Enemy {
     sf::Vector2f vel;
     int type = 1, health = 100, direction = 1;
     bool alive = true, grounded = false, dying = false;
-    float speed = 100.f, startX = 0.f, patrolRange = 120.f, visionRange = 400.f;
+    float speed = 150.f, startX = 0.f, patrolRange = 120.f, visionRange = 400.f;
     float shootTimer = 0.f;
     Bullet bullets[MAX_BULLETS];
     float animTimer = 0.f;
@@ -44,7 +44,7 @@ struct FireTrap {
     sf::Vector2f start;
     sf::Vector2f drop;
     int frame = 1;
-    float scale = 1.4f, fallSpeed = 80.f, fallDistance = 150.f, startGap = 18.f;
+    float scale = -1.6f, fallSpeed = 120.f, fallDistance = 350.f, startGap = 18.f;
     //عشان نضبط البدايه و السقوط بتاع النار
     FireTrap(float x, float y) : start(x, y), drop(x, y + 18.f) {}
     sf::Sprite sprite;

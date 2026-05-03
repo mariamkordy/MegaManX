@@ -1,7 +1,10 @@
 #include "Combat.h"
 #include "Enemy.h"
 #include "player.h"
+
 #include <vector>
+//player attacking enemy
+
 
 void checkBulletEnemyCollision(playerBullets Bullets[10], std::vector<Enemy>& enemies) {
 	for (int i = 0; i < 10; i++) {

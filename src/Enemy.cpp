@@ -16,7 +16,33 @@ void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires) {
     struct EData { int t; float x, y; };
     std::vector<EData> levelEnemies = {
         {1, 1043.9f, 1574.0f},
-        {2,2043.9f, 1974.0f}
+        {2,2043.9f, 1974.0f},
+        {2,3755.2 , 1974},
+        {1, 5297.81 , 1734}, 
+        {1,  6613.1 , 3034},
+        {3, 7393.73 , 2884},
+        {3, 7993.35, 2884},
+        {3, 8515.29 , 2799},
+        {3, 9086.08 , 2799},
+        {3, 9607.35 , 2874},
+        { 3, 3645.59f, 1584.f },
+        {3, 10109.9f, 2874.f},
+        {3, 10510.3f, 2874.f},
+        {3, 10905.f, 2014.f},
+        {3, 11319.8f, 2874.f},
+        {3, 9256.28f, 2369.f},
+        {3, 9804.96f, 2294.f},
+        {3, 10395.5f, 2294.f},
+        {3, 3893.4f, 1584.f},
+        {3, 10187.9f, 1594.f},
+        {3, 9213.39f, 1294.f},
+        {2, 12995.9f, 644.f},
+        {1, 13748.4f, 504.f},
+        {2, 14404.9f, 504.f},
+        {1, 14828.6f, 854.f},
+        {1, 17721.2f, 1434.f},
+        {1, 18547.7f, 1434.f},
+        {2, 21788.1f, 1734.f}
         
         /*, {1, 600.f, 460.f},
         {2, 16700.f, 1880.f},
@@ -33,9 +59,11 @@ void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires) {
         enemies.push_back(e);
     }
     //هنا نفس الكلام اللي فوق بس لل fire
-    std::vector<sf::Vector2f> levelFires = {
-        {400.f, 40.f}, {800.f, 40.f},
-        {1100.f, 40.f} };
+    std::vector<sf::Vector2f> levelFires;
+    for (int x = 720; x <= 1330; x += 10) {
+        levelFires.push_back(sf::Vector2f(x, 1770.f));
+    }
+    levelFires.push_back(sf::Vector2f(16631.4, 1214));
     for (auto& p : levelFires) {
         fires.push_back(FireTrap(p.x, p.y));
     }

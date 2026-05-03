@@ -7,7 +7,7 @@ void setupPlayer(Player& player)
 {
     player.texture.loadFromFile("player.png");
     player.sprite.setTexture(player.texture);
-    player.sprite.setPosition(100, 300);
+    //player.sprite.setPosition(100, 300);
     player.speed = 200.0f;
     player.health = 100;
     player.frame = 0;

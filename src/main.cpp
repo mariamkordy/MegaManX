@@ -122,16 +122,7 @@ int main()
     // --- 3. MAIN LOOP ---
     while (window.isOpen())
     {
-
-
-        Vector2i mousePixelPos = Mouse::getPosition(window);
-        Vector2f mouseWorldPos = window.mapPixelToCoords(mousePixelPos, view);
-        cout << "X = " << mouseWorldPos.x << ", Y = " << mouseWorldPos.y << endl;
-        //cout << "PLAYER AT X = " << player.sprite.getPosition().x << endl;
-
-        cout << player.state<<endl;
-       
-        //cout << "Player Position: " << player.sprite.getPosition().x <<"," << player.sprite.getPosition().y << endl;
+        cout << "PLAYER AT  " << player.sprite.getPosition().x << " , " << player.sprite.getPosition().y + 40 << endl;
         deltaTime = clock.restart().asSeconds();
 
         // Check if we should be in the Main Menu or the Game
