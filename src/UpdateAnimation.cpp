@@ -11,12 +11,20 @@ void updateAnimation(Player& player, float deltaTime) {
 
     if (player.state == DYING) {
         player.runTimer += deltaTime; 
-        if (player.runTimer > 0.15f) { 
-            player.deathIndex = (player.deathIndex + 1) % 6;
+        if (player.runTimer > 0.15f) {
+            if (player.deathIndex < 5) {
+                player.deathIndex++;
+            }
             player.runTimer = 0.f;
         }
         player.sprite.setTexture(player.deathAnimation);
-        player.sprite.setTextureRect(sf::IntRect(player.deathIndex * 32, 0, 32, 32));
+        if (player.facingRight) {    
+            player.sprite.setTextureRect(sf::IntRect(player.deathIndex * 31, 0, 31,47));
+        }
+        else {
+            player.sprite.setTextureRect(sf::IntRect(player.deathIndex * 31 + 31, 0, -31, 47));
+        }
+
     }
     else {
         if (player.isOnGround)
@@ -94,6 +102,8 @@ void updateAnimation(Player& player, float deltaTime) {
             {
                 if (player.sprite.getTexture() != &player.standingAnimation)
                     player.sprite.setTexture(player.standingAnimation);
+
+                player.runTimer += deltaTime;
 
                 if (player.facingRight)
                     player.sprite.setTextureRect(IntRect(0, 0, 36, 52));

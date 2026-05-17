@@ -3,23 +3,23 @@
 
 
 sf::Vector2f norm(sf::Vector2f v) {
-    
+
     float l = std::sqrt(v.x * v.x + v.y * v.y);
-    
+
     return (l == 0.f) ? sf::Vector2f(0, 0) : sf::Vector2f(v.x / l, v.y / l);
 }
 
 void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires, EneTextures& eneTex) {
     enemies.clear(); fires.clear();
 
-   //enemy type and position
+    //enemy type and position
     struct EData { int t; float x, y; };
     std::vector<EData> levelEnemies = {
         {1, 1043.9f, 1574.0f},
         {2,2043.9f, 1974.0f},
         {2,3755.2 , 1974},
 
-        {1, 5297.81 , 1734}, 
+        {1, 5297.81 , 1734},
         {1,  6613.1 , 3034},
         {3, 7393.73 , 2884},
 
@@ -78,7 +78,7 @@ void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires, EneTex
     for (int x = 16601.4; x <= 17461.5; x += 10) {
         levelFires.push_back(sf::Vector2f(x, 1354));
     }
-    
+
     for (int x = 17481.5; x <= 17930.6; x += 10) {
         levelFires.push_back(sf::Vector2f(x, 1554));
     }
@@ -105,11 +105,11 @@ void updateEnemies(std::vector<Enemy>& enemies, Player& player, float groundY, f
         float dist = std::abs(e.pos.x - playerPos.x);
         float fullDist = getDist(e.pos, playerPos);
 
-        e.shootTimer = std::max(0.f, e.shootTimer - dt); 
+        e.shootTimer = std::max(0.f, e.shootTimer - dt);
         e.isShooting = false;
 
         if (e.type == 3) {
-            e.direction = (playerPos.x < e.pos.x) ? -1 : 1; 
+            e.direction = (playerPos.x < e.pos.x) ? -1 : 1;
             e.throwCooldown -= dt;
             if (!e.throwing && !e.axeActive && e.throwCooldown <= 0 && fullDist < e.visionRange) {
                 e.throwing = true;
@@ -185,11 +185,11 @@ void updateEnemies(std::vector<Enemy>& enemies, Player& player, float groundY, f
                 if (e.shootTimer <= 0) {
                     for (auto& b : e.bullets) {
                         if (b.active == false) {
-                            b.active = true; 
+                            b.active = true;
                             b.pos = e.pos + sf::Vector2f(e.direction * 15.f, -15.f); //المكان اللي بيطلع منو الطلقة
                             b.vel = norm(playerPos - b.pos) * 380.f; //سرعة الطلقة
                             b.damage = (e.type == 1) ? 5 : 10; //ال damage بتاع النوع 1 و 2
-                            e.shootTimer = 1.5f; break;  
+                            e.shootTimer = 1.5f; break;
                         }
                     }
                 }
@@ -202,7 +202,7 @@ void updateEnemies(std::vector<Enemy>& enemies, Player& player, float groundY, f
             //update bullet 
             for (auto& b : e.bullets) {
                 if (b.active == true) {
-                    b.pos += b.vel * dt; 
+                    b.pos += b.vel * dt;
                     if (getDist(b.pos, playerPos) < 25.f) {
                         player.health -= b.damage;
                         b.active = false;
@@ -212,37 +212,37 @@ void updateEnemies(std::vector<Enemy>& enemies, Player& player, float groundY, f
                     }
                 }
             }
-            
+
             e.animTimer += dt;
             if (e.animTimer >= 0.12f) {
                 e.animTimer = 0;
                 e.animFrame = (e.animFrame + 1) % 8;
             }
         }
-        if (e.health <= 0) e.dying = true; 
+        if (e.health <= 0) e.dying = true;
     }
 }
 void updateFires(std::vector<FireTrap>& fires, Player& player, float& fireDamageTimer, float dt) {
     sf::Vector2f playerPos = player.sprite.getPosition();
-    fireDamageTimer += dt; 
+    fireDamageTimer += dt;
     bool hit = false;
     for (auto& f : fires) {
-        f.drop.y += f.fallSpeed * dt; 
+        f.drop.y += f.fallSpeed * dt;
         if (f.drop.y > f.start.y + f.fallDistance) {
-            f.drop.y = f.start.y + f.startGap;  
+            f.drop.y = f.start.y + f.startGap;
             f.frame = 1;
         }
         float prog = std::clamp((f.drop.y - f.start.y - f.startGap) / (f.fallDistance - f.startGap), 0.f, 1.f);
 
         float frameValue = prog * (FIRE_FRAMES - 2);
-        f.frame = 1 + (int)frameValue; 
+        f.frame = 1 + (int)frameValue;
 
         //Collision Detection 
         if (sf::FloatRect(f.drop.x - 15, f.drop.y - 15, 30, 30).intersects(player.sprite.getGlobalBounds())) hit = true;
     }
     if (hit && fireDamageTimer >= 0.5f) {
         player.health -= 5;
-        fireDamageTimer = 0; 
+        fireDamageTimer = 0;
     }
 }
 void drawEnemies(sf::RenderWindow& window, std::vector<Enemy>& enemies, EneTextures& tex, sf::Vector2f playerPos) {
@@ -294,8 +294,8 @@ void drawFires(sf::RenderWindow& window, std::vector<FireTrap>& fires, sf::Textu
     for (auto& f : fires) {
         sf::Sprite s(tex);
         s.setOrigin(FIRE_W / 2.f, FIRE_H / 2.f);
-        s.setScale(f.scale, f.scale); 
-        s.setTextureRect({ 0,0,FIRE_W,FIRE_H }); 
+        s.setScale(f.scale, f.scale);
+        s.setTextureRect({ 0,0,FIRE_W,FIRE_H });
         s.setPosition(f.start);
         window.draw(s);
         s.setTextureRect({ 0, f.frame * FIRE_H, FIRE_W, FIRE_H });

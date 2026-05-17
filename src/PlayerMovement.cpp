@@ -16,17 +16,24 @@ using namespace std;
 
 void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100], playerBullets Bullets[10])
 {
+
+    if (player.health > 0 && player.state == DYING) {
+        player.state = STANDING; // Break the infinite death loop
+        player.alive = true;     // Mark them as living again
+        player.deathTimer = 0.f; // Reset the death clock
+        player.runTimer = 0.f;   // Reset animation timers
+    }
     if (player.health <= 0 && player.state != DYING) {
         player.state = DYING;
         player.deathTimer = 0.0f;
+        player.runTimer = 0.0f;
+        player.deathIndex = 0;
         player.velocity = Vector2f(0, 0); 
 
     }
 
     if (player.state == DYING) {
         player.deathTimer += deltaTime;
-
-       
         if (player.deathTimer > 1.5f) {
             player.alive = false;
         }
@@ -190,20 +197,20 @@ void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100], p
 
 
 
-
-    if (player.isDashing) {
-        player.state = DASHING;
+    if (player.state != DYING) {
+        if (player.isDashing) {
+            player.state = DASHING;
+        }
+        else if (!player.isOnGround) {
+            player.state = Keyboard::isKeyPressed(Keyboard::Space) ? JUMPSHOOTING : JUMPING;
+        }
+        else if (abs(player.velocity.x) > 1.0f) {
+            player.state = Keyboard::isKeyPressed(Keyboard::Space) ? RUNSHOOTING : RUNNING;
+        }
+        else {
+            player.state = Keyboard::isKeyPressed(Keyboard::Space) ? IDLESHO : STANDING;
+        }
     }
-    else if (!player.isOnGround) {
-        player.state = Keyboard::isKeyPressed(Keyboard::Space) ? JUMPSHOOTING : JUMPING;
-    }
-    else if (abs(player.velocity.x) > 1.0f) {
-        player.state = Keyboard::isKeyPressed(Keyboard::Space) ? RUNSHOOTING : RUNNING;
-    }
-    else {
-        player.state = Keyboard::isKeyPressed(Keyboard::Space) ? IDLESHO : STANDING;
-    }
-
 
 
 }
