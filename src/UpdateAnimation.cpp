@@ -165,51 +165,90 @@ void updateAnimation(Player& player, float deltaTime) {
 
 
     //Smoke that appears behind the player when they're dashing
-    void smokeupdate(Player & player, DashSmoke dashsmoke[15], float deltaTime) {
-        for (int i = 0; i < player.smokenumber; i++) {
-            if (dashsmoke[i].visible == true) {
+void smokeupdate(Player & player, DashSmoke dashsmoke[15], float deltaTime) {
+    for (int i = 0; i < player.smokenumber; i++) {
+        if (dashsmoke[i].visible == true) {
 
-                dashsmoke[i].display.setTexture(player.smokeDashAnimation);
-                dashsmoke[i].display.setTextureRect(IntRect(dashsmoke[i].smokeIndex * 14, 0, 14, 31));
-                dashsmoke[i].display.setScale(3.0f, 3.0f);
+            dashsmoke[i].display.setTexture(player.smokeDashAnimation);
+            dashsmoke[i].display.setTextureRect(IntRect(dashsmoke[i].smokeIndex * 14, 0, 14, 31));
+            dashsmoke[i].display.setScale(3.0f, 3.0f);
 
 
-                dashsmoke[i].smokeDuration -= deltaTime;
-                if (dashsmoke[i].smokeDuration <= 0) {
-                    dashsmoke[i].smokeIndex++;
-                    dashsmoke[i].smokeDuration = 0.02f;
-                }
-                if (dashsmoke[i].smokeIndex >= player.smokenumber) {
-                    dashsmoke[i].smokeIndex = 0;
-                    dashsmoke[i].visible = false;
-                    dashsmoke[i].smokeDuration = 0.02f;
-
-                }
+            dashsmoke[i].smokeDuration -= deltaTime;
+            if (dashsmoke[i].smokeDuration <= 0) {
+                dashsmoke[i].smokeIndex++;
+                dashsmoke[i].smokeDuration = 0.02f;
+            }
+            if (dashsmoke[i].smokeIndex >= player.smokenumber) {
+                dashsmoke[i].smokeIndex = 0;
+                dashsmoke[i].visible = false;
+                dashsmoke[i].smokeDuration = 0.02f;
 
             }
+
         }
     }
-    void updatePlayerBullets(Player & player, float deltaTime, playerBullets Bullets[10]) {
-        for (int i = 0; i < 10; i++) {
-            if (!Bullets[i].active)continue;
+}
+void updatePlayerBullets(Player & player, float deltaTime, playerBullets Bullets[10]) {
+    for (int i = 0; i < 10; i++) {
+        if (!Bullets[i].active)continue;
 
-            //cout << "Bullet" << i << "moving atX:" << Bullets[i].position.x << endl;
-            Bullets[i].position += Bullets[i].velocity * deltaTime;
+        //cout << "Bullet" << i << "moving atX:" << Bullets[i].position.x << endl;
+        Bullets[i].position += Bullets[i].velocity * deltaTime;
 
-            Bullets[i].display.setPosition(Bullets[i].position);
-            Bullets[i].display.setTexture(player.playerBulletAnimation);
+        Bullets[i].display.setPosition(Bullets[i].position);
+        Bullets[i].display.setTexture(player.playerBulletAnimation);
 
-            if (Bullets[i].velocity.x > 0)
-                Bullets[i].display.setTextureRect(IntRect(0, 0, 47, 37));
-            else
-                Bullets[i].display.setTextureRect(IntRect(47, 0, -47, 37));
+        if (Bullets[i].velocity.x > 0)
+            Bullets[i].display.setTextureRect(IntRect(0, 0, 47, 37));
+        else
+            Bullets[i].display.setTextureRect(IntRect(47, 0, -47, 37));
 
-            Bullets[i].display.setScale(2.0f, 2.0f);
+        Bullets[i].display.setScale(2.0f, 2.0f);
 
 
-            if (abs(Bullets[i].position.x - player.sprite.getPosition().x) > 1000) {
-                Bullets[i].active = false;
-            }
+        if (abs(Bullets[i].position.x - player.sprite.getPosition().x) > 1000) {
+            Bullets[i].active = false;
         }
+    }
     
+}
+
+//healtbar function
+void HEALTHBAR(RenderWindow& window, Player& player, Texture& texture) {
+
+
+    if (player.health >= 80 && player.health <= 100) {
+
+        player.healthbarindex = 0;
+
+    }
+    else if (player.health >= 60 && player.health < 80) {
+
+        player.healthbarindex = 1;
+    }
+    else if (player.health >= 40 && player.health < 60) {
+
+        player.healthbarindex = 2;
+    }
+    else if (player.health >= 20 && player.health < 40) {
+
+        player.healthbarindex = 3;
+    }
+    else {
+
+        player.healthbarindex = 4;
+    }
+    Sprite healthbarsprite;
+    healthbarsprite.setTexture(texture);
+    int left = player.healthbarindex * 100;
+    healthbarsprite.setTextureRect(IntRect(left, 0, 100, 200));
+    healthbarsprite.setPosition(0, 50);
+    /* healthbarsprite.setPosition(0, 50);*/
+     //3a4an elsprite teb2a sabta 3ala el screen
+    View healthview = window.getView();
+    window.setView(window.getDefaultView());
+    ///////
+    window.draw(healthbarsprite);
+    window.setView(healthview);
 }

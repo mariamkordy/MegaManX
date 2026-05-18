@@ -58,6 +58,7 @@ struct Player {
     Texture dashrunAnimation;
     Texture smokeDashAnimation;
     Texture playerBulletAnimation;
+    Texture healthbar;
 
     //player shooting
     Texture shootingwhilerunning;
@@ -75,6 +76,7 @@ struct Player {
     int runIndex = 0;
     int jumpIndex = 0;
     int deathIndex = 0;
+    int healthbarindex = 0;
     //player shooting 
     int shootingindex = 0;
     int jumpshootingindex = 0;

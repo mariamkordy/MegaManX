@@ -30,7 +30,8 @@ int main()
     // --- 1. WINDOW AND STATE INITIALIZATION ---
     // The window must be created BEFORE the GameState struct
     VideoMode desktopMode = VideoMode::getDesktopMode();
-    RenderWindow window(desktopMode, "Mega Man X", Style::Fullscreen);
+    RenderWindow window(desktopMode, "Mega Man X");
+    //, Style::Fullscreen
 
     // Pass the window into the struct as a reference
     GameState condition(window);
@@ -71,7 +72,7 @@ int main()
 
     srand(time(0));
     setupPlayer(player);
-    player.hitbox.setSize(sf::Vector2f(40.f, 60.f)); 
+    player.hitbox.setSize(Vector2f(40.f, 60.f)); 
     player.hitbox.setOrigin(20.f, 30.f);
 
     Vector2f lastCheckpointPos = player.sprite.getPosition();
@@ -91,6 +92,7 @@ int main()
     healthText.setCharacterSize(32);
     healthText.setFillColor(Color::White);
     healthText.setPosition(10, 100);
+    healthText.setPosition(30, 100);
 
     Text statusText;
     statusText.setFont(font);
@@ -107,7 +109,7 @@ int main()
     }
 
     // Set Initial Position and Checkpoints
-    player.sprite.setPosition(100, 1450.f);
+    player.sprite.setPosition(5938.06, 1730.52);
     lastCheckpointPos = player.sprite.getPosition();
     vector<Vector2f> checkpointPositions = {
             {2493.49 , 1304},
@@ -122,10 +124,13 @@ int main()
 
     clock.restart();
 
+    ////healthbar function--->
+    void  HEALTHBAR(RenderWindow & window, Player & player, Texture & texture);//before el while loop
+
     // --- 3. MAIN LOOP ---
     while (window.isOpen())
     {
-        //cout << "PLAYER AT  " << player.sprite.getPosition().x << " , " << player.sprite.getPosition().y + 40 << endl;
+        cout << "PLAYER AT  " << player.sprite.getPosition().x << " , " << player.sprite.getPosition().y + 40 << endl;
         deltaTime = clock.restart().asSeconds();
 
         // Check if we should be in the Main Menu or the Game
@@ -168,7 +173,7 @@ int main()
             else if (Keyboard::isKeyPressed(Keyboard::R)) statusText.setString("RESPAWNING");
             else statusText.setString("");
 
-
+            HEALTHBAR(window, player, player.healthbar);//fy a5er el while loop
             // Rendering
             window.clear();
             sf::Vector2f pPos = player.sprite.getPosition();

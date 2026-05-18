@@ -15,7 +15,7 @@ void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires, EneTex
    //enemy type and position
     struct EData { int t; float x, y; };
     std::vector<EData> levelEnemies = {
-        {1, 1043.9f, 1574.0f},
+        /*{1, 1043.9f, 1574.0f},
         {2,2043.9f, 1974.0f},
         {2,3755.2 , 1974},
 
@@ -50,7 +50,7 @@ void loadLevel(std::vector<Enemy>& enemies, std::vector<FireTrap>& fires, EneTex
         {1, 14828.6f, 854.f},
         {1, 17721.2f, 1434.f},
         {1, 18547.7f, 1434.f},
-        {2, 21788.1f, 1734.f}
+        {2, 21788.1f, 1734.f}*/
 
         /*, {1, 600.f, 460.f},
         {2, 16700.f, 1880.f},
