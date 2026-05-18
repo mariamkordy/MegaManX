@@ -72,7 +72,7 @@ int main()
 
     srand(time(0));
     setupPlayer(player);
-    player.hitbox.setSize(Vector2f(40.f, 60.f)); 
+
     player.hitbox.setOrigin(20.f, 30.f);
 
     Vector2f lastCheckpointPos = player.sprite.getPosition();
@@ -85,7 +85,7 @@ int main()
     if (!font.loadFromFile("assets/fonts/MMRock9.ttf"))
         cout << "FONT FAILED" << endl;
 
-    
+
 
     Text healthText;
     healthText.setFont(font);
@@ -109,7 +109,7 @@ int main()
     }
 
     // Set Initial Position and Checkpoints
-    player.sprite.setPosition(5938.06, 1730.52);
+    player.sprite.setPosition(100, 100);
     lastCheckpointPos = player.sprite.getPosition();
     vector<Vector2f> checkpointPositions = {
             {2493.49 , 1304},
@@ -130,7 +130,7 @@ int main()
     // --- 3. MAIN LOOP ---
     while (window.isOpen())
     {
-        cout << "PLAYER AT  " << player.sprite.getPosition().x << " , " << player.sprite.getPosition().y + 40 << endl;
+        //cout << "PLAYER AT  " << player.sprite.getPosition().x << " , " << player.sprite.getPosition().y + 40 << endl;
         deltaTime = clock.restart().asSeconds();
 
         // Check if we should be in the Main Menu or the Game
@@ -147,13 +147,14 @@ int main()
                 if (ev.type == Event::KeyPressed && ev.key.code == Keyboard::Escape) window.close();
             }
 
-        // CHECKPOINT LOGIC
-        handleCheckpoints(player, checkpoints, lastCheckpointPos, healthAmount, maxHealth);
-        respawn(player, lastCheckpointPos);
-        
-        healthText.setFont(font);
-        healthText.setString("HEALTH: " + to_string(player.health));
-        
+            // CHECKPOINT LOGIC
+            handleCheckpoints(player, checkpoints, lastCheckpointPos, healthAmount, maxHealth);
+            respawn(player, lastCheckpointPos);
+
+            healthText.setFont(font);
+            healthText.setString("HEALTH: " + to_string(player.health));
+            healthText.setString("MY NAME IS KOKO");
+
 
             // Gameplay Updates
             playerMovement(player, deltaTime, dashsmoke, Bullets);
@@ -164,8 +165,8 @@ int main()
             playerPhysics(player, deltaTime);
             collision(player, grounds, walls);
             camera(player, view, window, background, foreground);
-            handleCheckpoints(player, checkpoints, lastCheckpointPos, healthAmount, maxHealth);
-            respawn(player, lastCheckpointPos);
+            //handleCheckpoints(player, checkpoints, lastCheckpointPos, healthAmount, maxHealth);
+            //respawn(player, lastCheckpointPos);
 
             // UI Updates
             healthText.setString("HEALTH: " + to_string(player.health));
@@ -177,8 +178,8 @@ int main()
             // Rendering
             window.clear();
             sf::Vector2f pPos = player.sprite.getPosition();
-            updateEnemies(enemies, player, groundY, deltaTime);  
-            updateFires(fires, player, fireDamageTimer, deltaTime); 
+            updateEnemies(enemies, player, groundY, deltaTime);
+            updateFires(fires, player, fireDamageTimer, deltaTime);
             Draw(player, window, grounds, walls, background, foreground, dashsmoke, Bullets, checkpoints, enemies, fires, eneTex, fireTexture);
 
             window.setView(window.getDefaultView());

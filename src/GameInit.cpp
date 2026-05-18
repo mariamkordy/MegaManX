@@ -80,6 +80,9 @@ void Start(Player& player, View& view, RenderWindow& window,
         cout << "Failed to load map\n";
     }
 
+    if (!player.idlesho.loadFromFile("assets/textures/idleshooting.png"))
+        cout << "IDLESHOOTING FAILED \n";
+
     player.jumpingAnimation.setSmooth(true);
     player.runningAnimation.setSmooth(true);
     player.standingAnimation.setSmooth(true);
@@ -97,7 +100,7 @@ void Start(Player& player, View& view, RenderWindow& window,
 
     //GROUND BLOCKS
     //REMOVE THE COMMENT SIGN TO MAKE THE GROUND TRANSPARENT
-    //g.rectangle.setFillColor(Color::Transparent);
+    g.rectangle.setFillColor(Color::Transparent);
 
     g.rectangle.setSize(Vector2f(500.f, 50.f));//a
     g.rectangle.setPosition(0.f, 1810.f);
@@ -537,13 +540,13 @@ void Start(Player& player, View& view, RenderWindow& window,
     g.rectangle.setPosition(9690.f, 2310.f);
     grounds.push_back(g);
 
-    
+
 
     g.rectangle.setSize(Vector2f(570.f, 50.f));//y
     g.rectangle.setPosition(10650.f, 2030.f);
     grounds.push_back(g);
 
-    
+
 
     g.rectangle.setSize(Vector2f(860.f, 50.f));//x
     g.rectangle.setPosition(9790.f, 1610.f);
@@ -622,7 +625,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     grounds.push_back(g);
 
     g.rectangle.setSize(Vector2f(80.f, 50.f));//as``
-    g.rectangle.setPosition(17810.f, 1450.f); 
+    g.rectangle.setPosition(17810.f, 1450.f);
     grounds.push_back(g);
 
     g.rectangle.setSize(Vector2f(190.f, 50.f));//ap
@@ -695,7 +698,7 @@ void Start(Player& player, View& view, RenderWindow& window,
 
     g.rectangle.setSize(Vector2f(1200.f, 50.f));//aah
     g.rectangle.setPosition(22500.f, 1880.f);
-    grounds.push_back(g); 
+    grounds.push_back(g);
 
     g.rectangle.setSize(Vector2f(120.f, 50.f));
     g.rectangle.setPosition(5859.56, 1746.52);
@@ -705,7 +708,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     //---------------------WALLS ARE 1-INDEXED---------------------
     //CYAN FOR DEBUGGING PURPOSES. REMOVE THE COMMENT SIGN ON THE FOLLOWING LINE TO MAKE WALLS TRANSPARENT
     w.rectangle.setFillColor(Color::Cyan);
-    //w.rectangle.setFillColor(Color::Transparent);
+    w.rectangle.setFillColor(Color::Transparent);
     
     w.rectangle.setSize(Vector2f(50.f, 700.f));//1
     w.rectangle.setPosition(5918.06, 1030.52);
@@ -814,7 +817,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     w.rectangle.setSize(Vector2f(50.f, 190.f));//24'
     w.rectangle.setPosition(10598.6, 1564);
     walls.push_back(w);
-    
+
     w.rectangle.setSize(Vector2f(50.f, 190.f));//24''
     w.rectangle.setPosition(9572.74, 1294);
     walls.push_back(w);
@@ -858,7 +861,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     w.rectangle.setSize(Vector2f(50.f, 180.f));
     w.rectangle.setPosition(18020.2f, 1794.f);
     walls.push_back(w);
-    
+
     w.rectangle.setSize(Vector2f(50.f, 180.f));
     w.rectangle.setPosition(17256.2, 1804.f);
     walls.push_back(w);
@@ -893,7 +896,7 @@ void Start(Player& player, View& view, RenderWindow& window,
 
     w.rectangle.setSize(Vector2f(50.f, 200.f));
     w.rectangle.setPosition(19538.9f, 1304.f);
-    walls.push_back(w); 
+    walls.push_back(w);
 
     w.rectangle.setSize(Vector2f(50.f, 200.f));
     w.rectangle.setPosition(19132.6f, 1804.f);

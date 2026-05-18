@@ -7,7 +7,7 @@ void setupPlayer(Player& player)
 {
     player.texture.loadFromFile("player.png");
     player.sprite.setTexture(player.texture);
-    player.sprite.setPosition(20806, 2004);
+    //player.sprite.setPosition(100, 200);
     player.speed = 200.0f;
     player.health = 100;
     player.frame = 0;
@@ -108,7 +108,7 @@ void handleCheckpoints(Player& player, vector<Checkpoint>& checkpoints,
 //RESPAWN
 void respawn(Player& player, Vector2f lastCheckpointPos)
 {
-    bool isDead = player.health <= 0;
+    bool isDead = (player.state == DYING) && (player.alive == false);
     bool manualReset = Keyboard::isKeyPressed(Keyboard::R);
    
     if (isDead || manualReset)
@@ -117,6 +117,7 @@ void respawn(Player& player, Vector2f lastCheckpointPos)
         player.health = 100;
         player.frame = 0;
         player.animationTimer = 0;
+        //player.sprite.setTexture(player.standingAnimation);
         player.sprite.setTextureRect(IntRect(0, 0, 32, 32));
     
     }
