@@ -1,4 +1,5 @@
 #include "CheckPointSystem.h"
+#include<iostream>
 
 //FUNCTIONS
 
@@ -8,7 +9,7 @@ void setupPlayer(Player& player)
     player.texture.loadFromFile("player.png");
     player.sprite.setTexture(player.texture);
     //player.sprite.setPosition(100, 200);
-    player.speed = 200.0f;
+    player.speed = 300.0f;
     player.health = 100;
     player.frame = 0;
     player.animationTimer = 0;
@@ -23,11 +24,42 @@ void setupPlayer(Player& player)
 Checkpoint createCheckpoint(float x, float y)
 {
     Checkpoint cp;
-    cp.shape.setSize(Vector2f(30, 60));
-    cp.shape.setPosition(x, y);
-    cp.shape.setFillColor(Color::Red);
-    cp.activated = false;
+
+    if (!cp.idlePosition.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/checkpoint idle state.png")) {
+        cout << "CHECKPOINT IDLE FAILED\n";
+    }
+
+    if (!cp.activatingPosition.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/checkpoint activating 3.png")) {
+        cout << "CHECKPOINT USED FAILED\n";
+    }
+
+    if (!cp.usedPosition.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/checkpint used state.png")) {
+        cout << "CHECKPOINT USED FAILED\n";
+    }
+    
+    cp.usedPosition.setSmooth(true);
+    cp.idlePosition.setSmooth(true);
+    cp.activatingPosition.setSmooth(true);
+    
+    cp.sprite.setTexture(cp.idlePosition);
+    cp.sprite.setPosition(x, y);
+
+    cp.sprite.setTextureRect(sf::IntRect(0, 0, 59, 110));
+    cp.sprite.scale(2.5, 2.5);
+    
+
+    // 3. Create a collision zone right at the bottom center pad
+    cp.bounds = sf::FloatRect(x + 16, y + 48, 32, 48);
+
+    // 4. Initial animation states
+    cp.pointstate = idle;
+    cp.frame = 0;
+    cp.animationtimer = 0.0f;
+    cp.activationtotaltime = 0.0f;
+    cp.animationSpeed = 0.05f; 
+
     return cp;
+
 }
 
 //PLAYER MOVEMENT
@@ -80,21 +112,52 @@ void applyDamange(Player& player, int damage)
     }
 }
 
-//COLLISION+ACTIVATION+HEALTHAMOUNT
 void handleCheckpoints(Player& player, vector<Checkpoint>& checkpoints,
-    Vector2f& lastCheckpointPos, int healthAmount, int maxHealth)
+    Vector2f& lastCheckpointPos, int healthAmount, int maxHealth, float deltaTime)
 {
     for (int i = 0; i < checkpoints.size(); i++)
     {
-        if (player.sprite.getGlobalBounds().intersects(checkpoints[i].shape.getGlobalBounds()))
+
+        if (checkpoints[i].pointstate == idle)
         {
-            if (!checkpoints[i].activated)
+
+            checkpoints[i].animationtimer += deltaTime;
+
+            if (checkpoints[i].animationtimer >= checkpoints[i].animationSpeed)
             {
-                checkpoints[i].activated = true;
-                checkpoints[i].shape.setFillColor(Color::Green);
-                lastCheckpointPos = checkpoints[i].shape.getPosition();
+                checkpoints[i].animationtimer = 0.0f;
+                checkpoints[i].frame++;
+
+                if (checkpoints[i].frame > 2)
+                {
+                    checkpoints[i].frame = 0;
+                }
+
                 
+                checkpoints[i].sprite.setTexture(checkpoints[i].idlePosition);
+                checkpoints[i].sprite.setTextureRect(sf::IntRect(checkpoints[i].frame * 59, 0, 59, 110));
+            }
+
+            sf::Vector2f pos = checkpoints[i].sprite.getPosition();
+
+            
+            sf::FloatRect preciseFeetZone(pos.x + 90, pos.y + 200, 67, 75);
+
+            
+            if (player.sprite.getGlobalBounds().intersects(preciseFeetZone))
+            {
                 
+                checkpoints[i].pointstate = activating;
+
+                checkpoints[i].frame = 0;
+                checkpoints[i].animationtimer = 0.f;
+
+                checkpoints[i].sprite.setTexture(checkpoints[i].activatingPosition);
+                
+                player.speed += 150;
+
+
+                lastCheckpointPos = checkpoints[i].sprite.getPosition();
                 player.health += healthAmount;
                 if (player.health > maxHealth)
                 {
@@ -102,8 +165,55 @@ void handleCheckpoints(Player& player, vector<Checkpoint>& checkpoints,
                 }
             }
         }
+
+        if (checkpoints[i].pointstate == activating)
+        {
+          
+            checkpoints[i].activationtotaltime += deltaTime;
+
+
+            if (checkpoints[i].activationtotaltime >= 3.0f)
+            {
+                checkpoints[i].pointstate = used;
+                checkpoints[i].frame = 0;
+                checkpoints[i].sprite.setTexture(checkpoints[i].usedPosition); 
+
+                lastCheckpointPos = checkpoints[i].sprite.getPosition();
+                player.health += healthAmount;
+                if (player.health > maxHealth) player.health = maxHealth;
+            }
+            else
+            {
+
+                checkpoints[i].animationtimer += deltaTime;
+
+                if (checkpoints[i].animationtimer >= checkpoints[i].animationSpeed)
+                {
+                    checkpoints[i].animationtimer = 0.f;
+                    checkpoints[i].frame++;
+
+                    if (checkpoints[i].frame > 3)
+                    {
+                        checkpoints[i].frame = 0;
+                    }
+
+                    checkpoints[i].sprite.setTextureRect(sf::IntRect(checkpoints[i].frame * 59, 0, 59, 110));
+                }
+            }
+        }
+
+
+
+        if (checkpoints[i].pointstate == used)
+        {
+
+            checkpoints[i].sprite.setTextureRect(sf::IntRect(0, 0, 59, 110));
+        }
+
     }
 }
+
+
 
 //RESPAWN
 void respawn(Player& player, Vector2f lastCheckpointPos)
@@ -117,7 +227,7 @@ void respawn(Player& player, Vector2f lastCheckpointPos)
         player.health = 100;
         player.frame = 0;
         player.animationTimer = 0;
-        //player.sprite.setTexture(player.standingAnimation);
+
         player.sprite.setTextureRect(IntRect(0, 0, 32, 32));
     
     }
@@ -132,7 +242,7 @@ void drawAll(RenderWindow& window, Player& player,
     window.clear();
     for (int i = 0; i < checkpoints.size(); i++)
     {
-        window.draw(checkpoints[i].shape);
+        window.draw(checkpoints[i].sprite);
     }
 
     window.draw(player.sprite);

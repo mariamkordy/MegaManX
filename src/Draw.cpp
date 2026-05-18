@@ -39,8 +39,9 @@ void Draw(Player& player, sf::RenderWindow& window, const vector<Ground>& ground
             window.draw(Bullets[i].display);
         }
     }
-    window.draw(player.sprite);
+
     for (int i = 0; i < checkpoints.size(); i++)
-        window.draw(checkpoints[i].shape);
+        window.draw(checkpoints[i].sprite);    
+    window.draw(player.sprite);
 
 }

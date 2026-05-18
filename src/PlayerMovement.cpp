@@ -16,12 +16,12 @@ using namespace std;
 
 void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100], playerBullets Bullets[10])
 {
-
+    cout << player.sprite.getPosition().x <<" "<< player.sprite.getPosition().y << endl;
     if (player.health > 0 && player.state == DYING) {
-        player.state = STANDING; // Break the infinite death loop
-        player.alive = true;     // Mark them as living again
-        player.deathTimer = 0.f; // Reset the death clock
-        player.runTimer = 0.f;   // Reset animation timers
+        player.state = STANDING; 
+        player.alive = true;    
+        player.deathTimer = 0.f; 
+        player.runTimer = 0.f;   
     }
     if (player.health <= 0 && player.state != DYING) {
         player.state = DYING;
@@ -39,9 +39,9 @@ void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100], p
         }
         return; 
     }
-
-    float normalspeed = 300.f;
-    float dashspeed = 1000.f;
+ 
+    float normalspeed = player.speed;
+    float dashspeed = player.speed*3.333;
     float currentspeed = normalspeed;
     //DASHING (INPUT AND UPDATE)
 
@@ -80,7 +80,7 @@ void playerMovement(Player& player, float deltaTime, DashSmoke dashsmoke[100], p
 
                 if (dashsmoke[i].visible == false) {
                     dashsmoke[i].visible = true;
-                    player.smokeTimer = 0.04f;
+                    player.smokeTimer = 40.0f / currentspeed;
 
                     dashsmoke[i].Position = player.sprite.getPosition();
                     dashsmoke[i].display.setOrigin(2, 5);

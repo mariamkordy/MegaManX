@@ -86,7 +86,6 @@ int main()
         cout << "FONT FAILED" << endl;
 
 
-
     Text healthText;
     healthText.setFont(font);
     healthText.setCharacterSize(32);
@@ -112,11 +111,11 @@ int main()
     player.sprite.setPosition(100, 100);
     lastCheckpointPos = player.sprite.getPosition();
     vector<Vector2f> checkpointPositions = {
-            {2493.49 , 1304},
-            {100 , 1490},
-            {11809.1 , 1714},
-            {15686.8 , 564},
-            {18567.9 , 1434}
+            //{2593.49 , 1304},
+            //{0 , 1600},
+            {6300, 2870},
+            {15686.8 , 420},
+            //{18567.9 , 1434}
     };
 
     for (auto& pos : checkpointPositions)
@@ -148,7 +147,7 @@ int main()
             }
 
             // CHECKPOINT LOGIC
-            handleCheckpoints(player, checkpoints, lastCheckpointPos, healthAmount, maxHealth);
+            handleCheckpoints(player, checkpoints, lastCheckpointPos, healthAmount, maxHealth,deltaTime);
             respawn(player, lastCheckpointPos);
 
             healthText.setFont(font);

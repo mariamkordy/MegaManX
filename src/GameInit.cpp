@@ -68,6 +68,7 @@ void Start(Player& player, View& view, RenderWindow& window,
         cout << "DYING FAILED" << endl;
 
 
+
     ////////////////////
            // health bar sprites 
     if (!player.healthbar.loadFromFile("assets/textures/h1.png")) {
