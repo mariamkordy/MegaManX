@@ -10,7 +10,10 @@
 #include "CheckPointSystem.h"
 
 using namespace std;
-void Draw(Player& player, sf::RenderWindow& window, const vector<Ground>& grounds, const vector<Wall>& walls, Background& background, Foreground& foreground, DashSmoke dashsmoke[100], playerBullets Bullets[10], vector<Checkpoint>& checkpoints, std::vector<Enemy>& enemies, std::vector<FireTrap>& fires,
-    EneTextures& tex, sf::Texture& fireTex);
-
-
+void Draw(Player& player, sf::RenderWindow& window,
+    std::vector<Ground>& grounds, std::vector<Wall>& walls,
+    Background& background, Foreground& foreground,
+    DashSmoke* dashsmoke, playerBullets* Bullets,
+    std::vector<Checkpoint>& checkpoints,
+    std::vector<Enemy>& enemies, std::vector<FireTrap>& fires,
+    EneTextures& eneTex, sf::Texture& fireTexture);
