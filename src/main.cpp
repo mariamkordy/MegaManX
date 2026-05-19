@@ -1,4 +1,12 @@
+<<<<<<< HEAD
 ﻿#include "Player.h"
+=======
+﻿
+
+
+
+#include "Player.h"
+>>>>>>> df15468d966cc9448b7ea716db38c108ae1c9fc7
 #include "Background.h"
 #include "PlayerMovement.h"
 #include "PlayerPhysics.h"

@@ -25,15 +25,15 @@ Checkpoint createCheckpoint(float x, float y)
 {
     Checkpoint cp;
 
-    if (!cp.idlePosition.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/checkpoint idle state.png")) {
+    if (!cp.idlePosition.loadFromFile("assets/textures/checkpoint idle state.png")) {
         cout << "CHECKPOINT IDLE FAILED\n";
     }
 
-    if (!cp.activatingPosition.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/checkpoint activating 3.png")) {
+    if (!cp.activatingPosition.loadFromFile("assets/textures/checkpoint activating 3.png")) {
         cout << "CHECKPOINT USED FAILED\n";
     }
 
-    if (!cp.usedPosition.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/checkpint used state.png")) {
+    if (!cp.usedPosition.loadFromFile("assets/textures/checkpint used state.png")) {
         cout << "CHECKPOINT USED FAILED\n";
     }
     
