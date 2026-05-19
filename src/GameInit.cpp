@@ -71,7 +71,7 @@ void Start(Player& player, View& view, RenderWindow& window,
 
     ////////////////////
            // health bar sprites 
-    if (!player.healthbar.loadFromFile("assets/textures/h1.png")) {
+    if (!player.healthbar.loadFromFile("assets/textures/healthbar2.png")) {
         cout << "FAILED \n";
     }
 

@@ -158,7 +158,7 @@ void handleCheckpoints(Player& player, vector<Checkpoint>& checkpoints,
 
 
                 lastCheckpointPos = checkpoints[i].sprite.getPosition();
-                player.health += healthAmount;
+                player.health = maxHealth;
                 if (player.health > maxHealth)
                 {
                     player.health = maxHealth;
