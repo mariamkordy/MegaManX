@@ -11,7 +11,6 @@ void Start(Player& player, View& view, RenderWindow& window,
     Ground g;
     Wall w;
     player.facingRight = true;
-    cout << "Working directory: " << filesystem::current_path() << endl;
 
     //BACKGROUND AND FOREGROUND MUST LOAD FIRST
     if (!background.bgTexture.loadFromFile("assets/textures/bg.png"))
@@ -71,7 +70,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     ////////////////////
            // health bar sprites 
     if (!player.healthbar.loadFromFile("assets/textures/h1.png")) {
-        cout << "FAILED \n";
+        cout << "HEALTHBAR FAILED \n";
     }
 
     //MAP
