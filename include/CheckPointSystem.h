@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 #include <string>
 #include "Player.h"
@@ -40,7 +41,7 @@ Checkpoint createCheckpoint(float x, float y);
 void movePlayer(Player& player, float deltaTime);
 void applyDamage(Player& player, int damage);
 void handleCheckpoints(Player& player, vector<Checkpoint>& checkpoints,
-    Vector2f& lastCheckpointPos, int healthAmount, int maxHealth,float deltaTime);
+    Vector2f& lastCheckpointPos, int healthAmount, int maxHealth,float deltaTime, sf::Sound& cpSound);
 void respawn(Player& player, Vector2f lastCheckpointPos);
 void drawAll(RenderWindow& window, Player& player,
     vector<Checkpoint>& checkpoints, Text& healthText,Text& statusText);

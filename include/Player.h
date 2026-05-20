@@ -88,7 +88,7 @@ struct Player {
     float smokeTimer = 0.f;
     int smokenumber = 15;
     float shootingTimer = 0.f;
-    float bulletDamage = 10.f;
+    float bulletDamage = 1.f;
     bool isAlive = true;
 
     const float dashduration = 0.05f;

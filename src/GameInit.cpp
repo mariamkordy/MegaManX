@@ -141,7 +141,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     grounds.push_back(g);
 
     g.rectangle.setSize(Vector2f(80.f, 120.f));//i
-    g.rectangle.setPosition(3090.f, 1750.f); 
+    g.rectangle.setPosition(3090.f, 1750.f);
     grounds.push_back(g);
 
     //---------------------------------STAIRS------------------------------------
@@ -542,14 +542,14 @@ void Start(Player& player, View& view, RenderWindow& window,
     g.rectangle.setSize(Vector2f(860.f, 150.f));//v
     g.rectangle.setPosition(9690.f, 2310.f);
     grounds.push_back(g);
-    
+
 
 
     g.rectangle.setSize(Vector2f(570.f, 150.f));//y
     g.rectangle.setPosition(10650.f, 2030.f);
     grounds.push_back(g);
 
-    
+
 
     g.rectangle.setSize(Vector2f(840.f, 150.f));//x
     g.rectangle.setPosition(9790.f, 1610.f);
@@ -594,19 +594,19 @@ void Start(Player& player, View& view, RenderWindow& window,
 
     g.rectangle.setSize(Vector2f(400.f, 150.f));//ai
     g.rectangle.setPosition(14990.f, 660.f);
-    grounds.push_back(g); 
-    
+    grounds.push_back(g);
+
     g.rectangle.setSize(Vector2f(290.f, 50.f));//aj
     g.rectangle.setPosition(15565.f, 580.f);
     grounds.push_back(g);
 
     g.rectangle.setSize(Vector2f(490.f, 50.f));//ak
     g.rectangle.setPosition(15950.f, 1880.f);
-    grounds.push_back(g); 
+    grounds.push_back(g);
 
-    g.rectangle.setSize(Vector2f(1950.f,50.f));//ah
+    g.rectangle.setSize(Vector2f(1950.f, 50.f));//ah
     g.rectangle.setPosition(16500.f, 2020.f);
-    grounds.push_back(g); 
+    grounds.push_back(g);
 
     g.rectangle.setSize(Vector2f(180.f, 50.f));//al
     g.rectangle.setPosition(16640.f, 1900.f);
@@ -656,8 +656,8 @@ void Start(Player& player, View& view, RenderWindow& window,
     g.rectangle.setSize(Vector2f(420.f, 150.f));//av
     g.rectangle.setPosition(19000.f, 1380.f);
     grounds.push_back(g);
-    
-    
+
+
     g.rectangle.setSize(Vector2f(100.f, 50.f));//ax
     g.rectangle.setPosition(18650.f, 1750.f);
     grounds.push_back(g);
@@ -688,7 +688,7 @@ void Start(Player& player, View& view, RenderWindow& window,
 
     g.rectangle.setSize(Vector2f(200.f, 50.f));//aad
     g.rectangle.setPosition(20550.f, 1240.f);
-    grounds.push_back(g); 
+    grounds.push_back(g);
 
     g.rectangle.setSize(Vector2f(140.f, 50.f));//aad``
     g.rectangle.setPosition(20900.f, 1240.f);
@@ -708,10 +708,10 @@ void Start(Player& player, View& view, RenderWindow& window,
 
     g.rectangle.setSize(Vector2f(1200.f, 50.f));//aah
     g.rectangle.setPosition(22500.f, 1880.f);
-    grounds.push_back(g); 
+    grounds.push_back(g);
 
     g.rectangle.setSize(Vector2f(200.f, 50.f));//aah top
-    g.rectangle.setPosition(21608.7,1494);
+    g.rectangle.setPosition(21608.7, 1494);
     grounds.push_back(g);
 
     g.rectangle.setSize(Vector2f(130.f, 50.f));//aah top
@@ -727,7 +727,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     //CYAN FOR DEBUGGING PURPOSES. REMOVE THE COMMENT SIGN ON THE FOLLOWING LINE TO MAKE WALLS TRANSPARENT
     w.rectangle.setFillColor(Color::Cyan);
     w.rectangle.setFillColor(Color::Transparent);
-    
+
     w.rectangle.setSize(Vector2f(50.f, 700.f));//1
     w.rectangle.setPosition(5918.06, 1030.52);
     walls.push_back(w);
@@ -803,7 +803,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     w.rectangle.setSize(Vector2f(60.f, 190.f));//17
     w.rectangle.setPosition(7027.35f, 3074.f);
     walls.push_back(w);
-    
+
     w.rectangle.setSize(Vector2f(80.f, 150.f));//18
     w.rectangle.setPosition(7159.35f, 2944.f);
     walls.push_back(w);
@@ -856,9 +856,9 @@ void Start(Player& player, View& view, RenderWindow& window,
     w.rectangle.setPosition(12060.06f, 420.f);
     walls.push_back(w);
 
-    
+
     w.rectangle.setSize(Vector2f(50.f, 130.f));//27'
-    w.rectangle.setPosition(12754.9 ,684);
+    w.rectangle.setPosition(12754.9, 684);
     walls.push_back(w);
 
     w.rectangle.setSize(Vector2f(50.f, 130.f));//27''
@@ -868,7 +868,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     w.rectangle.setSize(Vector2f(50.f, 190.f));//28
     w.rectangle.setPosition(12320.06f, 420.f);
     walls.push_back(w);
-    
+
     w.rectangle.setSize(Vector2f(50.f, 290.f));//29
     w.rectangle.setPosition(12610.06f, 620.f);
     walls.push_back(w);
@@ -984,7 +984,7 @@ void Start(Player& player, View& view, RenderWindow& window,
     w.rectangle.setSize(Vector2f(50.f, 270.f));
     w.rectangle.setPosition(20756.f, 1784.f);
     walls.push_back(w);
-    
+
     w.rectangle.setSize(Vector2f(100.f, 150.f));
     w.rectangle.setPosition(20800.6, 1290);
     walls.push_back(w);
@@ -1000,9 +1000,9 @@ void Start(Player& player, View& view, RenderWindow& window,
     w.rectangle.setSize(Vector2f(50.f, 850.f));
     w.rectangle.setPosition(22436.6f, 1804.f);
     walls.push_back(w);
-    
+
     w.rectangle.setSize(Vector2f(50.f, 850.f));
-    w.rectangle.setPosition(21597.2 ,658);
+    w.rectangle.setPosition(21597.2, 658);
     walls.push_back(w);
 
     w.rectangle.setSize(Vector2f(50.f, 500.f));

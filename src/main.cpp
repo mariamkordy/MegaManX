@@ -1,6 +1,4 @@
-
 #include "Player.h"
-
 #include "Background.h"
 #include "PlayerMovement.h"
 #include "PlayerPhysics.h"
@@ -16,11 +14,13 @@
 #include "MainMenu.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <ctime>
 #include <string>
 #include <vector>
 #include <cstdlib>
+
 
 using namespace sf;
 using namespace std;
@@ -59,12 +59,23 @@ int main()
     Texture fireTexture;
 
     // Loading Texture Assets
-    fireTexture.loadFromFile("assets/textures/FIRE.png");
+    fireTexture.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/FIRE.png");
+
+    // CHANGED: We MUST pass this loaded texture into the eneTex struct, 
+    // because Draw.cpp relies on eneTex.fire to draw the sprite!
+    eneTex.fire = fireTexture;
+
     eneTex.enemy1.loadFromFile("assets/textures/ENEMY1.png");
     eneTex.enemy2.loadFromFile("assets/textures/ENEMY2.png");
     eneTex.enemy3.loadFromFile("assets/textures/ENEMY3.png");
     eneTex.axe.loadFromFile("assets/textures/axe.png");
     eneTex.enemyBullet.loadFromFile("assets/textures/enemy_bullet.png");
+    eneTex.enemyBullet.setSmooth(true);
+    eneTex.enemy1.setSmooth(true);
+    eneTex.enemy2.setSmooth(true);
+    eneTex.enemy3.setSmooth(true);
+    //eneTex.enemyBullet.setSmooth(true);
+
     loadLevel(enemies, fires, eneTex);
     Start(player, view, window, grounds, walls, background, foreground, map);
 
@@ -76,6 +87,33 @@ int main()
     Vector2f lastCheckpointPos = player.sprite.getPosition();
     int healthAmount = 20;
     int maxHealth = 100;
+
+    sf::SoundBuffer cpBuffer;
+    if (!cpBuffer.loadFromFile("assets/sounds/checkpoints sound.wav")) { // Use your real file path
+        std::cout << "Failed to load checkpoint sound!" << std::endl;
+    }
+
+    sf::Sound cpSound;
+    cpSound.setBuffer(cpBuffer);
+
+    // 1. Create Buffers and Sounds (Put this BEFORE your game loop)
+    sf::SoundBuffer shootBuffer;
+    if (!shootBuffer.loadFromFile("assets/sounds/shooting.wav")) {
+        std::cout << "Failed to load shoot sound!\n";
+    }
+    sf::Sound shootSound;
+    shootSound.setBuffer(shootBuffer);
+
+    shootSound.setVolume(100.f);
+
+
+    sf::SoundBuffer deathBuffer;
+    if (!deathBuffer.loadFromFile("assets/sounds/death sound.wav")) {
+        std::cout << "Failed to load death sound!\n";
+    }
+    sf::Sound deathSound;
+    deathSound.setBuffer(deathBuffer);
+
 
     int lives = 3;
     bool gameOver = false;
@@ -129,7 +167,7 @@ int main()
     // Set Initial Position and Checkpoints
     //INITIALLY (100, 200)
 
-    player.sprite.setPosition(100, 1000);
+    player.sprite.setPosition(100, 100);
     lastCheckpointPos = player.sprite.getPosition();
     vector<Vector2f> checkpointPositions = {
         //{2593.49 , 1304},
@@ -202,7 +240,7 @@ int main()
             {
                 if (ev.type == Event::Closed) window.close();
                 if (ev.type == Event::KeyPressed && ev.key.code == Keyboard::Escape) window.close();
-                
+
                 // --- NEW: PAUSE TRIGGER ---
                 if (ev.type == Event::KeyPressed && ev.key.code == Keyboard::P) {
                     condition.menuIndex = 3;          // Switch to Pause State
@@ -213,7 +251,7 @@ int main()
             if (!deadState && !gameOver)
             {
                 handleCheckpoints(player, checkpoints, lastCheckpointPos,
-                    healthAmount, maxHealth, deltaTime);
+                    healthAmount, maxHealth, deltaTime,cpSound);
                 respawn(player, lastCheckpointPos);
             }
 
@@ -228,6 +266,8 @@ int main()
                 player.deathIndex = 0;
                 player.runTimer = 0.f;
                 player.velocity = Vector2f(0.f, 0.f);
+
+                deathSound.play(); // <-- PLAY IT HERE
 
                 statusText.setString("YOU DIED");
                 deathClock.restart();
@@ -245,6 +285,8 @@ int main()
 
                     if (lives > 0)
                     {
+
+                        deathSound.stop(); // <-- STOP IT HERE
                         // Respawn
                         player.health = maxHealth;
                         player.state = STANDING;
@@ -295,7 +337,7 @@ int main()
 
             if (!deadState && !gameOver)
             {
-                playerMovement(player, deltaTime, dashsmoke, Bullets);
+                playerMovement(player, deltaTime, dashsmoke, Bullets,shootSound,deathSound);
                 updateAnimation(player, deltaTime);
                 smokeupdate(player, dashsmoke, deltaTime);
                 checkBulletEnemyCollision(Bullets, enemies);
@@ -311,18 +353,31 @@ int main()
             healthText.setString("HEALTH: " + to_string(player.health));
 
             // Rendering Gameplay Frame
-            window.clear();
-            Draw(player, window, grounds, walls, background, foreground, dashsmoke, Bullets, checkpoints, enemies, fires, eneTex, fireTexture);
-            HEALTHBAR(window, player, player.healthbar);
+            window.clear(); // Clears the screen to black by default
 
+            if (!gameOver)
+            {
+                // Keep the game camera active during regular deaths so we can see the stage and animation
+                window.setView(view);
+                Draw(player, window, grounds, walls, background, foreground, dashsmoke, Bullets, checkpoints, enemies, fires, eneTex, fireTexture);
+                HEALTHBAR(window, player, player.healthbar);
+            }
+            else
+            {
+                // On Game Over, skip drawing the world entirely so the background stays completely black
+                window.setView(window.getDefaultView());
+            }
 
-            // Overlay Screen-Space Text HUD
+            // Overlay Screen-Space Text HUD (Stays exactly the same)
             window.setView(window.getDefaultView());
             window.draw(healthText);
             window.draw(statusText);
+
             // Draw Hearts
             for (int i = 0; i < 3; i++)
+            {
                 window.draw(hearts[i]);
+            }
 
             window.display();
             break;

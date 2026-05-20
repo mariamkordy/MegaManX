@@ -2,6 +2,7 @@
 
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <string>
 #include <iostream>
 #include <SFML/Audio.hpp>
@@ -18,9 +19,12 @@ struct GameState {
     float deltaTime = 0.f;
     sf::View view;
 
-    // Audio
+    //Audio
     sf::SoundBuffer startBuffer;
     sf::Sound startSound;
+
+    sf::SoundBuffer menuBuffer;
+    sf::Sound menuSound;
 
     // Main Menu Assets
     sf::Texture backgroundTex, creditsTex;

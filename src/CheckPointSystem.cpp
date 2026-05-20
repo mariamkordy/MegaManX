@@ -1,5 +1,6 @@
 #include "CheckPointSystem.h"
 #include<iostream>
+#include <SFML/Audio.hpp>
 
 //FUNCTIONS
 
@@ -103,7 +104,7 @@ void movePlayer(Player& player, float deltaTime)
 }
 
 //DAMAGE
-void applyDamange(Player& player, int damage)
+void applyDamage(Player& player, int damage)
 {
     player.health -= damage;
     if (player.health < 0)
@@ -113,7 +114,7 @@ void applyDamange(Player& player, int damage)
 }
 
 void handleCheckpoints(Player& player, vector<Checkpoint>& checkpoints,
-    Vector2f& lastCheckpointPos, int healthAmount, int maxHealth, float deltaTime)
+    Vector2f& lastCheckpointPos, int healthAmount, int maxHealth, float deltaTime, sf::Sound& cpSound)
 {
     for (int i = 0; i < checkpoints.size(); i++)
     {
@@ -163,6 +164,12 @@ void handleCheckpoints(Player& player, vector<Checkpoint>& checkpoints,
                 {
                     player.health = maxHealth;
                 }
+
+                // --- NEW: START LOOPING SOUND ---
+                cpSound.setLoop(true);
+                cpSound.play();
+
+
             }
         }
 
@@ -181,6 +188,9 @@ void handleCheckpoints(Player& player, vector<Checkpoint>& checkpoints,
                 lastCheckpointPos = checkpoints[i].sprite.getPosition();
                 player.health += healthAmount;
                 if (player.health > maxHealth) player.health = maxHealth;
+                // --- NEW: STOP SOUND ---
+                cpSound.setLoop(false);
+                cpSound.stop();
             }
             else
             {
