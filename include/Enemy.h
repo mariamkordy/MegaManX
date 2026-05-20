@@ -21,7 +21,7 @@ struct Bullet {
     sf::Vector2f vel;
     bool active = false;
     int damage;
-    // لو لسه بتستخدمي Sprite جوه الرصاصة تأكدي من وجودها
+    
     sf::Sprite display;
 };
 struct AxeBullet {
@@ -40,7 +40,7 @@ struct Enemy {
     int type = 1, health = 300, direction = 1;
     bool alive = true, grounded = false, dying = false;
     float speed = 150.f, startX = 0.f, patrolRange = 120.f;
-    float visionRange = 600.f; // تأكدي إن دي موجودة
+    float visionRange = 600.f;
     float shootTimer = 0.f;
     int eState = 0;
     float hurtTimer = 0.f;

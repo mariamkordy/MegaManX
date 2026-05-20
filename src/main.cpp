@@ -64,7 +64,7 @@ int main()
     eneTex.enemy2.loadFromFile("assets/textures/ENEMY2.png");
     eneTex.enemy3.loadFromFile("assets/textures/ENEMY3.png");
     eneTex.axe.loadFromFile("assets/textures/axe.png");
-
+    eneTex.enemyBullet.loadFromFile("assets/textures/enemy_bullet.png");
     loadLevel(enemies, fires, eneTex);
     Start(player, view, window, grounds, walls, background, foreground, map);
 

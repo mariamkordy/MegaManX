@@ -68,8 +68,7 @@ void updateEnemies(std::vector<Enemy>& enemies, Player& player, float dt) {
             if (e.type == 2) {
                 if (std::abs(e.pos.x - playerPos.x) > 200.f) {
                     e.pos.x += e.direction * e.speed * dt;
-                }
-                else {
+                } else {
                     e.isShooting = true;
                 }
             }
@@ -105,8 +104,7 @@ void updateEnemies(std::vector<Enemy>& enemies, Player& player, float dt) {
                     }
                 }
             }
-        }
-        else if (e.type != 3) {
+        } else if (e.type != 3) {
             if (e.eState == 0) {
                 e.pos.x += e.direction * e.speed * dt;
                 if (std::abs(e.pos.x - e.startX) > e.patrolRange) e.direction *= -1;
@@ -190,7 +188,7 @@ void drawEnemies(sf::RenderWindow& window, std::vector<Enemy>& enemies, EneTextu
         window.draw(s);
 
         // ======= رسم الـ bullet بـ texture منفصلة =======
-        for (auto& b : e.bullets) {
+          for (auto& b : e.bullets) {
             if (b.active) {
                 sf::Sprite bulletSprite;
                 bulletSprite.setTexture(tex.enemyBullet);
