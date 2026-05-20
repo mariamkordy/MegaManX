@@ -3,44 +3,46 @@
 
 using namespace sf;
 using namespace std;
-void Draw(Player& player, sf::RenderWindow& window, const vector<Ground>& grounds, const vector<Wall>& walls, Background& background, Foreground& foreground, DashSmoke dashsmoke[100], playerBullets Bullets[10], vector<Checkpoint>& checkpoints, std::vector<Enemy>& enemies, std::vector<FireTrap>& fires,
-    EneTextures& tex, sf::Texture& fireTex)
+
+void Draw(Player& player, sf::RenderWindow& window,
+    std::vector<Ground>& grounds, std::vector<Wall>& walls,
+    Background& background, Foreground& foreground,
+    DashSmoke* dashsmoke, playerBullets* Bullets,
+    std::vector<Checkpoint>& checkpoints,
+    std::vector<Enemy>& enemies, std::vector<FireTrap>& fires,
+    EneTextures& eneTex, sf::Texture& fireTexture)
 {
+    // 1. Background (furthest back)
     window.draw(background.bgSprite);
-    for (int i = 0; i < grounds.size(); i++) {
-        window.draw(grounds[i].rectangle);
-    }
+
+    // 2. Foreground/map layer
     window.draw(foreground.fgSprite);
 
-    drawEnemies(window, enemies, tex, player.sprite.getPosition());
+    // 3. Grounds and Walls ON TOP of the map
+    for (int i = 0; i < grounds.size(); i++)
+        window.draw(grounds[i].rectangle);
 
-    drawFires(window, fires, fireTex);
+    for (int i = 0; i < walls.size(); i++)
+        window.draw(walls[i].rectangle);
 
-    for (int i = 0; i < 15; i++) {
-        if (dashsmoke[i].visible) {
-            window.draw(dashsmoke[i].display);
-        }
-    }
-    for (const auto& g : grounds) {
-        window.draw(g.rectangle);
-    }
-    for (const auto& w : walls) {
-        window.draw(w.rectangle);
-    }
+    // 4. Enemies and traps
+    drawEnemies(window, enemies, eneTex, player);
+    drawFires(window, fires, fireTexture);
 
-    for (int i = 0; i < player.smokenumber; i++) {
-        if (dashsmoke[i].visible) {
-            window.draw(dashsmoke[i].display);
-        }
-    }
-
-    for (int i = 0; i < 10; i++) {
-        if (Bullets[i].active) {
-            window.draw(Bullets[i].display);
-        }
-    }
+    // 5. Player
     window.draw(player.sprite);
-    for (int i = 0; i < checkpoints.size(); i++)
-        window.draw(checkpoints[i].shape);
 
+    // 6. Dash smoke effects
+    for (int i = 0; i < player.smokenumber; i++)
+        if (dashsmoke[i].visible)
+            window.draw(dashsmoke[i].display);
+
+    // 7. Bullets
+    for (int i = 0; i < 10; i++)
+        if (Bullets[i].active)
+            window.draw(Bullets[i].display);
+
+    // 8. Checkpoints (UI-like markers, drawn last)
+    for (int i = 0; i < checkpoints.size(); i++)
+        window.draw(checkpoints[i].sprite);
 }

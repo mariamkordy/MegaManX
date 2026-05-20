@@ -29,6 +29,7 @@ void collision(Player& player, const vector<Ground>& grounds, const vector<Wall>
         // Player hit the block from below — push them down
         if (overlapsGX && overlapsGY && player.velocity.y < 0) {
             player.sprite.setPosition(player.sprite.getPosition().x, groundBounds.top + groundBounds.height);
+            cout << "PLAYER IN CONTACT WITH A GROUND BLOCK BOTTOM" << endl;
         }
         // Player landed on top — only if player is above the ground block
         else if (overlapsGX && playerBottom >= groundTop && playerTop <= groundTop && player.velocity.y >= 0) {
@@ -46,9 +47,11 @@ void collision(Player& player, const vector<Ground>& grounds, const vector<Wall>
         float wallTop = wallBounds.top;
 
         bool overlapsWX = playerRight > wallLeft && playerLeft < wallRight;
+        bool overlapsWY = playerBottom > wallBounds.top && playerTop < wallBounds.top + wallBounds.height;
 
         // IF THE PLAYER APPROACHES A WALL BLOCK FROM BELOW, IGNORE IT
-        if (overlapsWX && player.sprite.getPosition().y > wallBounds.top + wallBounds.height) {
+        if (overlapsWX &&player.sprite.getPosition().y >= wallBounds.top + wallBounds.height) {
+            cout << "PLAYER BELOW WALL "<< endl;
             continue;
         }
 
@@ -60,10 +63,12 @@ void collision(Player& player, const vector<Ground>& grounds, const vector<Wall>
             }
             if (abs(moveRight) > abs(moveLeft)) {
                 player.sprite.setPosition(wallRight, player.sprite.getPosition().y);
+                player.velocity.x = 0;
                 player.isOnWall = true;
             }
             else if (abs(moveRight) < abs(moveLeft)) {
                 player.sprite.setPosition(wallLeft - PLAYER_WIDTH, player.sprite.getPosition().y);
+                player.velocity.x = 0;
                 player.isOnWall = true;
             }
         }

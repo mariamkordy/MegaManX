@@ -1,4 +1,6 @@
-﻿#include "Player.h"
+
+#include "Player.h"
+
 #include "Background.h"
 #include "PlayerMovement.h"
 #include "PlayerPhysics.h"
@@ -12,7 +14,6 @@
 #include "Enemy.h"
 #include "CheckPointSystem.h"
 #include "MainMenu.h"
-
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window/Keyboard.hpp>
@@ -21,17 +22,14 @@
 #include <vector>
 #include <cstdlib>
 
-
 using namespace sf;
 using namespace std;
 
 int main()
 {
     // --- 1. WINDOW AND STATE INITIALIZATION ---
-    // The window must be created BEFORE the GameState struct
     VideoMode desktopMode = VideoMode::getDesktopMode();
     RenderWindow window(desktopMode, "Mega Man X");
-    //, Style::Fullscreen
 
     // Pass the window into the struct as a reference
     GameState condition(window);
@@ -66,7 +64,7 @@ int main()
     eneTex.enemy2.loadFromFile("assets/textures/ENEMY2.png");
     eneTex.enemy3.loadFromFile("assets/textures/ENEMY3.png");
     eneTex.axe.loadFromFile("assets/textures/axe.png");
-
+    eneTex.enemyBullet.loadFromFile("assets/textures/enemy_bullet.png");
     loadLevel(enemies, fires, eneTex);
     Start(player, view, window, grounds, walls, background, foreground, map);
 
@@ -81,17 +79,13 @@ int main()
 
     // Font setup for UI
     Font font;
-
     if (!font.loadFromFile("assets/fonts/MMRock9.ttf"))
         cout << "FONT FAILED" << endl;
-
-
 
     Text healthText;
     healthText.setFont(font);
     healthText.setCharacterSize(32);
     healthText.setFillColor(Color::White);
-    healthText.setPosition(10, 100);
     healthText.setPosition(30, 100);
 
     Text statusText;
@@ -109,14 +103,16 @@ int main()
     }
 
     // Set Initial Position and Checkpoints
-    player.sprite.setPosition(100, 100);
+    //INITIALLY (100, 200)
+
+    player.sprite.setPosition(100, 1000);
     lastCheckpointPos = player.sprite.getPosition();
     vector<Vector2f> checkpointPositions = {
-            {2493.49 , 1304},
-            {100 , 1490},
-            {11809.1 , 1714},
-            {15686.8 , 564},
-            {18567.9 , 1434}
+        //{2593.49 , 1304},
+        //{0 , 1600},
+        {6300, 2870},
+        {15686.8 , 420},
+        //{18567.9 , 1434}
     };
 
     for (auto& pos : checkpointPositions)
@@ -124,39 +120,74 @@ int main()
 
     clock.restart();
 
-    ////healthbar function--->
-    void  HEALTHBAR(RenderWindow & window, Player & player, Texture & texture);//before el while loop
+    // healthbar function declaration
+    void HEALTHBAR(RenderWindow & window, Player & player, Texture & texture);
 
-    // --- 3. MAIN LOOP ---
+    // --- 3. MAIN STATE LOOPS ---
     while (window.isOpen())
     {
-        //cout << "PLAYER AT  " << player.sprite.getPosition().x << " , " << player.sprite.getPosition().y + 40 << endl;
         deltaTime = clock.restart().asSeconds();
 
-        // Check if we should be in the Main Menu or the Game
-        if (condition.menuIndex == 0) {
+        switch (condition.menuIndex)
+        {
+        case 0: // --- MAIN MENU STATE ---
             window.setView(window.getDefaultView());
             MainMenu(condition);
-        }
-        else {
+            break;
+
+        case 2: // --- CREDITS MENU STATE ---
+            window.setView(window.getDefaultView());
+            CreditsMenu(condition);
+            break;
+
+        case 3: // --- PAUSE MENU STATE ---
+            window.setView(window.getDefaultView()); // Reset camera so menu isn't skewed
+            PauseMenu(condition);
+            break;
+
+        case 1: // --- ACTIVE GAMEPLAY STATE ---
+        default:
             // Process basic window events for the gameplay state
+
+            if (condition.needsRestart) {
+                // 1. Reset Player Stats and Position
+                player.health = maxHealth;
+                player.sprite.setPosition(100, 100);
+                lastCheckpointPos = Vector2f(100, 100);
+
+                // 2. Clear out old enemies/traps and reload the level from scratch
+                enemies.clear();
+                fires.clear();
+                loadLevel(enemies, fires, eneTex);
+
+                // 3. Turn the flag off so it doesn't constantly reset every frame
+                condition.needsRestart = false;
+            }
+
             Event ev;
             while (window.pollEvent(ev))
             {
                 if (ev.type == Event::Closed) window.close();
                 if (ev.type == Event::KeyPressed && ev.key.code == Keyboard::Escape) window.close();
+                
+                // --- NEW: PAUSE TRIGGER ---
+                if (ev.type == Event::KeyPressed && ev.key.code == Keyboard::P) {
+                    condition.menuIndex = 3;          // Switch to Pause State
+                    condition.pauseSelection = 0;     // Default to 'Resume'
+                }
             }
 
             // CHECKPOINT LOGIC
-            handleCheckpoints(player, checkpoints, lastCheckpointPos, healthAmount, maxHealth);
+            handleCheckpoints(player, checkpoints, lastCheckpointPos, healthAmount, maxHealth, deltaTime);
             respawn(player, lastCheckpointPos);
 
-            healthText.setFont(font);
+            // UI Updates
             healthText.setString("HEALTH: " + to_string(player.health));
-            healthText.setString("MY NAME IS KOKO");
+            if (player.health <= 0) statusText.setString("YOU DIED");
+            else if (Keyboard::isKeyPressed(Keyboard::R)) statusText.setString("RESPAWNING");
+            else statusText.setString("");
 
-
-            // Gameplay Updates
+            // Gameplay Engine Logic Updates
             playerMovement(player, deltaTime, dashsmoke, Bullets);
             updateAnimation(player, deltaTime);
             smokeupdate(player, dashsmoke, deltaTime);
@@ -165,29 +196,23 @@ int main()
             playerPhysics(player, deltaTime);
             collision(player, grounds, walls);
             camera(player, view, window, background, foreground);
-            //handleCheckpoints(player, checkpoints, lastCheckpointPos, healthAmount, maxHealth);
-            //respawn(player, lastCheckpointPos);
-
-            // UI Updates
-            healthText.setString("HEALTH: " + to_string(player.health));
-            if (player.health <= 0) statusText.setString("YOU DIED");
-            else if (Keyboard::isKeyPressed(Keyboard::R)) statusText.setString("RESPAWNING");
-            else statusText.setString("");
-
-            HEALTHBAR(window, player, player.healthbar);//fy a5er el while loop
-            // Rendering
-            window.clear();
-            sf::Vector2f pPos = player.sprite.getPosition();
-            updateEnemies(enemies, player, groundY, deltaTime);
+            updateEnemies(enemies, player, deltaTime);
             updateFires(fires, player, fireDamageTimer, deltaTime);
-            Draw(player, window, grounds, walls, background, foreground, dashsmoke, Bullets, checkpoints, enemies, fires, eneTex, fireTexture);
 
+            // Rendering Gameplay Frame
+            window.clear();
+            Draw(player, window, grounds, walls, background, foreground, dashsmoke, Bullets, checkpoints, enemies, fires, eneTex, fireTexture);
+            HEALTHBAR(window, player, player.healthbar);
+
+
+            // Overlay Screen-Space Text HUD
             window.setView(window.getDefaultView());
             window.draw(healthText);
             window.draw(statusText);
             window.display();
+            break;
         }
     } // End of while loop
 
-    return 0; // Final return outside the loop
+    return 0;
 }

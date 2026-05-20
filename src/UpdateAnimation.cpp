@@ -228,20 +228,20 @@ void updatePlayerBullets(Player & player, float deltaTime, playerBullets Bullets
 void HEALTHBAR(RenderWindow& window, Player& player, Texture& texture) {
 
 
-    if (player.health >= 80 && player.health <= 100) {
+    if (player.health ==100 ) {
 
         player.healthbarindex = 0;
 
     }
-    else if (player.health >= 60 && player.health < 80) {
+    else if (player.health >= 75 && player.health < 100) {
 
         player.healthbarindex = 1;
     }
-    else if (player.health >= 40 && player.health < 60) {
+    else if (player.health >= 50 && player.health < 75) {
 
         player.healthbarindex = 2;
     }
-    else if (player.health >= 20 && player.health < 40) {
+    else if (player.health >= 25 && player.health < 50) {
 
         player.healthbarindex = 3;
     }
@@ -251,14 +251,17 @@ void HEALTHBAR(RenderWindow& window, Player& player, Texture& texture) {
     }
     Sprite healthbarsprite;
     healthbarsprite.setTexture(texture);
-    int left = player.healthbarindex * 100;
-    healthbarsprite.setTextureRect(IntRect(left, 0, 100, 200));
-    healthbarsprite.setPosition(0, 50);
+    int left = player.healthbarindex * 32;
+    healthbarsprite.setTextureRect(IntRect(left, 0, 32, 70));
+
+    healthbarsprite.setScale(4, 4);
+    healthbarsprite.setPosition(0, -10);
     /* healthbarsprite.setPosition(0, 50);*/
      //3a4an elsprite teb2a sabta 3ala el screen
     View healthview = window.getView();
     window.setView(window.getDefaultView());
     ///////
+
     window.draw(healthbarsprite);
     window.setView(healthview);
 }
