@@ -77,6 +77,30 @@ int main()
     int healthAmount = 20;
     int maxHealth = 100;
 
+    int lives = 3;
+    bool gameOver = false;
+    bool deadState = false;
+
+    Clock deathClock;
+    Clock gameOverClock;
+
+    Texture heartTexture;
+
+    if (!heartTexture.loadFromFile("assets/textures/heart.png"))
+    {
+        cout << "FAILED TO LOAD HEART TEXTURE\n";
+    }
+
+
+    Sprite hearts[3];
+    for (int i = 0; i < 3; i++)
+    {
+        hearts[i].setTexture(heartTexture);
+        hearts[i].setScale(0.02f, 0.02f);
+        hearts[i].setPosition(190.f + (i * 55.f), 30.f);
+    }
+
+
     // Font setup for UI
     Font font;
     if (!font.loadFromFile("assets/fonts/MMRock9.ttf"))
@@ -155,6 +179,15 @@ int main()
                 player.sprite.setPosition(100, 100);
                 lastCheckpointPos = Vector2f(100, 100);
 
+                lives = 3;
+                gameOver = false;
+                deadState = false;
+
+                for (int i = 0; i < 3; i++)
+                    hearts[i].setColor(Color::White);
+
+              
+
                 // 2. Clear out old enemies/traps and reload the level from scratch
                 enemies.clear();
                 fires.clear();
@@ -177,27 +210,105 @@ int main()
                 }
             }
 
-            // CHECKPOINT LOGIC
-            handleCheckpoints(player, checkpoints, lastCheckpointPos, healthAmount, maxHealth, deltaTime);
-            respawn(player, lastCheckpointPos);
+            if (!deadState && !gameOver)
+            {
+                handleCheckpoints(player, checkpoints, lastCheckpointPos,
+                    healthAmount, maxHealth, deltaTime);
+                respawn(player, lastCheckpointPos);
+            }
+
+            if (player.health <= 0 && !deadState && !gameOver)
+            {
+                deadState = true;
+                lives--;
+                if (lives >= 0 && lives < 3)
+                    hearts[lives].setColor(Color(255, 255, 255, 80));
+
+                player.state = DYING;
+                player.deathIndex = 0;
+                player.runTimer = 0.f;
+                player.velocity = Vector2f(0.f, 0.f);
+
+                statusText.setString("YOU DIED");
+                deathClock.restart();
+            }
+            if (deadState && !gameOver)
+            {
+                updateAnimation(player, deltaTime);
+
+                // Wait for animation to finish (6 frames x 0.15s = ~0.9s)
+                // then add a small pause before transitioning
+                if (player.deathIndex >= 5 &&
+                    deathClock.getElapsedTime().asSeconds() > 1.2f)
+                {
+                    deadState = false;
+
+                    if (lives > 0)
+                    {
+                        // Respawn
+                        player.health = maxHealth;
+                        player.state = STANDING;
+                        player.deathIndex = 0;
+                        player.sprite.setPosition(lastCheckpointPos);
+
+                        enemies.clear();
+                        fires.clear();
+                        loadLevel(enemies, fires, eneTex);
+
+                        statusText.setString("");
+                    }
+                    else
+                    {
+                        // No lives left
+                        gameOver = true;
+                        statusText.setString("GAME OVER");
+                        gameOverClock.restart();
+                    }
+                }
+            }
+
+            if (gameOver && gameOverClock.getElapsedTime().asSeconds() > 3.f)
+            {
+                lives = 3;
+                gameOver = false;
+                deadState = false;
+
+                for (int i = 0; i < 3; i++)
+                    hearts[i].setColor(Color::White);
+
+                player.health = maxHealth;
+                player.state = STANDING;
+                player.deathIndex = 0;
+                player.sprite.setPosition(100, 100);
+                lastCheckpointPos = Vector2f(100, 100);
+                enemies.clear();
+                fires.clear();
+                loadLevel(enemies, fires, eneTex);
+
+                checkpoints.clear();
+                for (auto& pos : checkpointPositions)
+                    checkpoints.push_back(createCheckpoint(pos.x, pos.y));
+
+                statusText.setString("");
+                condition.menuIndex = 0; // back to main menu
+            }
+
+            if (!deadState && !gameOver)
+            {
+                playerMovement(player, deltaTime, dashsmoke, Bullets);
+                updateAnimation(player, deltaTime);
+                smokeupdate(player, dashsmoke, deltaTime);
+                checkBulletEnemyCollision(Bullets, enemies);
+                updatePlayerBullets(player, deltaTime, Bullets);
+                playerPhysics(player, deltaTime);
+                collision(player, grounds, walls);
+                camera(player, view, window, background, foreground);
+                updateEnemies(enemies, player, deltaTime);
+                updateFires(fires, player, fireDamageTimer, deltaTime);
+            }
 
             // UI Updates
             healthText.setString("HEALTH: " + to_string(player.health));
-            if (player.health <= 0) statusText.setString("YOU DIED");
-            else if (Keyboard::isKeyPressed(Keyboard::R)) statusText.setString("RESPAWNING");
-            else statusText.setString("");
-
-            // Gameplay Engine Logic Updates
-            playerMovement(player, deltaTime, dashsmoke, Bullets);
-            updateAnimation(player, deltaTime);
-            smokeupdate(player, dashsmoke, deltaTime);
-            checkBulletEnemyCollision(Bullets, enemies);
-            updatePlayerBullets(player, deltaTime, Bullets);
-            playerPhysics(player, deltaTime);
-            collision(player, grounds, walls);
-            camera(player, view, window, background, foreground);
-            updateEnemies(enemies, player, deltaTime);
-            updateFires(fires, player, fireDamageTimer, deltaTime);
 
             // Rendering Gameplay Frame
             window.clear();
@@ -209,6 +320,10 @@ int main()
             window.setView(window.getDefaultView());
             window.draw(healthText);
             window.draw(statusText);
+            // Draw Hearts
+            for (int i = 0; i < 3; i++)
+                window.draw(hearts[i]);
+
             window.display();
             break;
         }
