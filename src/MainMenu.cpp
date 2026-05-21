@@ -73,16 +73,25 @@ void MainMenu(GameState& condition) {
         if (condition.e.type == sf::Event::Closed) {
             condition.window.close();
         }
+        static sf::Clock mainMenuTimer;
+
+        // 2. Add the cooldown check right here!
+        if (mainMenuTimer.getElapsedTime().asSeconds() < 0.2f) {
+            return;
+        }
 
         if (condition.e.type == sf::Event::KeyPressed) {
             if (condition.e.key.code == sf::Keyboard::Up || condition.e.key.code == sf::Keyboard::W) {
-                condition.currentSelection = (condition.currentSelection - 1 + 3) % 3;
-            }
+
+                condition.currentSelection = (condition.currentSelection - 1 + 3) % 3; 
+                mainMenuTimer.restart();
+            }              
             if (condition.e.key.code == sf::Keyboard::Down || condition.e.key.code == sf::Keyboard::S) {
                 condition.currentSelection = (condition.currentSelection + 1) % 3;
             }
             if (condition.e.key.code == sf::Keyboard::Enter) {
                 if (condition.currentSelection == 0) {
+                    mainMenuTimer.restart();
                     condition.menuSound.stop();
                     condition.menuIndex = 1;
                     condition.startSound.play();

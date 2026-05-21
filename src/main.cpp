@@ -14,13 +14,12 @@
 #include "MainMenu.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 #include <SFML/Window/Keyboard.hpp>
 #include <ctime>
 #include <string>
 #include <vector>
 #include <cstdlib>
-
+#include <SFML/Audio.hpp>
 
 using namespace sf;
 using namespace std;
@@ -31,10 +30,7 @@ int main()
     VideoMode desktopMode = VideoMode::getDesktopMode();
     RenderWindow window(desktopMode, "Mega Man X");
 
-    // Pass the window into the struct as a reference
     GameState condition(window);
-
-    // Load assets immediately so textures aren't empty
     LoadAssets(condition);
 
     // --- 2. GAME OBJECTS AND ASSETS ---
@@ -59,130 +55,78 @@ int main()
     Texture fireTexture;
 
     // Loading Texture Assets
-    fireTexture.loadFromFile("C:/Users/hp/source/repos/MegaManX/assets/textures/FIRE.png");
-
-    // CHANGED: We MUST pass this loaded texture into the eneTex struct, 
-    // because Draw.cpp relies on eneTex.fire to draw the sprite!
-    eneTex.fire = fireTexture;
-
+    fireTexture.loadFromFile("assets/textures/FIRE.png");
+    eneTex.fire = fireTexture; // Essential for Draw.cpp
     eneTex.enemy1.loadFromFile("assets/textures/ENEMY1.png");
     eneTex.enemy2.loadFromFile("assets/textures/ENEMY2.png");
     eneTex.enemy3.loadFromFile("assets/textures/ENEMY3.png");
     eneTex.axe.loadFromFile("assets/textures/axe.png");
     eneTex.enemyBullet.loadFromFile("assets/textures/enemy_bullet.png");
-    eneTex.enemyBullet.setSmooth(true);
-    eneTex.enemy1.setSmooth(true);
-    eneTex.enemy2.setSmooth(true);
-    eneTex.enemy3.setSmooth(true);
-    //eneTex.enemyBullet.setSmooth(true);
 
     loadLevel(enemies, fires, eneTex);
     Start(player, view, window, grounds, walls, background, foreground, map);
 
     srand(time(0));
     setupPlayer(player);
-
     player.hitbox.setOrigin(20.f, 30.f);
 
-    Vector2f lastCheckpointPos = player.sprite.getPosition();
-    int healthAmount = 20;
-    int maxHealth = 100;
+    // --- AUDIO ---
+    sf::SoundBuffer cpBuffer, shootBuffer, deathBuffer;
+    if (!cpBuffer.loadFromFile("assets/sounds/checkpoints sound.wav")) cout << "Failed checkpoint sound!\n";
+    if (!shootBuffer.loadFromFile("assets/sounds/shooting.wav")) cout << "Failed shoot sound!\n";
+    if (!deathBuffer.loadFromFile("assets/sounds/death sound.wav")) cout << "Failed death sound!\n";
 
-    sf::SoundBuffer cpBuffer;
-    if (!cpBuffer.loadFromFile("assets/sounds/checkpoints sound.wav")) { // Use your real file path
-        std::cout << "Failed to load checkpoint sound!" << std::endl;
-    }
-
-    sf::Sound cpSound;
-    cpSound.setBuffer(cpBuffer);
-
-    // 1. Create Buffers and Sounds (Put this BEFORE your game loop)
-    sf::SoundBuffer shootBuffer;
-    if (!shootBuffer.loadFromFile("assets/sounds/shooting.wav")) {
-        std::cout << "Failed to load shoot sound!\n";
-    }
-    sf::Sound shootSound;
-    shootSound.setBuffer(shootBuffer);
-
+    sf::Sound cpSound(cpBuffer);
+    sf::Sound shootSound(shootBuffer);
+    sf::Sound deathSound(deathBuffer);
     shootSound.setVolume(100.f);
 
-
-    sf::SoundBuffer deathBuffer;
-    if (!deathBuffer.loadFromFile("assets/sounds/death sound.wav")) {
-        std::cout << "Failed to load death sound!\n";
-    }
-    sf::Sound deathSound;
-    deathSound.setBuffer(deathBuffer);
-
-
+    // --- GAMEPLAY VARIABLES ---
+    int maxHealth = 100;
+    int healthAmount = 20;
     int lives = 3;
-    bool gameOver = false;
     bool deadState = false;
-
+    bool gameOver = false;
     Clock deathClock;
-    Clock gameOverClock;
 
+    // Lives UI setup
     Texture heartTexture;
-
-    if (!heartTexture.loadFromFile("assets/textures/heart.png"))
-    {
-        cout << "FAILED TO LOAD HEART TEXTURE\n";
-    }
-
-
+    if (!heartTexture.loadFromFile("assets/textures/heart.png")) cout << "FAILED TO LOAD HEART TEXTURE\n";
     Sprite hearts[3];
-    for (int i = 0; i < 3; i++)
-    {
+    for (int i = 0; i < 3; i++) {
         hearts[i].setTexture(heartTexture);
         hearts[i].setScale(0.02f, 0.02f);
         hearts[i].setPosition(190.f + (i * 55.f), 30.f);
     }
 
+    // --- INITIALIZE NEW GAME OVER MENU ---
+    GameOverMenu gameOverMenu;
+    gameOverMenu.init();
 
     // Font setup for UI
     Font font;
-    if (!font.loadFromFile("assets/fonts/MMRock9.ttf"))
-        cout << "FONT FAILED" << endl;
+    if (!font.loadFromFile("assets/fonts/MMRock9.ttf")) cout << "FONT FAILED\n";
 
-    Text healthText;
-    healthText.setFont(font);
-    healthText.setCharacterSize(32);
-    healthText.setFillColor(Color::White);
-    healthText.setPosition(30, 100);
+    Text healthText, statusText;
+    healthText.setFont(font); healthText.setCharacterSize(32);
+    healthText.setFillColor(Color::White); healthText.setPosition(30, 100);
 
-    Text statusText;
-    statusText.setFont(font);
-    statusText.setCharacterSize(40);
-    statusText.setFillColor(Color::Red);
-    statusText.setPosition(300, 280);
+    statusText.setFont(font); statusText.setCharacterSize(40);
+    statusText.setFillColor(Color::Red); statusText.setPosition(300, 280);
 
     // Initialize Projectiles
     playerBullets Bullets[10];
     for (int i = 0; i < 10; i++) {
-        Bullets[i].active = false;
-        Bullets[i].position = Vector2f(0.f, 0.f);
-        Bullets[i].velocity = Vector2f(0.f, 0.f);
+        Bullets[i].active = false; Bullets[i].position = Vector2f(0.f, 0.f); Bullets[i].velocity = Vector2f(0.f, 0.f);
     }
 
-    // Set Initial Position and Checkpoints
-    //INITIALLY (100, 200)
-
-    player.sprite.setPosition(100, 100);
-    lastCheckpointPos = player.sprite.getPosition();
-    vector<Vector2f> checkpointPositions = {
-        //{2593.49 , 1304},
-        //{0 , 1600},
-        {6300, 2870},
-        {15686.8 , 420},
-        //{18567.9 , 1434}
-    };
-
-    for (auto& pos : checkpointPositions)
-        checkpoints.push_back(createCheckpoint(pos.x, pos.y));
+    // Checkpoints
+    player.sprite.setPosition(100,100);
+    Vector2f lastCheckpointPos = player.sprite.getPosition();
+    vector<Vector2f> checkpointPositions = { {6300, 2870}, {15686.8,420} };
+    for (auto& pos : checkpointPositions) checkpoints.push_back(createCheckpoint(pos.x, pos.y));
 
     clock.restart();
-
-    // healthbar function declaration
     void HEALTHBAR(RenderWindow & window, Player & player, Texture & texture);
 
     // --- 3. MAIN STATE LOOPS ---
@@ -192,46 +136,42 @@ int main()
 
         switch (condition.menuIndex)
         {
-        case 0: // --- MAIN MENU STATE ---
+        case 0: // MAIN MENU
             window.setView(window.getDefaultView());
             MainMenu(condition);
             break;
 
-        case 2: // --- CREDITS MENU STATE ---
+        case 2: // CREDITS MENU
             window.setView(window.getDefaultView());
             CreditsMenu(condition);
             break;
 
-        case 3: // --- PAUSE MENU STATE ---
-            window.setView(window.getDefaultView()); // Reset camera so menu isn't skewed
+        case 3: // PAUSE MENU
+            window.setView(window.getDefaultView());
             PauseMenu(condition);
             break;
 
-        case 1: // --- ACTIVE GAMEPLAY STATE ---
-        default:
-            // Process basic window events for the gameplay state
+        case 4: // --- INTERACTIVE GAME OVER MENU ---
+            window.clear();
+            gameOverMenu.updateAndDraw(window, condition);
+            window.display();
+            break;
 
+        case 1: // ACTIVE GAMEPLAY
+        default:
+            // --- FULL RESTART LOGIC (From Menu) ---
             if (condition.needsRestart) {
-                // 1. Reset Player Stats and Position
                 player.health = maxHealth;
                 player.sprite.setPosition(100, 100);
                 lastCheckpointPos = Vector2f(100, 100);
-
                 lives = 3;
-                gameOver = false;
                 deadState = false;
+                gameOver = false;
+                for (int i = 0; i < 3; i++) hearts[i].setColor(Color::White);
 
-                for (int i = 0; i < 3; i++)
-                    hearts[i].setColor(Color::White);
-
-              
-
-                // 2. Clear out old enemies/traps and reload the level from scratch
-                enemies.clear();
-                fires.clear();
+                enemies.clear(); fires.clear();
                 loadLevel(enemies, fires, eneTex);
-
-                // 3. Turn the flag off so it doesn't constantly reset every frame
+                gameOverMenu.stopMusic();
                 condition.needsRestart = false;
             }
 
@@ -240,104 +180,66 @@ int main()
             {
                 if (ev.type == Event::Closed) window.close();
                 if (ev.type == Event::KeyPressed && ev.key.code == Keyboard::Escape) window.close();
-
-                // --- NEW: PAUSE TRIGGER ---
                 if (ev.type == Event::KeyPressed && ev.key.code == Keyboard::P) {
-                    condition.menuIndex = 3;          // Switch to Pause State
-                    condition.pauseSelection = 0;     // Default to 'Resume'
+                    condition.menuIndex = 3;
+                    condition.pauseSelection = 0;
                 }
             }
 
-            if (!deadState && !gameOver)
-            {
-                handleCheckpoints(player, checkpoints, lastCheckpointPos,
-                    healthAmount, maxHealth, deltaTime,cpSound);
+            // --- GAMEPLAY UPDATES ---
+            if (!deadState && !gameOver) {
+                handleCheckpoints(player, checkpoints, lastCheckpointPos, healthAmount, maxHealth, deltaTime, cpSound);
                 respawn(player, lastCheckpointPos);
             }
 
-            if (player.health <= 0 && !deadState && !gameOver)
-            {
+            // --- DYING TRIGGER ---
+            if (player.health <= 0 && !deadState && !gameOver) {
                 deadState = true;
                 lives--;
-                if (lives >= 0 && lives < 3)
-                    hearts[lives].setColor(Color(255, 255, 255, 80));
+                if (lives >= 0 && lives < 3) hearts[lives].setColor(Color(255, 255, 255, 80));
 
                 player.state = DYING;
                 player.deathIndex = 0;
                 player.runTimer = 0.f;
                 player.velocity = Vector2f(0.f, 0.f);
 
-                deathSound.play(); // <-- PLAY IT HERE
-
+                deathSound.play();
                 statusText.setString("YOU DIED");
                 deathClock.restart();
             }
-            if (deadState && !gameOver)
-            {
+
+            // --- DEATH ANIMATION FINISHED ---
+            if (deadState && !gameOver) {
                 updateAnimation(player, deltaTime);
 
-                // Wait for animation to finish (6 frames x 0.15s = ~0.9s)
-                // then add a small pause before transitioning
-                if (player.deathIndex >= 5 &&
-                    deathClock.getElapsedTime().asSeconds() > 1.2f)
-                {
+                if (player.deathIndex >= 5 && deathClock.getElapsedTime().asSeconds() > 1.2f) {
                     deadState = false;
 
-                    if (lives > 0)
-                    {
-
-                        deathSound.stop(); // <-- STOP IT HERE
-                        // Respawn
+                    if (lives > 0) {
+                        // Standard Respawn
+                        deathSound.stop();
                         player.health = maxHealth;
                         player.state = STANDING;
                         player.deathIndex = 0;
                         player.sprite.setPosition(lastCheckpointPos);
-
-                        enemies.clear();
-                        fires.clear();
-                        loadLevel(enemies, fires, eneTex);
-
+                        //enemies.clear(); fires.clear();
+                        //loadLevel(enemies, fires, eneTex);
                         statusText.setString("");
                     }
-                    else
-                    {
-                        // No lives left
-                        gameOver = true;
-                        statusText.setString("GAME OVER");
-                        gameOverClock.restart();
+                    else {
+                        // NO LIVES LEFT -> TRANSITION TO GAME OVER MENU (Case 4)
+                        deathSound.stop();
+                        gameOverMenu.inputDelayTimer.restart(); // Forces a 0.2s delay before reading new inputs
+                        gameOverMenu.musicPlayed = false;       // Guarantees the music tracks reset and play
+                        condition.menuIndex = 4;
+                        statusText.setString("");
                     }
                 }
             }
 
-            if (gameOver && gameOverClock.getElapsedTime().asSeconds() > 3.f)
-            {
-                lives = 3;
-                gameOver = false;
-                deadState = false;
-
-                for (int i = 0; i < 3; i++)
-                    hearts[i].setColor(Color::White);
-
-                player.health = maxHealth;
-                player.state = STANDING;
-                player.deathIndex = 0;
-                player.sprite.setPosition(100, 100);
-                lastCheckpointPos = Vector2f(100, 100);
-                enemies.clear();
-                fires.clear();
-                loadLevel(enemies, fires, eneTex);
-
-                checkpoints.clear();
-                for (auto& pos : checkpointPositions)
-                    checkpoints.push_back(createCheckpoint(pos.x, pos.y));
-
-                statusText.setString("");
-                condition.menuIndex = 0; // back to main menu
-            }
-
-            if (!deadState && !gameOver)
-            {
-                playerMovement(player, deltaTime, dashsmoke, Bullets,shootSound,deathSound);
+            // --- STANDARD PHYSICS & UPDATES ---
+            if (!deadState && !gameOver) {
+                playerMovement(player, deltaTime, dashsmoke, Bullets, shootSound, deathSound);
                 updateAnimation(player, deltaTime);
                 smokeupdate(player, dashsmoke, deltaTime);
                 checkBulletEnemyCollision(Bullets, enemies);
@@ -349,40 +251,29 @@ int main()
                 updateFires(fires, player, fireDamageTimer, deltaTime);
             }
 
-            // UI Updates
+            // UI Text
             healthText.setString("HEALTH: " + to_string(player.health));
 
-            // Rendering Gameplay Frame
-            window.clear(); // Clears the screen to black by default
+            // --- DRAW FRAME ---
+            window.clear();
 
-            if (!gameOver)
-            {
-                // Keep the game camera active during regular deaths so we can see the stage and animation
-                window.setView(view);
-                Draw(player, window, grounds, walls, background, foreground, dashsmoke, Bullets, checkpoints, enemies, fires, eneTex, fireTexture);
-                HEALTHBAR(window, player, player.healthbar);
-            }
-            else
-            {
-                // On Game Over, skip drawing the world entirely so the background stays completely black
-                window.setView(window.getDefaultView());
-            }
+            // Draw Gameplay
+            window.setView(view);
+            Draw(player, window, grounds, walls, background, foreground, dashsmoke, Bullets, checkpoints, enemies, fires, eneTex, fireTexture);
+            HEALTHBAR(window, player, player.healthbar);
 
-            // Overlay Screen-Space Text HUD (Stays exactly the same)
+            // Draw HUD
             window.setView(window.getDefaultView());
             window.draw(healthText);
             window.draw(statusText);
-
-            // Draw Hearts
-            for (int i = 0; i < 3; i++)
-            {
+            for (int i = 0; i < 3; i++) {
                 window.draw(hearts[i]);
             }
 
             window.display();
             break;
         }
-    } // End of while loop
+    }
 
     return 0;
 }

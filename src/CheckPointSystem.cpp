@@ -155,7 +155,7 @@ void handleCheckpoints(Player& player, vector<Checkpoint>& checkpoints,
 
                 checkpoints[i].sprite.setTexture(checkpoints[i].activatingPosition);
                 
-                player.speed += 150;
+                player.speed += 200;
 
 
                 lastCheckpointPos = checkpoints[i].sprite.getPosition();

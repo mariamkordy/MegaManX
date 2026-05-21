@@ -182,7 +182,7 @@ void updateEnemies(std::vector<Enemy>& enemies, Player& player, float dt) {
                         b.active = true;
                         b.pos = e.pos + sf::Vector2f(e.direction * 100.f, -10.f);
                         b.vel = norm(playerPos - b.pos) * 800.f;
-                        b.damage = (e.type == 1) ? 5 : 15;
+                        b.damage = (e.type == 1) ? 5 : 10;
                         e.shootTimer = 0.5f;
                         break;
                     }
@@ -202,6 +202,7 @@ void updateEnemies(std::vector<Enemy>& enemies, Player& player, float dt) {
                 if (std::abs(b.pos.x - playerPos.x) < 25.f && std::abs(b.pos.y - playerPos.y) < 50.f) {
                     if (player.state != HURT && player.state != DEAD && player.state != DYING) {
                         player.health -= b.damage;
+                        player.sprite.move((b.vel.x > 0 ? 6.f : -6.f), 0.f);
                         player.state = HURT;
                         b.active = false;
                     }
@@ -223,6 +224,7 @@ void updateEnemies(std::vector<Enemy>& enemies, Player& player, float dt) {
                 if (std::abs(a.pos.x - playerPos.x) < 50.f && std::abs(a.pos.y - playerPos.y) < 80.f) {
                     if (player.state != HURT && player.state != DEAD && player.state != DYING) {
                         player.health -= a.damage;
+                        player.sprite.move((a.vel.x > 0 ? 6.f : -6.f), 0.f);
                         player.state = HURT;
                         a.active = false;
                     }
